@@ -1,0 +1,44 @@
+#!/bin/bash
+# This hook is run after a new virtualenv is activated.
+
+# pip install uwsgi
+# pip install Django
+# pip install django-extensions
+# pip install Werkzeug
+# pip install sorl-thumbnail
+# easy_install South
+# pip install PIL
+# pip install pep8
+# mkdir $VIRTUAL_ENV/src
+# git clone https://github.com/rnk/django-media-bundler.git $VIRTUAL_ENV/src/django-media-bundler
+# cd $VIRTUAL_ENV/src/django-media-bundler
+# ./setup.py install
+# pip install django-recaptcha
+# # start django project
+# echo "start django project"
+# cd $VIRTUAL_ENV
+# django-admin.py startproject $(workon)
+# cd $VIRTUAL_ENV/$(workon)
+# mkdir $VIRTUAL_ENV/$(workon)/static
+# mkdir $VIRTUAL_ENV/$(workon)/media
+# # getting uwsgi_params
+# echo "getting uwsgi_params"
+# git clone -n https://github.com/unbit/uwsgi.git --depth 1 $VIRTUAL_ENV/$(workon)/git_tmp
+# cd $VIRTUAL_ENV/$(workon)/git_tmp
+# git checkout HEAD nginx/uwsgi_params
+# mv nginx/uwsgi_params ../
+# cd $VIRTUAL_ENV/$(workon)
+# rm -rf $VIRTUAL_ENV/$(workon)/git_tmp
+# # setting up uwsgi.ini from template
+# echo "setting up uwsgi.ini from template"
+# mkdir $VIRTUAL_ENV/var $VIRTUAL_ENV/var/log $VIRTUAL_ENV/var/log/uwsgi
+# touch $(workon)_uwsgi.ini
+# sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;" -e "s;%WORKON%;$(workon);" $WORKON_HOME/template_uwsgi.ini > $(workon)_uwsgi.ini
+# sudo $(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data
+# echo "$(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data" >> $WORKON_HOME/uwsgi_auto.sh
+# # setting up nginx.conf from template
+# echo "setting up nginx.conf from template"
+# touch $(workon)_nginx.conf
+# sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;" -e "s;%WORKON%;$(workon);" $WORKON_HOME/template_nginx.conf > $(workon)_nginx.conf
+# sudo ln -s $VIRTUAL_ENV/$(workon)/$(workon)_nginx.conf /etc/nginx/sites-enabled/
+# sudo /etc/init.d/nginx restart

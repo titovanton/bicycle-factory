@@ -1,0 +1,9 @@
+#!/bin/bash
+# This hook is run before a virtualenv is deleted.
+
+echo $@[0]
+echo $@[1]
+# sudo rm /etc/nginx/sites-enabled/$(workon)_nginx.conf
+# sudo /etc/init.d/nginx restart
+# sudo uwsgi --stop /var/log/uwsgi/$(workon).log
+# sudo mv /var/log/uwsgi/$(workon).log /var/log/uwsgi/deleted/$(date +'%F|%T')_$(workon).log
