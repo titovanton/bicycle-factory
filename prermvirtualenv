@@ -1,9 +1,11 @@
 #!/bin/bash
 # This hook is run before a virtualenv is deleted.
 
-echo $@[0]
-echo $@[1]
-# sudo rm /etc/nginx/sites-enabled/$(workon)_nginx.conf
-# sudo /etc/init.d/nginx restart
-# sudo uwsgi --stop /var/log/uwsgi/$(workon).log
-# sudo mv /var/log/uwsgi/$(workon).log /var/log/uwsgi/deleted/$(date +'%F|%T')_$(workon).log
+echo '*** Stop uWSGI ***'
+sudo $HOME/webapps/$@/bin/uwsgi --stop $HOME/webapps/$@/var/log/uwsgi/$@.log
+echo '*** rm uWSGI from rc ***'
+rm $HOME/webapps/uwsgiauto/$@.sh
+echo '*** rm NGINX config ***'
+sudo rm /etc/nginx/sites-enabled/$@_nginx.conf
+echo '*** restart NGINX ***'
+sudo service nginx restart

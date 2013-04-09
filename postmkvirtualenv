@@ -1,44 +1,80 @@
 #!/bin/bash
 # This hook is run after a new virtualenv is activated.
 
-# pip install uwsgi
-# pip install Django
+pip install uwsgi
+pip install Django
 # pip install django-extensions
 # pip install Werkzeug
 # pip install sorl-thumbnail
 # easy_install South
 # pip install PIL
 # pip install pep8
+# pip install django-recaptcha
 # mkdir $VIRTUAL_ENV/src
 # git clone https://github.com/rnk/django-media-bundler.git $VIRTUAL_ENV/src/django-media-bundler
 # cd $VIRTUAL_ENV/src/django-media-bundler
 # ./setup.py install
-# pip install django-recaptcha
-# # start django project
-# echo "start django project"
-# cd $VIRTUAL_ENV
-# django-admin.py startproject $(workon)
-# cd $VIRTUAL_ENV/$(workon)
-# mkdir $VIRTUAL_ENV/$(workon)/static
-# mkdir $VIRTUAL_ENV/$(workon)/media
-# # getting uwsgi_params
-# echo "getting uwsgi_params"
-# git clone -n https://github.com/unbit/uwsgi.git --depth 1 $VIRTUAL_ENV/$(workon)/git_tmp
-# cd $VIRTUAL_ENV/$(workon)/git_tmp
-# git checkout HEAD nginx/uwsgi_params
-# mv nginx/uwsgi_params ../
-# cd $VIRTUAL_ENV/$(workon)
-# rm -rf $VIRTUAL_ENV/$(workon)/git_tmp
-# # setting up uwsgi.ini from template
-# echo "setting up uwsgi.ini from template"
-# mkdir $VIRTUAL_ENV/var $VIRTUAL_ENV/var/log $VIRTUAL_ENV/var/log/uwsgi
-# touch $(workon)_uwsgi.ini
-# sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;" -e "s;%WORKON%;$(workon);" $WORKON_HOME/template_uwsgi.ini > $(workon)_uwsgi.ini
-# sudo $(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data
-# echo "$(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data" >> $WORKON_HOME/uwsgi_auto.sh
-# # setting up nginx.conf from template
-# echo "setting up nginx.conf from template"
-# touch $(workon)_nginx.conf
-# sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;" -e "s;%WORKON%;$(workon);" $WORKON_HOME/template_nginx.conf > $(workon)_nginx.conf
-# sudo ln -s $VIRTUAL_ENV/$(workon)/$(workon)_nginx.conf /etc/nginx/sites-enabled/
-# sudo /etc/init.d/nginx restart
+
+# start django project
+echo "*** START DJANGO PROJECT ***"
+cd $VIRTUAL_ENV
+django-admin.py startproject $(workon)
+cd $VIRTUAL_ENV/$(workon)
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/static
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/media
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/templates
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/templates/base
+touch $VIRTUAL_ENV/$(workon)/$(workon)/templates/base/base.html
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/templates/front
+touch $VIRTUAL_ENV/$(workon)/$(workon)/templates/front/front.html
+mkdir $VIRTUAL_ENV/$(workon)/$(workon)/templatetags
+touch $VIRTUAL_ENV/$(workon)/$(workon)/messages.py
+echo '# coding: UTF-8' >> $VIRTUAL_ENV/$(workon)/$(workon)/messages.py
+cp $WORKON_HOME/templates/models.py $VIRTUAL_ENV/$(workon)/$(workon)/models.py
+cp $WORKON_HOME/templates/views.py $VIRTUAL_ENV/$(workon)/$(workon)/views.py
+cp $WORKON_HOME/templates/utilites.py $VIRTUAL_ENV/$(workon)/$(workon)/utilites.py
+cp $WORKON_HOME/templates/forms.py $VIRTUAL_ENV/$(workon)/$(workon)/forms.py
+cp $WORKON_HOME/templates/admin.py $VIRTUAL_ENV/$(workon)/$(workon)/admin.py
+cp $WORKON_HOME/templates/middleware.py $VIRTUAL_ENV/$(workon)/$(workon)/middleware.py
+chmod +x manage.py
+
+git init
+git config --global user.name "titovanton-com"
+git config --global user.email "mail@titovanton.com"
+git config --global color.ui true
+touch README.md
+echo '.gitignore' >> .gitignore
+echo '*.pyc' >> .gitignore
+echo 'uwsgi_params' >> .gitignore
+echo 'manage.py' >> .gitignore
+echo $(workon)'_uwsgi.ini' >> .gitignore
+echo $(workon)'_nginx.conf' >> .gitignore
+echo $(workon)'/wsgi.py' >> .gitignore
+echo $(workon)'/settings.py' >> .gitignore
+git add README.md $(workon)
+git commit -m 'first commit'
+
+# getting uwsgi_params
+echo "*** GETTING UWSGI_PARAMS ***"
+git clone -n https://github.com/unbit/uwsgi.git --depth 1 $VIRTUAL_ENV/$(workon)/git_tmp
+cd $VIRTUAL_ENV/$(workon)/git_tmp
+git checkout HEAD nginx/uwsgi_params
+mv nginx/uwsgi_params ../
+cd $VIRTUAL_ENV/$(workon)
+rm -rf $VIRTUAL_ENV/$(workon)/git_tmp
+
+# setting up uwsgi.ini from template
+echo "*** SETTING UP UWSGI.INI FROM TEMPLATE ***"
+mkdir $VIRTUAL_ENV/var $VIRTUAL_ENV/var/log $VIRTUAL_ENV/var/log/uwsgi
+sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%WORKON%;$(workon);g" $WORKON_HOME/templates/template_uwsgi.ini > $(workon)_uwsgi.ini
+sudo $(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data
+
+echo "#!/bin/bash" > $WORKON_HOME/uwsgiauto/$(workon).sh
+echo "$(which uwsgi) --ini $VIRTUAL_ENV/$(workon)/$(workon)_uwsgi.ini --uid www-data --gid www-data" >> $WORKON_HOME/uwsgiauto/$(workon).sh
+chmod +x $WORKON_HOME/uwsgiauto/$(workon).sh
+
+# setting up nginx.conf from template
+echo "*** SETTING UP NGINX.CONF FROM TEMPLATE ***"
+sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%WORKON%;$(workon);g" $WORKON_HOME/templates/template_nginx.conf > $(workon)_nginx.conf
+sudo ln -s $VIRTUAL_ENV/$(workon)/$(workon)_nginx.conf /etc/nginx/sites-enabled/
+sudo /etc/init.d/nginx restart
