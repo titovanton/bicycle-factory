@@ -4,3 +4,21 @@ sudo pip install --upgrade pip
 sudo pip install virtualenv
 sudo apt-get install nginx
 sudo apt-get install git
+sudo apt-get install curl build-essential openssl libssl-dev
+sudo apt-get install postgresql
+sudo apt-get install postgresql-client
+sudo apt-get build-dep python-psycopg2
+
+# node + less
+git clone https://github.com/joyent/node.git $HOME/src/node
+cd $HOME/src/node
+./configure
+make
+sudo make install
+node -v
+
+curl http://npmjs.org/install.sh | sudo sh
+npm -v
+npm install less
+
+echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc

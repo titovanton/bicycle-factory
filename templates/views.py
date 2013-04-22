@@ -9,6 +9,6 @@ from utilites import Messages
 import messages
 
 
-def front_page(request):
-    return render_to_response('front.html', context, 
+def home_page(request):
+    return render_to_response('home.html', context, 
                               context_instance=RequestContext(request))

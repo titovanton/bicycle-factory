@@ -1,3 +1,5 @@
 #!/bin/bash
 # This hook is run after a new virtualenv is created and before it is activated.
 
+touch $WORKON_HOME/name
+echo $@ > $WORKON_HOME/name
