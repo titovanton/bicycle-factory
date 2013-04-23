@@ -58,6 +58,7 @@ cd $VIRTUAL_ENV/src/django-less-hook
 python setup.py install
 
 # static, media and files from templates
+echo "*** Templates ***"
 mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/media
 mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/templates
 mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/templates/base
@@ -73,31 +74,24 @@ cp $WORKON_HOME/templates/utilites.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/utilites.
 cp $WORKON_HOME/templates/forms.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/forms.py
 cp $WORKON_HOME/templates/admin.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/admin.py
 cp $WORKON_HOME/templates/middleware.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/middleware.py
-chmod +x manage.py
+chmod +x $VIRTUAL_ENV/$ENV_NAME/manage.py
+cp $WORKON_HOME/templates/uwsgi_params $VIRTUAL_ENV/$ENV_NAME/uwsgi_params
 
 # git
+echo "*** Git init ***"
 cd $VIRTUAL_ENV/$ENV_NAME
 git init
 git config --global user.name "titovanton-com"
 git config --global user.email "mail@titovanton.com"
 git config --global color.ui true
 touch README.md
-sed -e "s;%WORKON%;$ENV_NAME;g" $WORKON_HOME/templates/.gitignore > .gitignore
+sed -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/.gitignore > .gitignore
 git add README.md $ENV_NAME
 git commit -m 'first commit'
 
-# getting uwsgi_params
-echo "*** GETTING UWSGI_PARAMS ***"
-git clone -n https://github.com/unbit/uwsgi.git --depth 1 $VIRTUAL_ENV/$ENV_NAME/git_tmp
-cd $VIRTUAL_ENV/$ENV_NAME/git_tmp
-git checkout HEAD nginx/uwsgi_params
-mv nginx/uwsgi_params ../
-cd $VIRTUAL_ENV/$ENV_NAME
-rm -rf $VIRTUAL_ENV/$ENV_NAME/git_tmp
-
 # setting up uwsgi.ini from template
 echo "*** SETTING UP UWSGI.INI FROM TEMPLATE ***"
-sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%WORKON%;$ENV_NAME;g" $WORKON_HOME/templates/template_uwsgi.ini > ${ENV_NAME}_uwsgi.ini
+sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/template_uwsgi.ini > ${ENV_NAME}_uwsgi.ini
 sudo $(which uwsgi) --ini $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_uwsgi.ini --uid www-data --gid www-data
 
 echo "#!/bin/bash" > $WORKON_HOME/uwsgiauto/${ENV_NAME}.sh
@@ -106,7 +100,6 @@ chmod +x $WORKON_HOME/uwsgiauto/${ENV_NAME}.sh
 
 # setting up nginx.conf from template
 echo "*** SETTING UP NGINX.CONF FROM TEMPLATE ***"
-sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%WORKON%;$ENV_NAME;g" $WORKON_HOME/templates/template_nginx.conf > ${ENV_NAME}_nginx.conf
+sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/template_nginx.conf > ${ENV_NAME}_nginx.conf
 sudo ln -s $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_nginx.conf /etc/nginx/sites-enabled/
 sudo /etc/init.d/nginx restart
-
