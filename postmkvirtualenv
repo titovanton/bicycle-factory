@@ -114,3 +114,5 @@ echo "*** SETTING UP NGINX.CONF FROM TEMPLATE ***"
 sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/template_nginx.conf > ${ENV_NAME}_nginx.conf
 sudo ln -s $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_nginx.conf /etc/nginx/sites-enabled/
 sudo /etc/init.d/nginx restart
+
+echo $ENV_NAME >> $WORKON_HOME/.gitignore
