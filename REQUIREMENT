@@ -2,12 +2,16 @@ sudo apt-get install python2.7-dev
 sudo apt-get install python-pip
 sudo pip install --upgrade pip
 sudo pip install virtualenv
-sudo apt-get install nginx
-sudo apt-get install git
-sudo apt-get install curl build-essential openssl libssl-dev
-sudo apt-get install postgresql
-sudo apt-get install postgresql-client
-sudo apt-get build-dep python-psycopg2
+sudo pip install virtualenvwrapper
+export WORKON_HOME=/webapps
+# sudo mkdir -p $WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
+echo "export WORKON_HOME=/webapps" >> ~/.bashrc
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+
+sudo apt-get install nginx git
+sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2
+sudo apt-get install postgresql postgresql-client
 
 # node + less
 git clone https://github.com/joyent/node.git $HOME/src/node
