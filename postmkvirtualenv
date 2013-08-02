@@ -17,9 +17,9 @@ pip install sorl-thumbnail
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so $VIRTUAL_ENV/lib/
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so $VIRTUAL_ENV/lib/
 # sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so $VIRTUAL_ENV/lib/
-# pip install PIL
+pip install PIL
 mkdir $VIRTUAL_ENV/src
-cd $VIRTUAL_ENV/src
+# cd $VIRTUAL_ENV/src
 # wget http://www.imagemagick.org/download/ImageMagick-6.8.6-2.tar.gz
 # tar xvfz ImageMagick-6.8.6-2.tar.gz
 # cd ImageMagick-6.8.6-2
@@ -40,15 +40,15 @@ cd $VIRTUAL_ENV
 django-admin.py startproject $ENV_NAME
 cd $VIRTUAL_ENV/$ENV_NAME
 mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static
-# mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/pic
-# mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/less
-# mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js
-# mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/css
-# mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/libs/
+mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/pic
+mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/less
+mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js
+mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/css
+mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/libs/
 sed -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/robots.txt > $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/robots.txt
 touch $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/favicon.ico
-# echo 'jQuery(document).ready(function($) {' > $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js/main.js
-# echo '})' >> $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js/main.js
+echo 'jQuery(document).ready(function($) {' > $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js/main.js
+echo '})' >> $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/js/main.js
 
 # twitter bootstrap
 # echo "*** Twitter Bootstrap ***"
@@ -60,9 +60,9 @@ touch $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/favicon.ico
 # touch $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/static/less/my_variables.less
 
 # titovanton-core
-git clone https://github.com/titovanton-com/titovanton-core.git $VIRTUAL_ENV/src/titovanton-core
-cd $VIRTUAL_ENV/src/titovanton-core
-python setup.py install
+# git clone https://github.com/titovanton-com/titovanton-core.git $VIRTUAL_ENV/src/titovanton-core
+# cd $VIRTUAL_ENV/src/titovanton-core
+# python setup.py install
 
 # static, media and files from templates
 # echo "*** Templates ***"
@@ -75,12 +75,6 @@ touch $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/templates/home/home.html
 mkdir $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/templatetags
 touch $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/messages.py
 echo '# coding: UTF-8' >> $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/messages.py
-cp $WORKON_HOME/templates/models.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/models.py
-cp $WORKON_HOME/templates/views.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/views.py
-cp $WORKON_HOME/templates/utilites.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/utilites.py
-cp $WORKON_HOME/templates/forms.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/forms.py
-cp $WORKON_HOME/templates/admin.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/admin.py
-cp $WORKON_HOME/templates/middleware.py $VIRTUAL_ENV/$ENV_NAME/$ENV_NAME/middleware.py
 chmod +x $VIRTUAL_ENV/$ENV_NAME/manage.py
 cp $WORKON_HOME/templates/uwsgi_params $VIRTUAL_ENV/$ENV_NAME/uwsgi_params
 
@@ -88,9 +82,9 @@ cp $WORKON_HOME/templates/uwsgi_params $VIRTUAL_ENV/$ENV_NAME/uwsgi_params
 echo "*** Git init ***"
 cd $VIRTUAL_ENV/$ENV_NAME
 git init
-git config --global user.name "titovanton"
+# git config --global user.name "titovanton"
 # git config --global user.name "titovanton-com"
-git config --global user.email "mail@titovanton.com"
+# git config --global user.email "mail@titovanton.com"
 git config --global color.ui true
 touch README.md
 sed -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/.gitignore > .gitignore
@@ -102,12 +96,6 @@ echo "*** SETTING UP UWSGI.INI FROM TEMPLATE ***"
 sed -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" -e "s;%ENV_NAME%;$ENV_NAME;g" $WORKON_HOME/templates/template_uwsgi.ini > ${ENV_NAME}_uwsgi.ini
 sudo ln -s $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_uwsgi.ini /etc/uwsgi/vassals/
 echo 'touch this file to reload vassal' > reload_uwsgi
-
-# sudo $(which uwsgi) --ini $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_uwsgi.ini --uid www-data --gid www-data
-
-# echo "#!/bin/bash" > $WORKON_HOME/uwsgiauto/${ENV_NAME}.sh
-# echo "$(which uwsgi) --ini $VIRTUAL_ENV/$ENV_NAME/${ENV_NAME}_uwsgi.ini --uid www-data --gid www-data" >> $WORKON_HOME/uwsgiauto/${ENV_NAME}.sh
-# chmod +x $WORKON_HOME/uwsgiauto/${ENV_NAME}.sh
 
 # setting up nginx.conf from template
 echo "*** SETTING UP NGINX.CONF FROM TEMPLATE ***"
