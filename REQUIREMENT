@@ -10,8 +10,12 @@ echo "export WORKON_HOME=/webapps" >> ~/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
 sudo apt-get install nginx git
+pip install uwsgi
 sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2
 sudo apt-get install postgresql postgresql-client
+sudo apt-get install postgresql-server-dev-9.1
+
+# sudo apt-get install imagemagick
 
 # node + less
 git clone https://github.com/joyent/node.git $HOME/src/node
