@@ -1,6 +1,11 @@
 # Files
 *.pyc
 *.sql
+*.7z
+*.rar
+*.zip
+*.tar
+*.tar.gz
 
 # Sublime
 *.sublime-project
@@ -24,12 +29,12 @@ manage.py
 # Static
 */internal
 */media
+*/static/css/
+*/static/less/secret.less
 */static/admin
 */static/django_extensions
 */static/.webassets-cache
 */static/grappelli
-mainapp/static/css/
-mainapp/static/less/secret.less
 
 # Xapian
 search/xapian_index
