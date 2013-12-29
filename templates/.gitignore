@@ -1,0 +1,35 @@
+# Files
+*.pyc
+*.sql
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Server
+uwsgi_params
+reload_uwsgi
+*_uwsgi.ini
+*_nginx.conf
+error_nginx.log
+
+# Django
+manage.py
+*/wsgi.py
+*/_settings/secret.py
+
+# South
+*/migrations
+
+# Static
+*/internal
+*/media
+*/static/admin
+*/static/django_extensions
+*/static/.webassets-cache
+*/static/grappelli
+mainapp/static/css/
+mainapp/static/less/secret.less
+
+# Xapian
+search/xapian_index
