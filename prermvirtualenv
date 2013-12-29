@@ -9,3 +9,5 @@ echo '*** rm NGINX config ***'
 sudo rm /etc/nginx/sites-enabled/$@_nginx.conf
 echo '*** restart NGINX ***'
 sudo service nginx restart
+rm -rf /webapps/django/$@
+rm -rf /webapps/server/$@
