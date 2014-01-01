@@ -3,11 +3,11 @@ sudo apt-get install python-pip
 sudo pip install --upgrade pip
 sudo pip install virtualenv
 sudo pip install virtualenvwrapper
-export WORKON_HOME=/webapps
+export WORKON_HOME=/webapps/envs
 sudo mkdir -p $WORKON_HOME
 sudo chown -R titovanton:www-data $WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
-echo "export WORKON_HOME=/webapps" >> ~/.bashrc
+echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
 sudo apt-get install nginx git

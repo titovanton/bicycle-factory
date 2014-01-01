@@ -22,7 +22,11 @@ INTERNAL=$DJANGO/$MAINAPP/internal
 mkdir -p $DJANGO
 mkdir -p $SERVER
 mkdir $VIRTUAL_ENV/src
- 
+
+# Create DataBase
+sudo -u postgres createuser -D -A -P PROJECT
+sudo -u postgres createdb -O PROJECT PROJECT
+
 # Start Django project
 pip install Django
 cd $DJANGO
