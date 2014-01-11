@@ -7,7 +7,8 @@ sudo echo '*** SUDO CONFIRM ***'
 
 # init
 WEBAPPS=/webapps
-TEMPLATES=$WEBAPPS/templates
+TEMPLATES=$WORKON_HOME/templates
+PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
 PROJECT=$(cat $WORKON_HOME/name)
 rm $WORKON_HOME/name
@@ -24,103 +25,13 @@ mkdir -p $SERVER
 mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
-sudo -u postgres createuser -D -A -P PROJECT
-sudo -u postgres createdb -O PROJECT PROJECT
+sudo -u postgres createuser -D -A -P $PROJECT
+sudo -u postgres createdb -O $PROJECT $PROJECT
 
 # Start Django project
-pip install Django
+pip install -r $PROJECT_TEMPLATE/requirements.py
 cd $DJANGO
-django-admin.py startproject $MAINAPP .
-mkdir $STATIC
-mkdir $MEDIA
-mkdir $INTERNAL
-cp $TEMPLATES/noimage.png $MEDIA
-mkdir $STATIC/pic
-mkdir $STATIC/less
-mkdir $STATIC/js
-mkdir $STATIC/css
-mkdir $STATIC/libs/
-sed -e "s;%DN%;$PROJECT;g" $TEMPLATES/robots.txt > $STATIC/robots.txt
-touch $STATIC/favicon.ico
-echo 'jQuery(document).ready(function($) {' > $STATIC/js/main.js
-echo '})' >> $STATIC/js/main.js
-mkdir $MAINAPP/templates
-mkdir $MAINAPP/templates/base
-touch $MAINAPP/templates/base/base.html
-mkdir $MAINAPP/templates/home
-touch $MAINAPP/templates/home/home.html
-mkdir $MAINAPP/templatetags
-touch $MAINAPP/messages.py
-chmod +x ./manage.py
-cp $TEMPLATES/uwsgi_params $SERVER/uwsgi_params
-
-# Installing apps
-cd $VIRTUAL_ENV/src
-
-pip install psycopg2
-pip install django-extensions
-pip install Werkzeug
-# pip install sorl-thumbnail
-easy_install South
-# pip install qrcode
-# pip install Wand
-# pip install django-grappelli==2.5.0
-# pip install django_rq
-# pip install django-modeltranslation
-# pip install pep8
-# pip install django-recaptcha
-# pip install supercaptcha
-
-# django-assets
-pip install jsmin
-pip install cssmin
-git clone https://github.com/miracle2k/webassets.git
-cd ./webassets
-git checkout stable
-python ./setup.py install
-cd -
-git clone https://github.com/miracle2k/django-assets.git
-cd ./django-assets
-git checkout stable
-python ./setup.py install
-cd -
-
-# sorl-thumbnail for Django==1.6
-git clone https://github.com/mariocesar/sorl-thumbnail.git
-cd sorl-thumbnail
-python ./setup.py install
-cd -
-
-# # django-tastypie
-# git clone https://github.com/toastdriven/django-tastypie.git
-# cd django-tastypie
-# python setup.py install
-# cd -
-
-# # xapian
-# wget http://oligarchy.co.uk/xapian/1.2.15/xapian-core-1.2.15.tar.gz
-# tar xzf xapian-core-1.2.15.tar.gz
-# cd xapian-core-1.2.15
-# ./configure --prefix=${VIRTUAL_ENV} && make && make install
-# cd -
-
-# # xapian python bindings
-# wget http://oligarchy.co.uk/xapian/1.2.15/xapian-bindings-1.2.15.tar.gz
-# tar xzf xapian-bindings-1.2.15.tar.gz
-# cd xapian-bindings-1.2.15
-# ./configure --prefix=${VIRTUAL_ENV} --with-python \
-#     --without-php --without-ruby --without-tcl --without-csharp \
-#     --without-java --without-perl --without-lua && make && make install
-# cd -
-
-# # haystack
-# pip install django-haystack
-
-# # xapian-haystack
-# git clone https://github.com/notanumber/xapian-haystack.git
-# cd xapian-haystack
-# python setup.py install
-# cd -
+django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
 
 # git
 cd $DJANGO
@@ -135,12 +46,25 @@ git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule
 git submodule add https://github.com/twbs/bootstrap.git $STATIC_GIT/libs/bootstrap
-git add .gitmodules
-git commit -m 'first commit with submodule twitter bootstrap'
 
 # bicycle as git submodule
 git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
-git commit -m 'with submodule bicycle'
+
+# jquery-ui-carousel
+git submodule add https://github.com/richardscarrott/jquery-ui-carousel.git \
+    $STATIC_GIT/libs/jquery-ui-carousel
+
+# fancyBox
+git submodule add https://github.com/fancyapps/fancyBox.git \
+    $STATIC_GIT/libs/fancyapps-fancyBox
+
+# print
+git submodule add https://github.com/posabsolute/jQuery-printPage-plugin.git \
+    $STATIC_GIT/libs/jQuery-printPage-plugin
+
+# first commit
+git add .gitmodules
+git commit -m 'first commit'
 
 # setting up uwsgi.ini from template (imperor mode)
 echo 'touch this file to reload vassal' > $DJANGO/reload_uwsgi

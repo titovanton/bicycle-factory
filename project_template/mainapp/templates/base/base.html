@@ -1,0 +1,57 @@
+{% load assets %}
+<!doctype html>
+
+{% spaceless %}
+<html lang="ru">
+<head>
+    <title>{% block html_title %}{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="keywords" content="{% block html_keywords %}{% endblock %}">
+    <meta name="description" content="{% block html_description %}{% endblock %}">
+
+    {% autoescape off %}
+        {{ YANDEX_VERIFICATION }}
+        {{ GOOGLE_SITE_VERIFICATION }}
+    {% endautoescape %}
+    
+    {% block before_css_all %}{% endblock before_css_all %}
+    
+    {% assets "css_all" %}
+        <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+    
+    <script type="text/javascript" src="//yandex.st/jquery/2.0.3/jquery.min.js?v=2.0.3"></script>
+
+    {% block after_jquery_js %}{% endblock after_jquery_js %}
+    {% block before_bootstrap_js %}{% endblock before_bootstrap_js %}
+        
+    <script type="text/javascript" src="//yandex.st/bootstrap/3.0.2/js/bootstrap.min.js?v=3.0.2"></script>
+
+    <!--[if lt IE 9]>
+        {% assets "js_ie" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    <![endif]-->
+
+    {% block before_js_all %}{% endblock before_js_all %}
+    
+    {% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+</head>
+<body>
+    <div id="main-wrapper" class="container">
+        {% include "base/header.html" %}
+        {% block alert_messages %}
+            {% include "base/alert-messages.html" %}
+        {% endblock alert_messages %}
+        {% block over_content %}
+            <div id="content">{% block content %}{% endblock content %}</div>
+        {% endblock over_content %}
+        {% include "base/footer.html" %}
+    </div>
+</body>
+</html>
+{% endspaceless %}

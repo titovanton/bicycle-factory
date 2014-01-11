@@ -1,13 +1,13 @@
 #!/bin/bash
 # This hook is run before a virtualenv is deleted.
 
-# echo '*** Stop uWSGI ***'
-# sudo $HOME/webapps/$@/bin/uwsgi --stop $HOME/webapps/$@/var/log/uwsgi/$@.log
-echo '*** rm uWSGI vassal ***'
 sudo rm /etc/uwsgi/vassals/$@_uwsgi.ini
-echo '*** rm NGINX config ***'
 sudo rm /etc/nginx/sites-enabled/$@_nginx.conf
-echo '*** restart NGINX ***'
+
 sudo service nginx restart
+
 rm -rf /webapps/django/$@
 rm -rf /webapps/server/$@
+
+sudo -u postgres dropdb $@
+sudo -u postgres dropuser $@
