@@ -7,6 +7,8 @@ Werkzeug
 South==0.8.4
 django-grappelli==2.5.0
 Wand
+cssmin
+jsmin
 # qrcode
 # django_rq
 # django-modeltranslation

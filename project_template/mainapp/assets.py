@@ -4,9 +4,6 @@ from django_assets import Bundle
 from django_assets import register
 
 
-js_ie = Bundle('libs/bootstrap/assets/js/html5shiv.js',
-               'libs/bootstrap/assets/js/respond.min.js',
-               filters='jsmin', output='js/ie_packed.js')
 js_all = Bundle('js/main.js', filters='jsmin', output='js/packed.js')
 css_all = Bundle('less/bootstrap.less', filters='less,cssmin', output='css/packed.css',
                  depends='less/*.less')
@@ -32,7 +29,6 @@ js_print = Bundle('libs/jQuery-printPage-plugin/jquery.printPage.js',
                   filters='jsmin', output='js/print_packed.js')
 
 
-register('js_ie', js_ie)
 register('js_all', js_all)
 register('css_all', css_all)
 register('js_carousel', js_carousel)

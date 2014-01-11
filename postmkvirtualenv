@@ -18,6 +18,8 @@ STATIC=$DJANGO/$MAINAPP/static
 STATIC_GIT=$MAINAPP/static
 MEDIA=$DJANGO/$MAINAPP/media
 INTERNAL=$DJANGO/$MAINAPP/internal
+BOOTSTRAP_SED=../libs/bootstrap/less/
+UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 
 # Create dirs
 mkdir -p $DJANGO
@@ -29,7 +31,7 @@ sudo -u postgres createuser -D -A -P $PROJECT
 sudo -u postgres createdb -O $PROJECT $PROJECT
 
 # Start Django project
-pip install -r $PROJECT_TEMPLATE/requirements.py
+pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $DJANGO
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
 
@@ -46,6 +48,17 @@ git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule
 git submodule add https://github.com/twbs/bootstrap.git $STATIC_GIT/libs/bootstrap
+
+# integration
+cat $TEMPLATES/bs_header.less >> $STATIC/less/bootstrap.less
+cat $STATIC/libs/bootstrap/less/bootstrap.less \
+    | grep @import \
+    | grep -v variables \
+    | sed -e "s;@import \";@import \"$BOOTSTRAP_SED;g" \
+    >> $STATIC/less/bootstrap.less
+cat $TEMPLATES/bs_footer.less >> $STATIC/less/bootstrap.less
+
+cp $STATIC/libs/bootstrap/less/variables.less $STATIC/less/
 
 # bicycle as git submodule
 git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
@@ -80,6 +93,7 @@ sed -e "s;%SERVER%;$SERVER;g" \
     -e "s;%STATIC%;$STATIC;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
+    -e "s;%UWSGI_PARAMS%;$UWSGI_PARAMS;g" \
     $TEMPLATES/nginx.conf > $SERVER/nginx.conf
 sudo ln -s $SERVER/nginx.conf /etc/nginx/sites-enabled/${PROJECT}_nginx.conf
 sudo /etc/init.d/nginx restart
@@ -91,3 +105,5 @@ sed -e "s;%DJANGO%;$DJANGO;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
     $TEMPLATES/deploy.sh > $DJANGO/deploy.sh
 sudo chmod +x $DJANGO/deploy.sh
+
+./manage.py collectstatic

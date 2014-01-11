@@ -30,9 +30,8 @@
     <script type="text/javascript" src="//yandex.st/bootstrap/3.0.2/js/bootstrap.min.js?v=3.0.2"></script>
 
     <!--[if lt IE 9]>
-        {% assets "js_ie" %}
-            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-        {% endassets %}
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
     {% block before_js_all %}{% endblock before_js_all %}
