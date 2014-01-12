@@ -10,7 +10,7 @@ This repo contain standart [virtualenvwrapper](http://virtualenvwrapper.readthed
 
 Also, it contain custom templates for setting up:
 
-* [NGINX and UWSIG](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "NGINX and UWSIG")
+* [nginx and uWSGI](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "nginx and uWSGI")
 * [Twitter Bootstrap](http://getbootstrap.com/ "Twitter Bootstrap") integration
 * robots.txt
 * and so on...
@@ -24,12 +24,12 @@ So, if you made virtual env using mkvirtualenv alias, be sure you have setting u
     / - root dir
     └── webapps/ - web applications dir
         ├── envs/ - virtual envs dir
-        ├── server/ - NGINX and UWSGI cofig files dir
+        ├── server/ - nginx and uWSGI cofig files dir
         └── django/ - Django projects dir
 
 ## Install First!
 
-On virgine Ubuntu Linux you should install following packeges:
+On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packeges:
 
 1. python2.7-dev and pip:
 
@@ -49,7 +49,7 @@ On virgine Ubuntu Linux you should install following packeges:
         echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
         echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
-3. NGINX and UWSGI:
+3. nginx and uWSGI:
 
         sudo apt-get install nginx git
         pip install uwsgi
