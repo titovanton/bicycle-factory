@@ -1,4 +1,4 @@
-sudo chown -R titovanton:www-data %DJANGO%
+sudo chown -R $USER:www-data %DJANGO%
 sudo chmod -R 771 %DJANGO%
 sudo chmod -R 775 %STATIC%
 sudo chmod -R 775 %MEDIA%

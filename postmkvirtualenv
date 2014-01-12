@@ -22,9 +22,9 @@ BOOTSTRAP_SED=../libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 
 # Create dirs
-mkdir -p $DJANGO
-mkdir -p $SERVER
-mkdir $VIRTUAL_ENV/src
+sudo mkdir -p $DJANGO
+sudo mkdir -p $SERVER
+sudo mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
 sudo -u postgres createuser -D -A -P $PROJECT
@@ -43,7 +43,6 @@ git config --global user.name "titovanton"
 git config --global user.email "mail@titovanton.com"
 git config --global color.ui true
 touch README.md
-cp $TEMPLATES/.gitignore .gitignore
 git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule

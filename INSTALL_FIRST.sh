@@ -5,7 +5,7 @@ sudo pip install virtualenv
 sudo pip install virtualenvwrapper
 export WORKON_HOME=/webapps/envs
 sudo mkdir -p $WORKON_HOME
-sudo chown -R titovanton:www-data $WORKON_HOME
+sudo chown -R $USER:www-data $WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
 echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
