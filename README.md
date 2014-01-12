@@ -32,9 +32,11 @@ So, if you made virtual env using mkvirtualenv alias, be sure you have setting u
 On virgine Ubuntu Linux you should install following packeges:
 
 1. python2.7-dev and pip:
+
     sudo apt-get install python2.7-dev
     sudo apt-get install python-pip
     sudo pip install --upgrade pip
+    
 2. virtualenv and virtualenvwrapper:
     sudo pip install virtualenv
     sudo pip install virtualenvwrapper
