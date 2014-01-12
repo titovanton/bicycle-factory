@@ -22,10 +22,14 @@ So, if you made virtual env using mkvirtualenv alias, be sure you have setting u
 ## Catalogs Tree:
 
 `/` - root dir
-├── `webapps/` - web applications dir
-|    ├── `envs/` - virtual envs dir
-|    ├── `server/` - NGINX and UWSGI cofig files dir
-|    └── `django/` - Django projects dir
+ |
+ +-- `webapps/` - web applications dir
+      |
+      +-- `envs/` - virtual envs dir
+      |
+      +-- `server/` - NGINX and UWSGI cofig files dir
+      |
+      +-- `django/` - Django projects dir
 
 ## Install First!
 
