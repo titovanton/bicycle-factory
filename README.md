@@ -36,35 +36,46 @@ On virgine Ubuntu Linux you should install following packeges:
         sudo apt-get install python2.7-dev
         sudo apt-get install python-pip
         sudo pip install --upgrade pip
-    
-2. virtualenv and virtualenvwrapper:
-    sudo pip install virtualenv
-    sudo pip install virtualenvwrapper
-    export WORKON_HOME=/webapps/envs
-    sudo mkdir -p $WORKON_HOME
-    sudo chown -R $USER:www-data $WORKON_HOME
-    source /usr/local/bin/virtualenvwrapper.sh
-    echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
-    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+
+2. virtualenv, virtualenvwrapper and bicycle-factory:
+
+        sudo pip install virtualenv
+        sudo pip install virtualenvwrapper
+        export WORKON_HOME=/webapps/envs
+        sudo mkdir -p $WORKON_HOME
+        git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME
+        sudo chown -R $USER:www-data $WORKON_HOME
+        source /usr/local/bin/virtualenvwrapper.sh
+        echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
+        echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+
 3. NGINX and UWSGI:
-    sudo apt-get install nginx git
-    pip install uwsgi
+
+        sudo apt-get install nginx git
+        pip install uwsgi
+
 4. PostgreSQL, python bindings and so on:
-    sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2
-    sudo apt-get install postgresql postgresql-client
-    sudo apt-get install postgresql-server-dev-9.1
+
+        sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2
+        sudo apt-get install postgresql postgresql-client
+        sudo apt-get install postgresql-server-dev-9.1
+
 5. Image librarie:
-    sudo apt-get install imagemagick
+
+        sudo apt-get install imagemagick
+
 6. Less on Node js:
-    git clone https://github.com/joyent/node.git $HOME/src/node
-    cd $HOME/src/node
-    ./configure
-    make
-    sudo make install
-    node -v
 
-    curl http://npmjs.org/install.sh | sudo sh
-    npm -v
-    npm install less
+        git clone https://github.com/joyent/node.git $HOME/src/node
+        cd $HOME/src/node
+        ./configure
+        make
+        sudo make install
+        node -v
 
-    echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
+        curl http://npmjs.org/install.sh | sudo sh
+        npm -v
+        npm install less
+
+        echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
+
