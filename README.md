@@ -17,7 +17,7 @@ Also, it contain custom templates for setting up:
 
 It contain [Django project template](https://docs.djangoproject.com/en/1.6/ref/django-admin/#startproject-projectname-destination "Django project template"), made [by example](https://github.com/django/django/tree/master/django/conf/project_template/ "by example").
 
-So, if you made virtual env using mkvirtualenv alias, be sure you have setting up NGINX(as proxy) and UWSGI(Imperor mode) config files, ready to runserver Django project (I use [Werkzeug](http://werkzeug.pocoo.org/ "Werkzeug"), so you can use runserver_plus managment command) with home view, Twitter Bootstrap markup(base.html, home.html) and Less styles(bootstrap.less, variables.less, my_main.less, my_mixins.less...).
+So, if you made virtual env using mkvirtualenv alias, be sure you have setting up [NGINX(as proxy) and uWSGI(Emperor mode)](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "NGINX(as proxy) and uWSGI(Emperor mode)")(just in case, read the manual) config files, ready to runserver Django project (I use [Werkzeug](http://werkzeug.pocoo.org/ "Werkzeug"), so you can use runserver_plus managment command) with home view, Twitter Bootstrap markup(base.html, home.html) and Less styles(bootstrap.less, variables.less, my_main.less, my_mixins.less...).
 
 ## Catalogs Tree:
 
@@ -59,6 +59,14 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         sudo apt-get install nginx git
         pip install uwsgi
+
+3. setting up uWSGI in Emperor mode:
+
+        sudo nano /etc/rc.local
+
+    then add the folowing before `exite 0`:
+
+        /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data
 
 4. PostgreSQL, python bindings and so on:
 
