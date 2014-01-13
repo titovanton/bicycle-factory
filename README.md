@@ -21,11 +21,17 @@ So, if you made virtual env using mkvirtualenv alias, be sure you have setting u
 
 ## Catalogs Tree:
 
+You should creat the following, for works properly:
+
     / - root dir
     └── webapps/ - web applications dir
         ├── envs/ - virtual envs dir
         ├── server/ - nginx and uWSGI cofig files dir
         └── django/ - Django projects dir
+
+Do not forget to set permissions:
+    
+    sudo chown -R $USER:www-data /webapps
 
 ## Install First!
 
