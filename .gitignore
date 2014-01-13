@@ -1,0 +1,12 @@
+# Files
+*.pyc
+*.sql
+*.7z
+*.rar
+*.zip
+*.tar
+*.tar.gz
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
