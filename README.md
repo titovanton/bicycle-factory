@@ -64,7 +64,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         sudo nano /etc/rc.local
 
-    then add the folowing before `exite 0`:
+    then add the folowing line before `exite 0`:
 
         /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data
 

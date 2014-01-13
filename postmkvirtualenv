@@ -12,6 +12,7 @@ PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
 PROJECT=$(cat $WORKON_HOME/name)
 rm $WORKON_HOME/name
+ENV=$WEBAPPS/envs/$PROJECT
 DJANGO=$WEBAPPS/django/$PROJECT
 SERVER=$WEBAPPS/server/$PROJECT
 STATIC=$DJANGO/$MAINAPP/static
@@ -22,9 +23,9 @@ BOOTSTRAP_SED=../libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 
 # Create dirs
-sudo mkdir -p $DJANGO
-sudo mkdir -p $SERVER
-sudo mkdir $VIRTUAL_ENV/src
+mkdir -p $DJANGO
+mkdir -p $SERVER
+mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
 sudo -u postgres createuser -D -A -P $PROJECT
@@ -108,3 +109,8 @@ sudo chmod +x $DJANGO/deploy.sh
 
 ./manage.py collectstatic
 ./manage.py syncdb
+
+# permissions
+sudo chown -R $USER:www-data $ENV
+sudo chown -R $USER:www-data $DJANGO
+sudo chown -R $USER:www-data $SERVER
