@@ -106,3 +106,4 @@ sed -e "s;%DJANGO%;$DJANGO;g" \
 sudo chmod +x $DJANGO/deploy.sh
 
 ./manage.py collectstatic
+./manage.py syncdb
