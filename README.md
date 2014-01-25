@@ -61,12 +61,15 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         pip install uwsgi
 
 3. setting up uWSGI in Emperor mode:
-
+        
+        sudo mkdir -p /var/log/uwsgi
+        sudo chown -R $USER:www-data /var/log/uwsgi
+        sudo chmod -R 774 /var/log/uwsgi
         sudo nano /etc/rc.local
 
     then add the folowing line before `exite 0`:
 
-        /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data
+        /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log
 
 4. PostgreSQL, python bindings and so on:
 

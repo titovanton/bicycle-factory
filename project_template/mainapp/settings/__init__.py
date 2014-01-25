@@ -6,29 +6,9 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 
 from secret import *
+from _settings import *
 from sorl import *
 from mainapp import *
-
-
-tmp = os.path.abspath(os.path.dirname(__file__))
-
-APP_ROOT = os.path.split(tmp)[0]
-
-PROJECT_ROOT = os.path.split(APP_ROOT)[0]
-
-BASE_DIR = APP_ROOT
-
-
-def rel_project(*x):
-    return os.path.join(PROJECT_ROOT, *x)
-
-
-def rel_mainapp(*x):
-    return os.path.join(APP_ROOT, *x)
-
-
-def rel_url(*x):
-    return 'http://%s/' % os.path.join(PROJECT_URL, *x)
 
 
 INSTALLED_APPS = (
@@ -57,10 +37,12 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = MC + (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'bicycle.statistics.context_processors.tags',
 )
 
 TEMPLATE_DIRS = (

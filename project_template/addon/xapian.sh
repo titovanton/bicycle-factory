@@ -1,4 +1,7 @@
+mkdir -p $VIRTUAL_ENV/src
 cd $VIRTUAL_ENV/src
+
+sudo echo "SUDO ECHO"
 
 # xapian
 wget http://oligarchy.co.uk/xapian/1.2.15/xapian-core-1.2.15.tar.gz
