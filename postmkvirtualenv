@@ -2,7 +2,7 @@
 # This hook is run after a new virtualenv is activated.
 
 # sudo required for settings up nginx and uwsgi
-sudo echo '*** SUDO CONFIRM ***'
+sudo echo '********* SUDO CONFIRM *********'
 
 
 # init
@@ -23,20 +23,24 @@ BOOTSTRAP_SED=../libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 
 # Create dirs
+echo '********* Create dirs *********'
 mkdir -p $DJANGO
 mkdir -p $SERVER
 mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
+echo '********* Create DataBase *********'
 sudo -u postgres createuser -D -A -P $PROJECT
 sudo -u postgres createdb -O $PROJECT $PROJECT
 
 # Start Django project
+echo '********* Start Django project *********'
 pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $DJANGO
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
 
 # git
+echo '********* git init *********'
 cd $DJANGO
 git init
 git config --global user.name "titovanton"
@@ -48,6 +52,7 @@ cp $TEMPLATES/.gitignore ./
 git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule
+echo '********* twitter bootstrap as git submodule *********'
 git submodule add https://github.com/twbs/bootstrap.git $STATIC_GIT/libs/bootstrap
 
 # integration
@@ -62,17 +67,21 @@ cat $TEMPLATES/bs_footer.less >> $STATIC/less/bootstrap.less
 cp $STATIC/libs/bootstrap/less/variables.less $STATIC/less/
 
 # bicycle as git submodule
+echo '********* bicycle as git submodule *********'
 git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
 
-# jquery-ui-carousel
+# jquery-ui-carousel as git submodule
+echo '********* jquery-ui-carousel as git submodule *********'
 git submodule add https://github.com/richardscarrott/jquery-ui-carousel.git \
     $STATIC_GIT/libs/jquery-ui-carousel
 
-# fancyBox
+# fancyBox as git submodule
+echo '********* fancyBox as git submodule *********'
 git submodule add https://github.com/fancyapps/fancyBox.git \
     $STATIC_GIT/libs/fancyapps-fancyBox
 
-# print
+# print as git submodule
+echo '********* fancyBox as git submodule *********'
 git submodule add https://github.com/posabsolute/jQuery-printPage-plugin.git \
     $STATIC_GIT/libs/jQuery-printPage-plugin
 
@@ -107,7 +116,9 @@ sed -e "s;%DJANGO%;$DJANGO;g" \
     $TEMPLATES/deploy.sh > $DJANGO/deploy.sh
 sudo chmod +x $DJANGO/deploy.sh
 
+echo '********* COLLECTSTATIC *********'
 ./manage.py collectstatic
+echo '********* SYNCDB *********'
 ./manage.py syncdb
 
 # permissions
