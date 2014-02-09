@@ -40,7 +40,7 @@ echo '********* Start Django project *********'
 pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $DJANGO
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
-sed -e "s;%DB_PWD%;$DB_PWD;g" $SETTINGS/secret.py > $SETTINGS/secret.py
+sed -i "s;%DB_PWD%;$DB_PWD;g" $SETTINGS/secret.py
 
 # git
 echo '********* git init *********'
