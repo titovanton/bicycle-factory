@@ -31,7 +31,7 @@ mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
 echo '********* Create DataBase *********'
-psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=$DB_PWD -v user=$PROJECT
+psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT
 # sudo -u postgres createuser -D -A -R -P $PROJECT
 # sudo -u postgres createdb -O $PROJECT $PROJECT
 
@@ -93,6 +93,9 @@ git add .gitmodules
 git commit -m 'first commit'
 
 # setting up uwsgi.ini from template (imperor mode)
+if [ ! -f $WEBAPPS/server/uwsgi_params ]; then
+    cp $TEMPLATES/uwsgi_params $WEBAPPS/server/uwsgi_params
+fi
 echo 'touch this file to reload vassal' > $DJANGO/reload_uwsgi
 sed -e "s;%DJANGO%;$DJANGO;g" \
     -e "s;%SERVER%;$SERVER;g" \
