@@ -18,6 +18,7 @@ STATIC=$DJANGO/$MAINAPP/static
 STATIC_GIT=$MAINAPP/static
 MEDIA=$DJANGO/$MAINAPP/media
 INTERNAL=$DJANGO/$MAINAPP/internal
+SETTINGS=$DJANGO/$MAINAPP/settings
 BOOTSTRAP_SED=../libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
@@ -39,7 +40,7 @@ echo '********* Start Django project *********'
 pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $DJANGO
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
-sed -e "s;%DB_PWD%;$DB_PWD;g" $DJANGO/settings/secret.py > $DJANGO/settings/secret.py
+sed -e "s;%DB_PWD%;$DB_PWD;g" $SETTINGS/secret.py > $SETTINGS/secret.py
 
 # git
 echo '********* git init *********'
