@@ -1,0 +1,3 @@
+CREATE ROLE :user with LOGIN PASSWORD ':passwd';
+CREATE DATABASE :user OWNER :user;
+GRANT ALL ON DATABASE :user TO :user;
