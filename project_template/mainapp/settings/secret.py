@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = True
 
 SECRET_KEY = '{{ secret_key }}'
 
-DATABASES_PASSWORD = '1'
+DATABASES_PASSWORD = '%DB_PWD%'
 
 PROJECT_URL = '{{ project_name }}.localsite.com'
 

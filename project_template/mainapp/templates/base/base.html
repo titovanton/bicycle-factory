@@ -41,16 +41,14 @@
     {% endassets %}
 </head>
 <body>
-    <div id="main-wrapper" class="container">
-        {% include "base/header.html" %}
-        {% block alert_messages %}
-            {% include "base/alert-messages.html" %}
-        {% endblock alert_messages %}
-        {% block over_content %}
-            <div id="content">{% block content %}{% endblock content %}</div>
-        {% endblock over_content %}
-        {% include "base/footer.html" %}
-    </div>
+    {% include "base/header.html" %}
+    {% block alert_messages %}
+        {% include "base/alert-messages.html" %}
+    {% endblock alert_messages %}
+    {% block over_content %}
+        {% block content %}{% endblock content %}
+    {% endblock over_content %}
+    {% include "base/footer.html" %}
 </body>
 </html>
 {% endspaceless %}

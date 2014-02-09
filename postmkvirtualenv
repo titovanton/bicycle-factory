@@ -12,7 +12,6 @@ PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
 PROJECT=$(cat $WORKON_HOME/name)
 rm $WORKON_HOME/name
-ENV=$WEBAPPS/envs/$PROJECT
 DJANGO=$WEBAPPS/django/$PROJECT
 SERVER=$WEBAPPS/server/$PROJECT
 STATIC=$DJANGO/$MAINAPP/static
@@ -21,6 +20,7 @@ MEDIA=$DJANGO/$MAINAPP/media
 INTERNAL=$DJANGO/$MAINAPP/internal
 BOOTSTRAP_SED=../libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
+DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 
 # Create dirs
 echo '********* Create dirs *********'
@@ -30,14 +30,16 @@ mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
 echo '********* Create DataBase *********'
-sudo -u postgres createuser -D -A -P $PROJECT
-sudo -u postgres createdb -O $PROJECT $PROJECT
+psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=$DB_PWD -v user=$PROJECT
+# sudo -u postgres createuser -D -A -R -P $PROJECT
+# sudo -u postgres createdb -O $PROJECT $PROJECT
 
 # Start Django project
 echo '********* Start Django project *********'
 pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $DJANGO
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
+sed -e "s;%DB_PWD%;$DB_PWD;g" $DJANGO/settings/secret.py > $DJANGO/settings/secret.py
 
 # git
 echo '********* git init *********'
@@ -120,8 +122,10 @@ echo '********* COLLECTSTATIC *********'
 ./manage.py collectstatic
 echo '********* SYNCDB *********'
 ./manage.py syncdb
+echo '********* SYNCVARS *********'
+./manage.py syncvars
 
 # permissions
-sudo chown -R $USER:www-data $ENV
+sudo chown -R $USER:www-data $VIRTUAL_ENV
 sudo chown -R $USER:www-data $DJANGO
 sudo chown -R $USER:www-data $SERVER
