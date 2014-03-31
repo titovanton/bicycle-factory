@@ -28,12 +28,14 @@ You should creat the following, for works properly:
         ├── envs/ - virtual envs dir
         ├── server/ - nginx and uWSGI cofig files dir
         └── django/ - Django projects dir
-            ├── internal/ - [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
+            ├── internal/ - description comes below
             ├── static/ - Django static files
             └── media/ - Django users loaded files
 
     sudo mkdir -p /webapps/envs /webapps/server
     sudo mkdir -p /webapps/django/internal /webapps/django/static /webapps/django/media 
+
+Internal - read the doc: [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
 
 Do not forget to set permissions:
     
