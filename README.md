@@ -99,7 +99,9 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         \q
 
-    Following to /etc/postgresql/9.1/main/pg_hba.conf 
+    Following to:
+        sudo nano /etc/postgresql/9.1/main/pg_hba.conf 
+
     make sure to add it right after the "Put your actual configuration here" comment block! Otherwise one of the default entries might catch first and the databse authentication will fail.
         
         local   all             all                                     password
@@ -128,6 +130,6 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
 
-8. Reboot Ubuntu to lunch uWSGI and checkout virtualenvwrapper works fine:
+8. Reboot Ubuntu to lunch uWSGI, reload PostgreSQL and checkout virtualenvwrapper works fine:
     
     sudo reboot
