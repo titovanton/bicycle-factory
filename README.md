@@ -45,8 +45,9 @@ Do not forget to set permissions:
 
 On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packeges:
 
-1. python2.7-dev and pip:
+1. git, python2.7-dev and pip:
 
+        sudo apt-get install git -y
         sudo apt-get install python2.7-dev -y
         sudo apt-get install python-pip -y
         sudo pip install --upgrade pip
@@ -64,7 +65,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
 3. nginx and uWSGI:
 
-        sudo apt-get install nginx git
+        sudo apt-get install nginx
         sudo pip install uwsgi
 
 3. setting up uWSGI in Emperor mode:
