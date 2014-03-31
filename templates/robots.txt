@@ -12,8 +12,8 @@ Disallow: /accounts/*
 # search
 Disallow: /search/*
 
-Host: www.%DN%.ru
-# Sitemap: http://www.%DN%.ru/sitemap.xml
+Host: www.%PROJECT_NAME%.ru
+# Sitemap: http://www.%PROJECT_NAME%.ru/sitemap.xml
 
 Request-rate: 1/5         # загружать не более одной страницы за пять секунд
 Visit-time: 0000-0500     # загружать страницы только в промежуток с 00 утра до 05:00 по Гринвичу.

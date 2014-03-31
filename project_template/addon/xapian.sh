@@ -1,7 +1,13 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "    Error: VIRTUAL_ENV parametr is required"
+    exit 0
+fi
+
+VIRTUAL_ENV=$1
 mkdir -p $VIRTUAL_ENV/src
 cd $VIRTUAL_ENV/src
-
-sudo echo "SUDO ECHO"
 
 # xapian
 wget http://oligarchy.co.uk/xapian/1.2.15/xapian-core-1.2.15.tar.gz

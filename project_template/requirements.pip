@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-Django
 psycopg2
 django-extensions
 Werkzeug
+django_settings
 South==0.8.4
 django-grappelli==2.5.0
 Wand
+# Pillow
 cssmin
 jsmin
+django-bootstrap3
 # qrcode
 # django_rq
 # django-modeltranslation

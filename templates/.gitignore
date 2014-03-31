@@ -21,7 +21,7 @@ error_nginx.log
 # Django
 manage.py
 */wsgi.py
-*/_settings/secret.py
+*/settings/secret.py
 
 # South
 */migrations

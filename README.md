@@ -28,6 +28,12 @@ You should creat the following, for works properly:
         ├── envs/ - virtual envs dir
         ├── server/ - nginx and uWSGI cofig files dir
         └── django/ - Django projects dir
+            ├── internal/ - [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
+            ├── static/ - Django static files
+            └── media/ - Django users loaded files
+
+    sudo mkdir -p /webapps/envs /webapps/server
+    sudo mkdir -p /webapps/django/internal /webapps/django/static /webapps/django/media 
 
 Do not forget to set permissions:
     
@@ -39,8 +45,8 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
 1. python2.7-dev and pip:
 
-        sudo apt-get install python2.7-dev
-        sudo apt-get install python-pip
+        sudo apt-get install python2.7-dev -y
+        sudo apt-get install python-pip -y
         sudo pip install --upgrade pip
 
 2. virtualenv, virtualenvwrapper and bicycle-factory:
@@ -48,7 +54,6 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         sudo pip install virtualenv
         sudo pip install virtualenvwrapper
         export WORKON_HOME=/webapps/envs
-        sudo mkdir -p $WORKON_HOME
         git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME
         sudo chown -R $USER:www-data $WORKON_HOME
         source /usr/local/bin/virtualenvwrapper.sh
@@ -58,7 +63,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 3. nginx and uWSGI:
 
         sudo apt-get install nginx git
-        pip install uwsgi
+        sudo pip install uwsgi
 
 3. setting up uWSGI in Emperor mode:
         

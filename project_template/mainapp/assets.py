@@ -24,7 +24,7 @@ js_fancybox = Bundle('libs/fancyapps-fancyBox/source/jquery.fancybox.pack.js',
 css_fancybox = Bundle('libs/fancyapps-fancyBox/source/jquery.fancybox.css', 
                       'libs/fancyapps-fancyBox/source/helpers/jquery.fancybox-buttons.css',
                       'libs/fancyapps-fancyBox/source/helpers/jquery.fancybox-thumbs.css',
-                      filters='less,cssmin', output='css/fancybox_packed.css')
+                      filters='cssrewrite,cssmin', output='css/fancybox_packed.css')
 js_print = Bundle('libs/jQuery-printPage-plugin/jquery.printPage.js', 
                   filters='jsmin', output='js/print_packed.js')
 

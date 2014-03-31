@@ -10,41 +10,46 @@ WEBAPPS=/webapps
 TEMPLATES=$WORKON_HOME/templates
 PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
-PROJECT=$(cat $WORKON_HOME/name)
+PROJECT_NAME=$(cat $WORKON_HOME/name)
 rm $WORKON_HOME/name
-DJANGO=$WEBAPPS/django/$PROJECT
-SERVER=$WEBAPPS/server/$PROJECT
-STATIC=$DJANGO/$MAINAPP/static
-STATIC_GIT=$MAINAPP/static
-MEDIA=$DJANGO/$MAINAPP/media
-INTERNAL=$DJANGO/$MAINAPP/internal
-SETTINGS=$DJANGO/$MAINAPP/settings
-BOOTSTRAP_SED=../libs/bootstrap/less/
+PROJECT_DIR=$WEBAPPS/django/$PROJECT_NAME
+SERVER=$WEBAPPS/server/$PROJECT_NAME
+STATIC=$WEBAPPS/django/static
+STATIC_SRC=$PROJECT_DIR/$MAINAPP/static_src
+MEDIA=$WEBAPPS/django/media
+INTERNAL=$WEBAPPS/django/internal
+SETTINGS=$PROJECT_DIR/$MAINAPP/settings
+BOOTSTRAP_SED=$PROJECT_DIR/libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 
 # Create dirs
 echo '********* Create dirs *********'
-mkdir -p $DJANGO
+mkdir -p $PROJECT_DIR
 mkdir -p $SERVER
 mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
 echo '********* Create DataBase *********'
-psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT
-# sudo -u postgres createuser -D -A -R -P $PROJECT
-# sudo -u postgres createdb -O $PROJECT $PROJECT
+psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT_NAME
+# sudo -u postgres createuser -D -A -R -P $PROJECT_NAME
+# sudo -u postgres createdb -O $PROJECT_NAME $PROJECT_NAME
 
 # Start Django project
 echo '********* Start Django project *********'
+pip install Django
 pip install -r $PROJECT_TEMPLATE/requirements.pip
-cd $DJANGO
-django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT .
+cd $PROJECT_DIR
+django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT_NAME .
 sed -i "s;%DB_PWD%;$DB_PWD;g" $SETTINGS/secret.py
+
+# robots and favicon
+cp $TEMPLATES/favicon.ico $STATIC
+sed -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" $TEMPLATES/robots.txt > $STATIC/robots.txt
 
 # git
 echo '********* git init *********'
-cd $DJANGO
+cd $PROJECT_DIR
 git init
 git config --global user.name "titovanton"
 # git config --global user.name "titovanton-com"
@@ -56,37 +61,41 @@ git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule
 echo '********* twitter bootstrap as git submodule *********'
-git submodule add https://github.com/twbs/bootstrap.git $STATIC_GIT/libs/bootstrap
+git submodule add https://github.com/twbs/bootstrap.git libs/bootstrap
 
 # integration
-cat $TEMPLATES/bs_header.less >> $STATIC/less/bootstrap.less
-cat $STATIC/libs/bootstrap/less/bootstrap.less \
+cd $PROJECT_DIR
+cat $TEMPLATES/bs_header.less >> $STATIC_SRC/less/bootstrap.less
+cat libs/bootstrap/less/bootstrap.less \
     | grep @import \
     | grep -v variables \
     | sed -e "s;@import \";@import \"$BOOTSTRAP_SED;g" \
-    >> $STATIC/less/bootstrap.less
-cat $TEMPLATES/bs_footer.less >> $STATIC/less/bootstrap.less
-
-cp $STATIC/libs/bootstrap/less/variables.less $STATIC/less/
+    >> $STATIC_SRC/less/bootstrap.less
+cat $TEMPLATES/bs_footer.less >> $STATIC_SRC/less/bootstrap.less
+cp libs/bootstrap/less/variables.less $STATIC_SRC/less/
 
 # bicycle as git submodule
 echo '********* bicycle as git submodule *********'
+cd $PROJECT_DIR
 git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
 
 # jquery-ui-carousel as git submodule
 echo '********* jquery-ui-carousel as git submodule *********'
+cd $PROJECT_DIR
 git submodule add https://github.com/richardscarrott/jquery-ui-carousel.git \
-    $STATIC_GIT/libs/jquery-ui-carousel
+    libs/jquery-ui-carousel
 
 # fancyBox as git submodule
 echo '********* fancyBox as git submodule *********'
+cd $PROJECT_DIR
 git submodule add https://github.com/fancyapps/fancyBox.git \
-    $STATIC_GIT/libs/fancyapps-fancyBox
+    libs/fancyapps-fancyBox
 
 # print as git submodule
 echo '********* fancyBox as git submodule *********'
+cd $PROJECT_DIR
 git submodule add https://github.com/posabsolute/jQuery-printPage-plugin.git \
-    $STATIC_GIT/libs/jQuery-printPage-plugin
+    libs/jQuery-printPage-plugin
 
 # first commit
 git add .gitmodules
@@ -96,40 +105,38 @@ git commit -m 'first commit'
 if [ ! -f $WEBAPPS/server/uwsgi_params ]; then
     cp $TEMPLATES/uwsgi_params $WEBAPPS/server/uwsgi_params
 fi
-echo 'touch this file to reload vassal' > $DJANGO/reload_uwsgi
-sed -e "s;%DJANGO%;$DJANGO;g" \
+echo 'touch this file to reload vassal' > $PROJECT_DIR/reload_uwsgi
+sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
     -e "s;%SERVER%;$SERVER;g" \
     -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" \
     $TEMPLATES/uwsgi.ini > $SERVER/uwsgi.ini
-sudo ln -s $SERVER/uwsgi.ini /etc/uwsgi/vassals/${PROJECT}_uwsgi.ini
+sudo ln -s $SERVER/uwsgi.ini /etc/uwsgi/vassals/${PROJECT_NAME}_uwsgi.ini
 
 # setting up nginx.conf from template
 sed -e "s;%SERVER%;$SERVER;g" \
-    -e "s;%PROJECT%;$PROJECT;g" \
+    -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" \
     -e "s;%STATIC%;$STATIC;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
     -e "s;%UWSGI_PARAMS%;$UWSGI_PARAMS;g" \
     $TEMPLATES/nginx.conf > $SERVER/nginx.conf
-sudo ln -s $SERVER/nginx.conf /etc/nginx/sites-enabled/${PROJECT}_nginx.conf
+sudo ln -s $SERVER/nginx.conf /etc/nginx/sites-enabled/${PROJECT_NAME}_nginx.conf
 sudo /etc/init.d/nginx restart
 
 # deploy script
-sed -e "s;%DJANGO%;$DJANGO;g" \
+sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
     -e "s;%STATIC%;$STATIC;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
-    $TEMPLATES/deploy.sh > $DJANGO/deploy.sh
-sudo chmod +x $DJANGO/deploy.sh
+    $TEMPLATES/deploy.sh > $PROJECT_DIR/deploy.sh
+sudo chmod +x $PROJECT_DIR/deploy.sh
 
-echo '********* COLLECTSTATIC *********'
-./manage.py collectstatic
 echo '********* SYNCDB *********'
 ./manage.py syncdb
-echo '********* SYNCVARS *********'
-./manage.py syncvars
+echo '********* COLLECTSTATIC *********'
+./manage.py collectstatic
 
 # permissions
 sudo chown -R $USER:www-data $VIRTUAL_ENV
-sudo chown -R $USER:www-data $DJANGO
+sudo chown -R $USER:www-data $PROJECT_DIR
 sudo chown -R $USER:www-data $SERVER
