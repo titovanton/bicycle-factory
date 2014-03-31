@@ -71,6 +71,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 3. setting up uWSGI in Emperor mode:
         
         sudo mkdir -p /var/log/uwsgi
+        sudo mkdir -p /etc/uwsgi/vassals
         sudo chown -R $USER:www-data /var/log/uwsgi
         sudo chmod -R 774 /var/log/uwsgi
         cp /webapps/envs/templates/uwsgi_params /webapps/server/
