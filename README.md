@@ -45,14 +45,14 @@ Do not forget to set permissions:
 
 On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packeges:
 
-1. git, python2.7-dev and pip:
+1. `git`, `python2.7-dev` and `pip`:
 
         sudo apt-get install git -y
         sudo apt-get install python2.7-dev -y
         sudo apt-get install python-pip -y
         sudo pip install --upgrade pip
 
-2. virtualenv, virtualenvwrapper and bicycle-factory:
+2. `virtualenv`, `virtualenvwrapper` and `bicycle-factory`:
 
         sudo pip install virtualenv
         sudo pip install virtualenvwrapper
@@ -63,12 +63,12 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
         echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
-3. nginx and uWSGI:
+3. `nginx` and `uWSGI`:
 
-        sudo apt-get install nginx
+        sudo apt-get install nginx -y
         sudo pip install uwsgi
 
-3. setting up uWSGI in Emperor mode:
+3. setting up uWSGI in `Emperor mode`:
         
         sudo mkdir -p /var/log/uwsgi
         sudo chown -R $USER:www-data /var/log/uwsgi
@@ -80,18 +80,20 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log
 
-4. PostgreSQL, python bindings and so on:
 
-        sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2
-        sudo apt-get install postgresql postgresql-client
-        sudo apt-get install postgresql-server-dev-9.1
+4. `PostgreSQL`, python bindings and so on:
 
-5. Image librarie:
+        sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2 -y
+        sudo apt-get install postgresql postgresql-client -y
+        sudo apt-get install postgresql-server-dev-9.1 -y
+
+5. `Image librarie`(if you want):
 
         sudo apt-get install imagemagick
 
-6. Less on Node js:
+6. `Less` on Node js:
 
+        mkdir -p $HOME/src
         git clone https://github.com/joyent/node.git $HOME/src/node
         cd $HOME/src/node
         ./configure
@@ -105,3 +107,6 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
 
+7. `Reboot` Ubuntu to lunch uWSGI and checkout virtualenvwrapper works fine:
+    
+    sudo reboot
