@@ -14,10 +14,10 @@ PROJECT_NAME=$(cat $WORKON_HOME/name)
 rm $WORKON_HOME/name
 PROJECT_DIR=$WEBAPPS/django/$PROJECT_NAME
 SERVER=$WEBAPPS/server/$PROJECT_NAME
-STATIC=$WEBAPPS/django/static
+STATIC=$WEBAPPS/django/static/$PROJECT_NAME
 STATIC_SRC=$PROJECT_DIR/$MAINAPP/static_src
-MEDIA=$WEBAPPS/django/media
-INTERNAL=$WEBAPPS/django/internal
+MEDIA=$WEBAPPS/django/media/$PROJECT_NAME
+INTERNAL=$WEBAPPS/django/internal/$PROJECT_NAME
 SETTINGS=$PROJECT_DIR/$MAINAPP/settings
 BOOTSTRAP_SED=$PROJECT_DIR/libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
@@ -27,6 +27,9 @@ DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 echo '********* Create dirs *********'
 mkdir -p $PROJECT_DIR
 mkdir -p $SERVER
+mkdir -p $STATIC
+mkdir -p $MEDIA
+mkdir -p $INTERNAL
 mkdir $VIRTUAL_ENV/src
 
 # Create DataBase
