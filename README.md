@@ -87,11 +87,32 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         sudo apt-get install postgresql postgresql-client -y
         sudo apt-get install postgresql-server-dev-9.1 -y
 
-5. Image librarie(if you want):
+5. Set password for postgres user (like root in MySQL):
+
+        sudo -u postgres psql postgres
+
+    and launch the command:
+
+        \password postgres
+
+    you will see password request (twice) - give it to him and then quit:
+
+        \q
+
+    Following to /etc/postgresql/9.1/main/pg_hba.conf 
+    make sure to add it right after the "Put your actual configuration here" comment block! Otherwise one of the default entries might catch first and the databse authentication will fail.
+        
+        local   all             all                                     password
+
+    Now you can login using psql client without specifying `-h localhost`:
+        
+        psql -U <user> <db>
+
+6. Image librarie(if you want):
 
         sudo apt-get install imagemagick
 
-6. Less on Node js:
+7. Less on Node js:
 
         mkdir -p $HOME/src
         git clone https://github.com/joyent/node.git $HOME/src/node
@@ -107,6 +128,6 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
 
-7. Reboot Ubuntu to lunch uWSGI and checkout virtualenvwrapper works fine:
+8. Reboot Ubuntu to lunch uWSGI and checkout virtualenvwrapper works fine:
     
     sudo reboot
