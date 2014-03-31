@@ -132,4 +132,4 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
 8. Reboot Ubuntu to lunch uWSGI, reload PostgreSQL and checkout virtualenvwrapper works fine:
     
-    sudo reboot
+        sudo reboot
