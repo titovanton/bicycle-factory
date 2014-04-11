@@ -22,6 +22,7 @@ SETTINGS=$PROJECT_DIR/$MAINAPP/settings
 BOOTSTRAP_SED=$PROJECT_DIR/libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
+DUMMY_ROOT=$WEBAPPS/dummy/$PROJECT_NAME
 
 # Create dirs
 echo '********* Create dirs *********'
@@ -113,7 +114,7 @@ sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
     -e "s;%SERVER%;$SERVER;g" \
     -e "s;%VIRTUAL_ENV%;$VIRTUAL_ENV;g" \
     $TEMPLATES/uwsgi.ini > $SERVER/uwsgi.ini
-sudo ln -s $SERVER/uwsgi.ini /etc/uwsgi/vassals/${PROJECT_NAME}_uwsgi.ini
+sudo ln -s $SERVER/uwsgi.ini /etc/uwsgi/vassals/${PROJECT_NAME}.ini
 
 # setting up nginx.conf from template
 sed -e "s;%SERVER%;$SERVER;g" \
@@ -122,8 +123,9 @@ sed -e "s;%SERVER%;$SERVER;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
     -e "s;%UWSGI_PARAMS%;$UWSGI_PARAMS;g" \
+    -e "s;%DUMMY_ROOT%;$DUMMY_ROOT;g" \
     $TEMPLATES/nginx.conf > $SERVER/nginx.conf
-sudo ln -s $SERVER/nginx.conf /etc/nginx/sites-enabled/${PROJECT_NAME}_nginx.conf
+sudo ln -s $SERVER/nginx.conf /etc/nginx/sites-enabled/${PROJECT_NAME}.conf
 sudo /etc/init.d/nginx restart
 
 # deploy script

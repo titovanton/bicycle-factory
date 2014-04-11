@@ -1,3 +1,8 @@
 # -*- coding: utf-8 -*-
 
-THUMBNAIL_ENGINE = 'sorl.thumbnail.engines.convert_engine.Engine'
+from secret import DEBUG
+
+
+THUMBNAIL_ENGINE = 'sorl.thumbnail.engines.wand_engine.Engine'
+
+THUMBNAIL_DEBUG = DEBUG

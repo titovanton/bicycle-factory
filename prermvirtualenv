@@ -9,5 +9,6 @@ sudo service nginx restart
 rm -rf /webapps/django/$@
 rm -rf /webapps/server/$@
 
+# postgres passwrod:
 sudo -u postgres dropdb $@
 sudo -u postgres dropuser $@

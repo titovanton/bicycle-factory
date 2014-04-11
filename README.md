@@ -45,6 +45,10 @@ Do not forget to set permissions:
 
 On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packeges:
 
+0. Update and upgrade Ubuntu:
+        
+        sudo apt-get update; sudo apt-get upgrade -y
+
 1. git, python2.7-dev and pip:
 
         sudo apt-get install git -y
@@ -113,24 +117,22 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
 6. Image librarie(if you want):
 
-        sudo apt-get install imagemagick
+        sudo apt-get install imagemagick -y
 
-7. Less on Node js:
+7. Less:
 
-        mkdir -p $HOME/src
-        git clone https://github.com/joyent/node.git $HOME/src/node
-        cd $HOME/src/node
-        ./configure
-        make
-        sudo make install
-        node -v
-
-        curl http://npmjs.org/install.sh | sudo sh
-        npm -v
-        npm install less
-
-        echo "PATH=$PATH:$HOME/src/node/node_modules/less/bin" >> $HOME/.bashrc
+        sudo apt-get install node-less -y
 
 8. Reboot Ubuntu to lunch uWSGI, reload PostgreSQL and checkout virtualenvwrapper works fine:
     
         sudo reboot
+
+## Errors
+
+1. Lessc problem:
+        
+        less: subprocess returned a non-success result code: 127, stdout=, stderr=/usr/bin/env: node: No such file or directory
+
+    solution:
+
+        ln -s 

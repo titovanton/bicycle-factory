@@ -8,6 +8,7 @@ from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 from _settings import *
 from dj_settings import *
 from grappelli import *
+from less import *
 from mainapp import *
 from secret import *
 from sorl import *
