@@ -133,6 +133,7 @@ sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
     -e "s;%STATIC%;$STATIC;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
+    -e "s;%DUMMY_ROOT%;$DUMMY_ROOT;g" \
     $TEMPLATES/deploy.sh > $PROJECT_DIR/deploy.sh
 sudo chmod +x $PROJECT_DIR/deploy.sh
 
