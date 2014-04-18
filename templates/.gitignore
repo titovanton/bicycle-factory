@@ -7,16 +7,8 @@
 *.tar
 *.tar.gz
 
-# Sublime
-*.sublime-project
-*.sublime-workspace
-
 # Server
-uwsgi_params
 reload_uwsgi
-*_uwsgi.ini
-*_nginx.conf
-error_nginx.log
 
 # Django
 manage.py
@@ -25,16 +17,6 @@ manage.py
 
 # South
 */migrations
-
-# Static
-*/internal
-*/media
-*/static/css/
-*/static/less/secret.less
-*/static/admin
-*/static/django_extensions
-*/static/.webassets-cache
-*/static/grappelli
 
 # Xapian
 search/xapian_index

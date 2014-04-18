@@ -23,6 +23,7 @@ BOOTSTRAP_SED=$PROJECT_DIR/libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 DUMMY_ROOT=$WEBAPPS/dummy/$PROJECT_NAME
+LIBS=libs
 
 # Create dirs
 echo '********* Create dirs *********'
@@ -61,22 +62,21 @@ git config --global user.email "mail@titovanton.com"
 git config --global color.ui true
 touch README.md
 cp $TEMPLATES/.gitignore ./
-git add README.md $MAINAPP .gitignore
 
 # twitter bootstrap as git submodule
 echo '********* twitter bootstrap as git submodule *********'
-git submodule add https://github.com/twbs/bootstrap.git libs/bootstrap
+git submodule add https://github.com/twbs/bootstrap.git $LIBS/bootstrap
 
 # integration
 cd $PROJECT_DIR
 cat $TEMPLATES/bs_header.less >> $STATIC_SRC/less/bootstrap.less
-cat libs/bootstrap/less/bootstrap.less \
+cat $LIBS/bootstrap/less/bootstrap.less \
     | grep @import \
     | grep -v variables \
     | sed -e "s;@import \";@import \"$BOOTSTRAP_SED;g" \
     >> $STATIC_SRC/less/bootstrap.less
 cat $TEMPLATES/bs_footer.less >> $STATIC_SRC/less/bootstrap.less
-cp libs/bootstrap/less/variables.less $STATIC_SRC/less/
+cp $LIBS/bootstrap/less/variables.less $STATIC_SRC/less/
 
 # bicycle as git submodule
 echo '********* bicycle as git submodule *********'
@@ -87,22 +87,28 @@ git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
 echo '********* jquery-ui-carousel as git submodule *********'
 cd $PROJECT_DIR
 git submodule add https://github.com/richardscarrott/jquery-ui-carousel.git \
-    libs/jquery-ui-carousel
+    $LIBS/jquery-ui-carousel
 
 # fancyBox as git submodule
 echo '********* fancyBox as git submodule *********'
 cd $PROJECT_DIR
 git submodule add https://github.com/fancyapps/fancyBox.git \
-    libs/fancyapps-fancyBox
+    $LIBS/fancyapps-fancyBox
 
 # print as git submodule
 echo '********* fancyBox as git submodule *********'
 cd $PROJECT_DIR
 git submodule add https://github.com/posabsolute/jQuery-printPage-plugin.git \
-    libs/jQuery-printPage-plugin
+    $LIBS/jQuery-printPage-plugin
 
 # first commit
-git add .gitmodules
+git add README.md \
+        addon \
+        $MAINAPP \
+        dashboard.py \
+        .gitignore \
+        .gitmodules \
+        requirements.pip
 git commit -m 'first commit'
 
 # setting up uwsgi.ini from template (imperor mode)
