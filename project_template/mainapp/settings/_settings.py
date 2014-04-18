@@ -20,16 +20,16 @@ def rel_mainapp(*x):
     return os.path.join(APP_ROOT, *x)
     
 
-MEDIA_ROOT = '/webapps/django/media/rusrob/'
+MEDIA_ROOT = '/webapps/django/media/{{ project_name }}/'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/webapps/django/static/rusrob/'
+STATIC_ROOT = '/webapps/django/static/{{ project_name }}/'
 
 STATIC_SRC = rel_mainapp('static_src')
 
 STATIC_URL = '/static/'
 
-INTERNAL_ROOT = '/webapps/django/internal/rusrob/'
+INTERNAL_ROOT = '/webapps/django/internal/{{ project_name }}/'
 
 INTERNAL_URL = '/internal/'

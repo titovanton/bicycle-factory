@@ -1,8 +1,8 @@
 #!/bin/bash
 # This hook is run before a virtualenv is deleted.
 
-sudo rm /etc/uwsgi/vassals/$@_uwsgi.ini
-sudo rm /etc/nginx/sites-enabled/$@_nginx.conf
+sudo rm /etc/uwsgi/vassals/$@.ini
+sudo rm /etc/nginx/sites-enabled/$@.conf
 
 sudo service nginx restart
 
