@@ -143,10 +143,10 @@ sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
     $TEMPLATES/deploy.sh > $PROJECT_DIR/deploy.sh
 sudo chmod +x $PROJECT_DIR/deploy.sh
 
-echo '********* SYNCDB *********'
-./manage.py syncdb
-echo '********* COLLECTSTATIC *********'
-./manage.py collectstatic
+# echo '********* SYNCDB *********'
+# ./manage.py syncdb
+# echo '********* COLLECTSTATIC *********'
+# ./manage.py collectstatic
 
 # permissions
 sudo chown -R $USER:www-data $VIRTUAL_ENV

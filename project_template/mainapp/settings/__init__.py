@@ -54,6 +54,13 @@ TEMPLATE_DIRS = (
     rel_project('bicycle', 'djangomixins', 'templates'),
 )
 
+STATICFILES_DIRS = (
+    ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
+    ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
+    ('print', rel_project('libs', 'jQuery-printPage-plugin')),
+    ('rc-carousel', rel_project('libs', 'jquery-ui-carousel', 'dist')),
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',

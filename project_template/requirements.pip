@@ -7,7 +7,7 @@ django_settings
 South==0.8.4
 django-grappelli==2.5.0
 Wand
-# Pillow
+Pillow
 cssmin
 jsmin
 django-bootstrap3
