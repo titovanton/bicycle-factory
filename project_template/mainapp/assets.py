@@ -7,9 +7,9 @@ from django_assets import register
 
 src = settings.STATIC_SRC
 
-js_all = Bundle(src+'/js/main.js', filters='jsmin', output='js/packed.js')
+js_all = Bundle(src+'/js/main.js', filters='jsmin', output='js/all.js')
 css_all = Bundle(src+'/less/bootstrap.less', filters='cssrewrite,less,cssmin', 
-                 output='css/packed.css', depends='less/*.less')
+                 output='css/all.css', depends=src+'less/*.less')
 js_carousel = Bundle('rc-carousel/js/jquery.rs.carousel.js',
                      'rc-carousel/js/jquery.rs.carousel-autoscroll.js',
                      'rc-carousel/js/jquery.rs.carousel-continuous.js',
