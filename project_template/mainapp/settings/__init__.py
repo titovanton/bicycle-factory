@@ -6,6 +6,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 
 from _settings import *
+from assets import *
 from dj_settings import *
 from grappelli import *
 from mainapp import *
@@ -63,6 +64,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'bicycle.core.finders.StaticSrcStorageFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 

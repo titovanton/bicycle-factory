@@ -17,8 +17,7 @@ django-bootstrap3
 # django-recaptcha
 # supercaptcha
 
-git+git://github.com/miracle2k/webassets.git@stable
-git+git://github.com/miracle2k/django-assets.git@stable
+git+git://github.com/titovanton-com/django-assets.git@stable
 git+git://github.com/mariocesar/sorl-thumbnail.git
 
 # git+git://github.com/toastdriven/django-haystack.git

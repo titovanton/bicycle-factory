@@ -5,16 +5,14 @@ from django_assets import Bundle
 from django_assets import register
 
 
-src = settings.STATIC_SRC
-
-js_all = Bundle(src+'/js/main.js', filters='jsmin', output='js/all.js')
-css_all = Bundle(src+'/less/bootstrap.less', filters='cssrewrite,less,cssmin', 
-                 output='css/all.css', depends=src+'less/*.less')
+js_all = Bundle('js/main.js', filters='jsmin', output='js/all.js')
+css_all = Bundle('less/bootstrap.less', filters='cssrewrite,less,cssmin', 
+                 output='css/all.css', depends='less/*.less')
 js_carousel = Bundle('rc-carousel/js/jquery.rs.carousel.js',
                      'rc-carousel/js/jquery.rs.carousel-autoscroll.js',
                      'rc-carousel/js/jquery.rs.carousel-continuous.js',
                      'rc-carousel/js/jquery.rs.carousel-touch.js',
-                     src+'/js/rc-carousel-it.js',
+                     'js/rc-carousel-it.js',
                      filters='jsmin', 
                      output='js/carousel.js')
 css_carousel = Bundle('rc-carousel/css/jquery.rs.carousel.css', 
@@ -24,7 +22,7 @@ js_fancybox = Bundle('fancybox/jquery.fancybox.pack.js',
                      'fancybox/helpers/jquery.fancybox-buttons.js',
                      'fancybox/helpers/jquery.fancybox-media.js',
                      'fancybox/helpers/jquery.fancybox-thumbs.js',
-                     src+'/js/fancybox-it.js',
+                     'js/fancybox-it.js',
                      filters='jsmin', 
                      output='js/fancybox.js')
 css_fancybox = Bundle('fancybox/jquery.fancybox.css', 
