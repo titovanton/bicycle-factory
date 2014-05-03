@@ -64,9 +64,25 @@ STATICFILES_DIRS = (
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'bicycle.core.finders.StaticSrcStorageFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
+
+# should we link StaticSrcStorageFinder:
+sss_finder = ASSETS_AUTO_BUILD
+try:
+    # when user runs ./manage.py assets build
+    if sys.argv[1] == 'assets' and sys.argv[2] == 'build':
+        sss_finder = True
+except IndexError:
+    pass
+try:
+    # when user runs ./manage.py collectstatic
+    if sys.argv[1] == 'collectstatic':
+        sss_finder = False
+except IndexError:
+    pass
+if sss_finder:
+    STATICFILES_FINDERS += ('bicycle.core.finders.StaticSrcStorageFinder',)
 
 ROOT_URLCONF = 'mainapp.urls'
 
