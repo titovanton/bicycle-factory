@@ -10,5 +10,6 @@ rm -rf /webapps/django/$@
 rm -rf /webapps/server/$@
 
 # postgres passwrod:
+echo 'Enter postgres passwrod please(twice): '
 sudo -u postgres dropdb $@
 sudo -u postgres dropuser $@

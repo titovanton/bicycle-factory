@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from secret import DEBUG
-from _settings import STATIC_SRC
-from _settings import STATIC_ROOT
-from _settings import STATIC_URL
+from path import STATIC_SRC
+from path import STATIC_ROOT
+from path import STATIC_URL
 
 
 ASSETS_AUTO_BUILD = DEBUG

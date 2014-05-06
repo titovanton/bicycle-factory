@@ -3,7 +3,6 @@
 psycopg2
 django-extensions
 Werkzeug
-django_settings
 South==0.8.4
 django-grappelli==2.5.0
 Wand
@@ -16,6 +15,9 @@ django-bootstrap3
 # django-modeltranslation
 # django-recaptcha
 # supercaptcha
+
+# redis required
+git+git://github.com/comoga/django-constance#egg=django-constance
 
 git+git://github.com/titovanton-com/django-assets.git@stable
 git+git://github.com/mariocesar/sorl-thumbnail.git

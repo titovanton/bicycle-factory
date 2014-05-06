@@ -3,6 +3,7 @@
 
 # sudo required for settings up nginx and uwsgi
 sudo echo '********* SUDO CONFIRM *********'
+sudo echo 'Enter sudo passwrod please:'
 
 
 # init
@@ -40,13 +41,20 @@ psql -h localhost -U postgres -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -
 # sudo -u postgres createuser -D -A -R -P $PROJECT_NAME
 # sudo -u postgres createdb -O $PROJECT_NAME $PROJECT_NAME
 
+# Redis db number(name):
+REDIS_DB=$(python $TEMPLATES/redis_db.py $WORKON_HOME/redis_index.json $PROJECT_NAME)
+read -s -p "Enter Redis passwrod please: " REDIS_PWD
+
 # Start Django project
 echo '********* Start Django project *********'
 pip install Django
 pip install -r $PROJECT_TEMPLATE/requirements.pip
 cd $PROJECT_DIR
 django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT_NAME .
-sed -i "s;%DB_PWD%;$DB_PWD;g" $SETTINGS/secret.py
+sed -e "s;%DB_PWD%;$DB_PWD;g" \
+    -e "s;%REDIS_DB%;$REDIS_DB;g" \
+    -e "s;%REDIS_PWD%;$REDIS_PWD;g" \
+    -i $SETTINGS/secret.py
 
 # robots and favicon
 cp $TEMPLATES/favicon.ico $STATIC

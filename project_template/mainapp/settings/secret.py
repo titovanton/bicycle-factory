@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 U must add it to .gitignore file
+and set Unix file change mode and owner
 '''
 
 DEBUG = True
@@ -9,8 +10,22 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = '{{ secret_key }}'
 
-DATABASES_PASSWORD = '%DB_PWD%'
+ALLOWED_HOSTS = ['{{ project_name }}.com', '{{ project_name }}.ru',]
 
-DATABASES_HOST = 'localhost'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{ project_name }}',
+        'USER': '{{ project_name }}',
+        'PASSWORD': '%DB_PWD%',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
-ALLOWED_HOSTS = ['{{ project_name }}.com', '{{ project_name }}.ru']
+REDIS_CONNECTION = {
+    'host': 'localhost',
+    'port': 6379,
+    'db': %REDIS_DB%,
+    'password': '%REDIS_PWD%',
+}

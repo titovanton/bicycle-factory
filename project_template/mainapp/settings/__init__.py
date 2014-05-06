@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
+from django.conf.globalpath import TEMPLATE_CONTEXT_PROCESSORS as TCP
+from django.conf.globalpath import MIDDLEWARE_CLASSES as MC
 
-from _settings import *
+from path import *
 from assets import *
-from dj_settings import *
+from constance import *
+from djpath import *
 from grappelli import *
 from mainapp import *
 from secret import *
@@ -31,10 +33,10 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'south',
     'django_assets',
-    'django_settings',
+    'constance',
 
     'bicycle.futuremessage',
-    'bicycle.djangomixins',
+    'bicycle.core',
     'bicycle.feedback',
     'bicycle.news',
     'bicycle.carousel',
@@ -52,7 +54,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
 
 TEMPLATE_DIRS = (
     rel_mainapp('templates'),
-    rel_project('bicycle', 'djangomixins', 'templates'),
+    rel_project('bicycle', 'core', 'templates'),
 )
 
 STATICFILES_DIRS = (
@@ -87,17 +89,6 @@ if sss_finder:
 ROOT_URLCONF = 'mainapp.urls'
 
 WSGI_APPLICATION = 'mainapp.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{ project_name }}',
-        'USER': '{{ project_name }}',
-        'PASSWORD': DATABASES_PASSWORD,
-        'HOST': DATABASES_HOST,
-        'PORT': '',
-    }
-}
 
 LANGUAGE_CODE = 'ru-RU'
 
