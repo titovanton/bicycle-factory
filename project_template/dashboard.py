@@ -53,8 +53,8 @@ class CustomIndexDashboard(Dashboard):
             column=2,
             children=[
                 {
-                    'title': u'Переменные',
-                    'url': '/admin/django_settings/setting/',
+                    'title': u'Конфиг',
+                    'url': '/admin/constance/config/',
                     'external': False,
                 },
             ]

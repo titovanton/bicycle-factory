@@ -12,8 +12,8 @@
     <meta name="description" content="{% block html_description %}{% endblock %}">
 
     {% autoescape off %}
-        {{ YANDEX_VERIFICATION }}
-        {{ GOOGLE_SITE_VERIFICATION }}
+        {{ config.YANDEX_VERIFICATION }}
+        {{ config.GOOGLE_SITE_VERIFICATION }}
     {% endautoescape %}
     
     {% block before_css_all %}{% endblock before_css_all %}

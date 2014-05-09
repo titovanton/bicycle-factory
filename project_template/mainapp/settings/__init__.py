@@ -3,15 +3,14 @@
 import os
 import sys
 
-from django.conf.globalpath import TEMPLATE_CONTEXT_PROCESSORS as TCP
-from django.conf.globalpath import MIDDLEWARE_CLASSES as MC
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 
-from path import *
 from assets import *
 from constance import *
-from djpath import *
 from grappelli import *
 from mainapp import *
+from path import *
 from secret import *
 from sorl import *
 
@@ -29,17 +28,17 @@ INSTALLED_APPS = (
 
     'mainapp',
 
+    'constance',
+    'django_assets',
     'django_extensions',
     'sorl.thumbnail',
     'south',
-    'django_assets',
-    'constance',
 
-    'bicycle.futuremessage',
+    'bicycle.carousel',
     'bicycle.core',
     'bicycle.feedback',
+    'bicycle.futuremessage',
     'bicycle.news',
-    'bicycle.carousel',
 )
 
 MIDDLEWARE_CLASSES = MC + (
@@ -49,7 +48,7 @@ MIDDLEWARE_CLASSES = MC + (
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
-    'mainapp.context_processors.meta_tags',
+    'constance.context_processors.config',
 )
 
 TEMPLATE_DIRS = (
