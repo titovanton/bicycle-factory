@@ -16,7 +16,7 @@ mkdir $VIRTUAL_ENV/src
 # Create DataBase
 if [ ! -f $HOME/.pgpass ]; then
     printf '\nYou can touch .pgpass file with chmode 0600 in your home dir\n'
-    printf 'insted prompt password for user $PG_SU every time.\n'
+    printf "insted prompt password for user $PG_SU every time.\n"
     printf 'Read the man: http://www.postgresql.org/docs/9.0/static/libpq-pgpass.html\n\n'
 fi
 psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT_NAME
@@ -26,6 +26,7 @@ psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v u
 # Redis db number(name):
 REDIS_DB=$(python $TEMPLATES/redis_db.py $WORKON_HOME/redis_index.json $PROJECT_NAME)
 read -s -p "Enter Redis passwrod please: " REDIS_PWD
+echo
 
 # git
 cd $PROJECT_DIR

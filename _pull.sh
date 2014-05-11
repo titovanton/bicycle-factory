@@ -6,6 +6,7 @@ source $WORKON_HOME/_prepare.sh
 cd $PROJECT_DIR
 
 read -p "Enter git repo please: " GIT_REMOTE
+echo
 git remote add origin $GIT_REMOTE
 
 # Pull Django project
