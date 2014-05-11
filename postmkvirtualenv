@@ -3,9 +3,9 @@
 
 # MENU
 PS3='Please enter your choice: '
-CREATE_OPT='create Django project from project_template dir'
-PULL_OPT='pull Django project from remote git repo'
-QUIT_OPT='quit'
+CREATE_OPT='Create Django project from project_template dir'
+PULL_OPT='Pull Django project from remote git repo'
+QUIT_OPT='Quit'
 options=("$CREATE_OPT" "$PULL_OPT" "$QUIT_OPT")
 
 printf '\nVirtual environment has been created successfully!\n'
@@ -14,17 +14,10 @@ printf 'You have to decide what we gonna do next:\n'
 select opt in "${options[@]}"
 do
     case $opt in
-        "$CREATE_OPT")
-            $WORKON_HOME/_create.sh
-            break
-            ;;
-        "$PULL_OPT")
-            $WORKON_HOME/_pull.sh
-            break
-            ;;
-        "$QUIT_OPT")
-            exit 0
-            ;;
-        *) echo invalid option;;
+        "$CREATE_OPT") $WORKON_HOME/_create.sh ;;
+        "$PULL_OPT"  ) $WORKON_HOME/_pull.sh ;;
+        "$QUIT_OPT"  ) ;;
+        *            ) echo invalid option ;;
     esac
+    break
 done

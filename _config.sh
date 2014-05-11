@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # init
+PG_HOST=localhost
+PG_SU=postgres
 WEBAPPS=/webapps
 TEMPLATES=$WORKON_HOME/templates
 PROJECT_TEMPLATE=$WORKON_HOME/project_template

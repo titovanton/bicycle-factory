@@ -41,6 +41,7 @@ git submodule add https://github.com/posabsolute/jQuery-printPage-plugin.git \
     $LIBS/jQuery-printPage-plugin
 
 # first commit
+cp $TEMPLATES/.gitignore ./
 git add README.md
 git add addon
 git add $MAINAPP
