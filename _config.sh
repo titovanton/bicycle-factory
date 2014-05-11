@@ -7,7 +7,11 @@ WEBAPPS=/webapps
 TEMPLATES=$WORKON_HOME/templates
 PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
-PROJECT_NAME=$(cat $WORKON_HOME/name)
+if [ -f $WORKON_HOME/name ]; then
+    PROJECT_NAME=$(cat $WORKON_HOME/name)
+else
+    PROJECT_NAME=$@
+fi
 PROJECT_DIR=$WEBAPPS/django/$PROJECT_NAME
 SERVER=$WEBAPPS/server/$PROJECT_NAME
 STATIC=$WEBAPPS/django/static/$PROJECT_NAME

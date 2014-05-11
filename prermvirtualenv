@@ -1,18 +1,18 @@
 #!/bin/bash
 # This hook is run before a virtualenv is deleted.
 
-source $WORKON_HOME/_config.sh
+source $WORKON_HOME/_config.sh $@
 
 # sudo required for settings up nginx and uwsgi
 sudo echo 'Enter sudo passwrod please:'
 
-sudo rm /etc/uwsgi/vassals/$@.ini
-sudo rm /etc/nginx/sites-enabled/$@.conf
+sudo rm /etc/uwsgi/vassals/$PROJECT_NAME.ini
+sudo rm /etc/nginx/sites-enabled/$PROJECT_NAME.conf
 
 sudo service nginx restart
 
-rm -rf /webapps/django/$@
-rm -rf /webapps/server/$@
+rm -rf /webapps/django/$PROJECT_NAME
+rm -rf /webapps/server/$PROJECT_NAME
 
 # drop db
 if [ ! -f $HOME/.pgpass ]; then
@@ -20,6 +20,6 @@ if [ ! -f $HOME/.pgpass ]; then
     printf 'insted prompt password for user $PG_SU every time.\n'
     printf 'Read the man: http://www.postgresql.org/docs/9.0/static/libpq-pgpass.html\n\n'
 fi
-psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/dropdb.sql -v user=$@
-# sudo -u postgres dropdb $@
-# sudo -u postgres dropuser $@
+psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/dropdb.sql -v user=$PROJECT_NAME
+# sudo -u postgres dropdb $PROJECT_NAME
+# sudo -u postgres dropuser $PROJECT_NAME
