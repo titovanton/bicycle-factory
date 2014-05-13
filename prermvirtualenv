@@ -12,6 +12,9 @@ sudo rm /etc/nginx/sites-enabled/$PROJECT_NAME.conf
 sudo service nginx restart
 
 rm -rf /webapps/django/$PROJECT_NAME
+rm -rf /webapps/django/static/$PROJECT_NAME
+rm -rf /webapps/django/media/$PROJECT_NAME
+rm -rf /webapps/django/internal/$PROJECT_NAME
 rm -rf /webapps/server/$PROJECT_NAME
 
 # drop db
