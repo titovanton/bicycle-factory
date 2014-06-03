@@ -9,7 +9,8 @@ Wand
 Pillow
 cssmin
 jsmin
-django-bootstrap3
+# requests
+# django-bootstrap3
 # qrcode
 # django_rq
 # django-modeltranslation
@@ -21,9 +22,5 @@ git+git://github.com/comoga/django-constance#egg=django-constance
 
 git+git://github.com/titovanton-com/django-assets.git@stable
 git+git://github.com/mariocesar/sorl-thumbnail.git
-
-elasticsearch==1.0.0
-# git+git://github.com/toastdriven/django-haystack.git
-# git+git://github.com/notanumber/xapian-haystack.git
 
 # git+git://github.com/toastdriven/django-tastypie.git
