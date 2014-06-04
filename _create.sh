@@ -26,7 +26,7 @@ cat $TEMPLATES/bs_footer.less >> $STATIC_SRC/less/bootstrap.less
 cp $LIBS/bootstrap/less/variables.less $STATIC_SRC/less/
 
 # bicycle as git submodule
-git submodule add git@github.com:titovanton-com/bicycle-submodule.git bicycle
+git submodule add git@github.com:titovanton/bicycle-submodule.git bicycle
 
 # jquery-ui-carousel as git submodule
 git submodule add https://github.com/richardscarrott/jquery-ui-carousel.git \

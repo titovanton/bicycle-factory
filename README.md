@@ -13,6 +13,7 @@ Also, it contain custom templates for setting up:
 * [nginx and uWSGI](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "nginx and uWSGI")
 * [Twitter Bootstrap](http://getbootstrap.com/ "Twitter Bootstrap") integration
 * robots.txt
+* redis db index generation
 * and so on...
 
 It contain [Django project template](https://docs.djangoproject.com/en/1.6/ref/django-admin/#startproject-projectname-destination "Django project template"), made [by example](https://github.com/django/django/tree/master/django/conf/project_template/ "by example").
@@ -45,7 +46,7 @@ Do not forget to set permissions:
 
 ## Install First!
 
-On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packeges:
+On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 0. Update and upgrade Ubuntu:
         
@@ -92,7 +93,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
 
         sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2 -y
         sudo apt-get install postgresql postgresql-client -y
-        sudo apt-get install postgresql-server-dev-9.1 -y
+        sudo apt-get install postgresql-server-dev-9.3 -y
 
 5. Set password for postgres user (like root in MySQL):
 
@@ -107,8 +108,8 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         \q
 
     Following to:
-    
-        sudo nano /etc/postgresql/9.1/main/pg_hba.conf 
+
+        sudo nano /etc/postgresql/9.3/main/pg_hba.conf 
 
     make sure to add it right after the "Put your actual configuration here" comment block! Otherwise one of the default entries might catch first and the databse authentication will fail.
         
@@ -118,24 +119,50 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         
         psql -U <user> <db>
 
-6. Image librarie(if you want):
+## Optional
+
+I also use following apps to serve needs of my websites:
+
+1. [Redis](http://redis.io/ "Redis"):
+
+        sudo apt-get install redis-server -y
+
+    if you want change some settings, make a backup first:
+
+        sudo cp /etc/redis/redis.conf /etc/redis/redis.conf.default
+
+    for example, if you want to set password:
+
+        sudo sed -e "s;# requirepass foobared;requirepass <password>;g" \
+                 -i /etc/redis/redis.conf
+
+2. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
+
+        sudo apt-get install openjdk-7-jre-headless -y
+        mkdir -p $HOME/src
+        cd $HOME/src
+        # v1.1.1 works fine for me:
+        wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.deb
+        sudo dpkg -i elasticsearch-1.1.1.deb
+        # enable russian morphology support
+        sudo /usr/share/elasticsearch/bin/plugin -install analysis-morphology -url http://dl.bintray.com/content/imotov/elasticsearch-plugins/org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/elasticsearch-analysis-morphology-1.2.0.zip
+        sudo update-rc.d elasticsearch defaults 95 10
+
+3. Image librarie(if Pillow does not enough):
 
         sudo apt-get install imagemagick -y
 
-7. Less:
+4. Less:
 
         sudo apt-get install node-less -y
 
-8. Reboot Ubuntu to lunch uWSGI, reload PostgreSQL and checkout virtualenvwrapper works fine:
+## Reboot
+
+Reboot Ubuntu to lunch uWSGI, ElasticSearch, reload PostgreSQL and checkout virtualenvwrapper works fine:
     
-        sudo reboot
+    sudo reboot
 
-## Errors
-
-1. Lessc problem:
-        
-        less: subprocess returned a non-success result code: 127, stdout=, stderr=/usr/bin/env: node: No such file or directory
-
-    solution:
-
-        ln -s 
+## License
+- Apache License, Version 2.0
+- Download, install and use it where ever you want with my blessing =)
+- PS: do not forget to give me a star!

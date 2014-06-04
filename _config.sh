@@ -26,5 +26,4 @@ DUMMY_ROOT=$WEBAPPS/dummy/$PROJECT_NAME
 LIBS=libs
 UNIX_USER=$USER
 GIT_USER=$USER
-# GIT_USER=titovanton-com
 GIT_EMAIL=mail@titovanton.com
