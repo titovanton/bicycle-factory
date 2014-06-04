@@ -32,6 +32,8 @@ You should creat the following, for works properly:
             ├── static/ - Django static files
             └── media/ - Django users loaded files
 
+execute following commands:
+
     sudo mkdir -p /webapps/envs /webapps/server
     sudo mkdir -p /webapps/django/internal /webapps/django/static /webapps/django/media 
 
@@ -105,6 +107,7 @@ On virgine Ubuntu Linux Server v12.04.3 LTS you should install following packege
         \q
 
     Following to:
+    
         sudo nano /etc/postgresql/9.1/main/pg_hba.conf 
 
     make sure to add it right after the "Put your actual configuration here" comment block! Otherwise one of the default entries might catch first and the databse authentication will fail.
