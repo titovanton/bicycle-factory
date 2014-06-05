@@ -21,11 +21,16 @@ provide redis db index generation in case several websites on one host.
 
 It contain [Django project template](https://docs.djangoproject.com/en/1.6/ref/django-admin/#startproject-projectname-destination "Django project template"), made [by example](https://github.com/django/django/tree/master/django/conf/project_template/ "by example").
 
-So, if you made virtual env using mkvirtualenv alias, be sure you have setting up [NGINX(as proxy) and uWSGI(Emperor mode)](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "NGINX(as proxy) and uWSGI(Emperor mode)")(just in case, read the manual) config files, ready to runserver Django project (I use [Werkzeug](http://werkzeug.pocoo.org/ "Werkzeug"), so you can use runserver_plus managment command) with home view, Twitter Bootstrap markup(base.html, home.html) and Less styles(bootstrap.less, variables.less, my_main.less, my_mixins.less...).
+So, if you made virtual environment using mkvirtualenv alias, be sure you have setting up 
+
+* [NGINX(as proxy) and uWSGI(Emperor mode)](https://uwsgi.readthedocs.org/en/latest/tutorials/Django_and_nginx.html "NGINX(as proxy) and uWSGI(Emperor mode)")(just in case, read the manual) config files
+* ready to runserver Django project (I use [Werkzeug](http://werkzeug.pocoo.org/ "Werkzeug"), so you can use runserver_plus managment command)
+* with home view, Twitter Bootstrap markup(base.html, home.html)
+* and Less styles(bootstrap.less, variables.less, my_main.less, my_mixins.less...).
 
 ## Usage
 
-All you need is just make virtual env via virtualenvwrapper:
+All you need is just make virtual environment via virtualenvwrapper:
 
     mkvirtualenv helloworld
 
@@ -46,7 +51,7 @@ You should creat the following, for works properly:
 
     / - root dir
     └── webapps/ - web applications dir
-        ├── envs/ - virtual envs dir
+        ├── envs/ - virtual environments dir
         ├── server/ - nginx and uWSGI config files dir
         └── django/ - Django projects dir
             ├── internal/ - description comes below
@@ -186,11 +191,11 @@ Reboot Ubuntu to lunch uWSGI, ElasticSearch, reload PostgreSQL and checkout virt
 
 The `postmkvirtualenv` file containt dialog menu that source a files with names starts with underscore:
     
-    * _config.sh
-    * _create.sh
-    * _finish.sh
-    * _prepare.sh
-    * _pull.sh
+* _config.sh
+* _create.sh
+* _finish.sh
+* _prepare.sh
+* _pull.sh
 
 they do all work.
 
