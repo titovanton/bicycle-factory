@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.conf.urls import patterns
 from django.conf.urls import include
-from django.conf.urls import url
 from django.contrib import admin
 
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    (r'^grappelli/', include('grappelli.urls')),
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/', include(admin.site.urls)),
 
     # home
-    url(r'^home/$', 'mainapp.views.home'),
-    url(r'^$', 'mainapp.views.home'),
+    (r'^home/$', 'mainapp.views.home'),
+    (r'^$', 'mainapp.views.home'),
 )
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        (r'^__debug__/', include(debug_toolbar.urls)),
+    )

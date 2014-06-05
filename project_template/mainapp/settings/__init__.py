@@ -28,6 +28,11 @@ INSTALLED_APPS = (
 
     'mainapp',
 
+    # If you're using Django 1.7.x or later
+    'debug_toolbar.apps.DebugToolbarConfig',
+    # If you're using Django 1.6.x or earlier
+    # 'debug_toolbar',
+
     'constance',
     'django_assets',
     'django_extensions',
@@ -46,15 +51,19 @@ MIDDLEWARE_CLASSES = MC + (
     'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
 
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    # INTERNAL_IPS = ['127.0.0.1',]
+
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'constance.context_processors.config',
 )
 
-TEMPLATE_DIRS = (
-    rel_mainapp('templates'),
-    rel_project('bicycle', 'core', 'templates'),
-)
+# TEMPLATE_DIRS = (
+#     rel_mainapp('templates'),
+#     rel_project('bicycle', 'core', 'templates'),
+# )
 
 STATICFILES_DIRS = (
     ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
