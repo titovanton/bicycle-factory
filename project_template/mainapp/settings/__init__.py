@@ -8,6 +8,7 @@ from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 
 from assets import *
 from constance import *
+from debug_toolbar import *
 from grappelli import *
 from mainapp import *
 from path import *

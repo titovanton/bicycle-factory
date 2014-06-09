@@ -3,6 +3,7 @@
 psycopg2
 django-extensions
 django-debug-toolbar
+django-debug-toolbar-template-timings
 Werkzeug
 South==0.8.4
 django-grappelli==2.5.0
