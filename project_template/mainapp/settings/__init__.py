@@ -30,9 +30,9 @@ INSTALLED_APPS = (
     'mainapp',
 
     # If you're using Django 1.7.x or later
-    'debug_toolbar.apps.DebugToolbarConfig',
+    # 'debug_toolbar.apps.DebugToolbarConfig',
     # If you're using Django 1.6.x or earlier
-    # 'debug_toolbar',
+    'debug_toolbar',
 
     'constance',
     'django_assets',
@@ -54,11 +54,11 @@ MIDDLEWARE_CLASSES = MC + (
 
 if DEBUG:
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    # INTERNAL_IPS = ['127.0.0.1',]
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'constance.context_processors.config',
+    'bicycle.cache.context_processors.cache_timeout',
 )
 
 # TEMPLATE_DIRS = (

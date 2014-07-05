@@ -24,6 +24,19 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'localhost:11211',
+    }
+}
+
+# one year
+CACHE_TIMEOUT = 60 * 60 * 24 * 30 * 12
+
+# cache key prefix
+KEY_PREFIX = '{{ project_name }}'
+
 REDIS_CONNECTION = {
     'host': 'localhost',
     'port': 6379,

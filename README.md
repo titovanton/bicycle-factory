@@ -181,6 +181,12 @@ I also use following apps to serve needs of my websites:
 
         sudo apt-get install node-less -y
 
+5. Cach:
+
+    I use [memcached](http://memcached.org/ "memcached"), in this case:
+
+        sudo apt-get install memcached -y
+
 ## Reboot
 
 Reboot Ubuntu to lunch uWSGI, ElasticSearch, reload PostgreSQL and checkout virtualenvwrapper works fine:
