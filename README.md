@@ -146,9 +146,38 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 ## Optional
 
+If you use SSH connection when interactiong with GitHub(Bitbucket), you will need generate SSH Key:
+
+1. SSH Keys
+
+    Check the directory listing to see if you have files named either id_rsa.pub or id_dsa.pub.
+    
+        cd ~/.ssh
+        ls -al
+
+    If you already have it - add it on your hub account. Else:
+
+        ssh-keygen -t rsa -C "your_email@example.com"
+
+    and follow the quest... Then add your new key to the ssh-agent:
+
+        # start the ssh-agent in the background
+        eval `ssh-agent -s`
+        ssh-add ~/.ssh/id_rsa
+
+    Adding your SSH key to hub:
+
+        # Copies the contents of the id_rsa.pub file to your clipboard
+        clip < ~/.ssh/id_rsa.pub
+
+    On GitHub follow the path: "Account settings" -> "SSH Keys" -> "Add key".
+    On Bitbucket follow the path: "Manage account" -> "SSH keys" -> "Add key".
+    Set name of record like named your server, to easy identify it in future.
+
+
 I also use following apps to serve needs of my websites:
 
-1. [Redis](http://redis.io/ "Redis"):
+2. [Redis](http://redis.io/ "Redis"):
 
         sudo apt-get install redis-server -y
 
@@ -161,7 +190,7 @@ I also use following apps to serve needs of my websites:
         sudo sed -e "s;# requirepass foobared;requirepass <password>;g" \
                  -i /etc/redis/redis.conf
 
-2. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
+3. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
 
         sudo apt-get install openjdk-7-jre-headless -y
         mkdir -p $HOME/src
@@ -173,15 +202,15 @@ I also use following apps to serve needs of my websites:
         sudo /usr/share/elasticsearch/bin/plugin -install analysis-morphology -url http://dl.bintray.com/content/imotov/elasticsearch-plugins/org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/elasticsearch-analysis-morphology-1.2.0.zip
         sudo update-rc.d elasticsearch defaults 95 10
 
-3. Image librarie(if Pillow does not enough):
+4. Image librarie(if Pillow does not enough):
 
         sudo apt-get install imagemagick -y
 
-4. Less:
+5. Less:
 
         sudo apt-get install node-less -y
 
-5. Cach:
+6. Cach:
 
     I use [memcached](http://memcached.org/ "memcached"), in this case:
 
