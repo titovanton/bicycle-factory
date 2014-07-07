@@ -167,10 +167,10 @@ If you use SSH connection when interactiong with GitHub(Bitbucket), you will nee
 
     Adding your SSH key to hub:
 
-        - Copies the contents of the id_rsa.pub file to your clipboard
-        - On GitHub follow the path: "Account settings" -> "SSH Keys" -> "Add key".
-        - On Bitbucket follow the path: "Manage account" -> "SSH keys" -> "Add key".
-        - Set name of record like named your server, to easy identify it in future.
+    - Copies the contents of the id_rsa.pub file to your clipboard
+    - On GitHub follow the path: "Account settings" -> "SSH Keys" -> "Add key".
+    - On Bitbucket follow the path: "Manage account" -> "SSH keys" -> "Add key".
+    - Set name of record like named your server, to easy identify it in future.
 
 
 I also use following apps to serve needs of my websites:
