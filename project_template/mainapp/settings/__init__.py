@@ -40,12 +40,22 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'south',
 
+    'bicycle.cache',
     'bicycle.carousel',
     'bicycle.core',
     'bicycle.feedback',
     'bicycle.futuremessage',
     'bicycle.news',
 )
+
+if DEBUG:
+    INSTALLED_APPS += (
+        # If you're using Django 1.7.x or later
+        # 'debug_toolbar.apps.DebugToolbarConfig',
+        # If you're using Django 1.6.x or earlier
+        'debug_toolbar',
+        'template_timings_panel',
+    )
 
 MIDDLEWARE_CLASSES = MC + (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

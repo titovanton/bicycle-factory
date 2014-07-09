@@ -82,6 +82,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         sudo apt-get install git -y
         sudo apt-get install python2.7-dev -y
         sudo apt-get install python-pip -y
+        sudo apt-get install libjpeg-dev -y
         sudo pip install --upgrade pip
 
 2. virtualenv, virtualenvwrapper and bicycle-factory:
@@ -100,6 +101,17 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         sudo apt-get install nginx -y
         sudo pip install uwsgi
 
+    To increase server_names_hash_bucket_size execute the following row:
+
+        sudo sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" \
+                 -i /etc/nginx/nginx.conf
+
+    Why? Becouse if you did not do it, you will can not write the follow in nginx config file:
+
+        server_name example.com example.net forum.example.com example.org blog.example.com
+
+    It is too much for defaults...
+
 3. setting up uWSGI in Emperor mode:
         
         sudo mkdir -p /var/log/uwsgi
@@ -108,11 +120,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         sudo chmod -R 774 /var/log/uwsgi
         cp /webapps/envs/templates/uwsgi_params /webapps/server/
         sudo nano /etc/rc.local
-
-    then add the folowing line before `exite 0`:
-
-        /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log
-
+        sudo sed -e "s;exit 0;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g" -i /etc/rc.local
 
 4. PostgreSQL, python bindings and so on:
 
@@ -172,10 +180,18 @@ If you use SSH connection when interactiong with GitHub(Bitbucket), you will nee
     - On Bitbucket follow the path: "Manage account" -> "SSH keys" -> "Add key".
     - Set name of record like named your server, to easy identify it in future.
 
+You can save postgres and others users passwords in .pgpass for easy access to psql, but! It's fine if you do it on your local machine and it's not safe on production.
+
+2. .pgpass for easy access to psql:
+
+        # hostname:port:database:username:password
+        echo '*:*:*:username:password' >> ~/.pgpass
+        sudo chmod 600 ~/.pgpass
+
 
 I also use following apps to serve needs of my websites:
 
-2. [Redis](http://redis.io/ "Redis"):
+3. [Redis](http://redis.io/ "Redis"):
 
         sudo apt-get install redis-server -y
 
@@ -185,10 +201,10 @@ I also use following apps to serve needs of my websites:
 
     for example, if you want to set password:
 
-        sudo sed -e "s;# requirepass foobared;requirepass <password>;g" \
+        sudo sed -e "s/# requirepass foobared/requirepass <password>/g" \
                  -i /etc/redis/redis.conf
 
-3. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
+4. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
 
         sudo apt-get install openjdk-7-jre-headless -y
         mkdir -p $HOME/src
@@ -199,24 +215,38 @@ I also use following apps to serve needs of my websites:
         # enable russian morphology support
         sudo /usr/share/elasticsearch/bin/plugin -install analysis-morphology -url http://dl.bintray.com/content/imotov/elasticsearch-plugins/org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/elasticsearch-analysis-morphology-1.2.0.zip
         sudo update-rc.d elasticsearch defaults 95 10
+        # bind only 127.0.0.1
+        sudo sed -e "s/^# network\.host: .*$/network.host: 127.0.0.1/g" \
+                 -i /etc/elasticsearch/elasticsearch.yml
+        sudo service elasticsearch restart
 
-4. Image librarie(if Pillow does not enough):
+5. Image librarie(if Pillow does not enough):
 
         sudo apt-get install imagemagick -y
 
-5. Less:
+6. Less:
 
         sudo apt-get install node-less -y
 
-6. Cach:
+7. Cach:
 
     I use [memcached](http://memcached.org/ "memcached"), in this case:
 
         sudo apt-get install memcached -y
 
+8. Iptables
+    
+    a) at local machine and jump c), else jump b):
+        sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
+    b) at production:
+        sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
+    c) launch and add to rc.local:
+        sudo /etc/network/iptables_ruls.sh
+        sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
+
 ## Reboot
 
-Reboot Ubuntu to lunch uWSGI, ElasticSearch, reload PostgreSQL and checkout virtualenvwrapper works fine:
+Reboot Ubuntu to launch uWSGI, ElasticSearch, reload PostgreSQL and checkout virtualenvwrapper works fine:
     
     sudo reboot
 
