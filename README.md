@@ -238,16 +238,16 @@ I also use following apps to serve needs of my websites:
     
     1) at local machine and jump to 3), else jump to 2):
 
-            sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
+        sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
 
     2) at production:
 
-            sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
+        sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
 
     3) launch and add to rc.local:
 
-            sudo /etc/network/iptables_ruls.sh
-            sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
+        sudo /etc/network/iptables_ruls.sh
+        sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
 
 ## Reboot
 
