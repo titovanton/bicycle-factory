@@ -236,7 +236,7 @@ I also use following apps to serve needs of my websites:
 
 8. Iptables
     
-    1) at local machine and jump c), else jump b):
+    1) at local machine and jump to 3), else jump to 2):
 
             sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
 
