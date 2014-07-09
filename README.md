@@ -236,15 +236,15 @@ I also use following apps to serve needs of my websites:
 
 8. Iptables
     
-    * at local machine and jump c), else jump b):
+    1) at local machine and jump c), else jump b):
 
             sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
 
-    * at production:
+    2) at production:
 
             sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
 
-    - launch and add to rc.local:
+    3) launch and add to rc.local:
 
             sudo /etc/network/iptables_ruls.sh
             sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
