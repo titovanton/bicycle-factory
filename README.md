@@ -74,7 +74,7 @@ Do not forget to set permissions:
 On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 0. Update and upgrade Ubuntu:
-        
+
         sudo apt-get update; sudo apt-get upgrade -y
 
 1. git, python2.7-dev and pip:
@@ -96,7 +96,22 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
         echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
-3. nginx and uWSGI:
+3. Iptables
+
+    1) at local machine and jump to 3), else jump to 2):
+
+        sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
+
+    2) at production:
+
+        sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
+
+    3) launch and add to rc.local:
+
+        sudo /etc/network/iptables_ruls.sh
+        sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
+
+4. nginx and uWSGI:
 
         sudo apt-get install nginx -y
         sudo pip install uwsgi
@@ -112,7 +127,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
     It is too much for defaults...
 
-3. setting up uWSGI in Emperor mode:
+5. setting up uWSGI in Emperor mode:
         
         sudo mkdir -p /var/log/uwsgi
         sudo mkdir -p /etc/uwsgi/vassals
@@ -122,13 +137,13 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         sudo nano /etc/rc.local
         sudo sed -e "s;exit 0;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g" -i /etc/rc.local
 
-4. PostgreSQL, python bindings and so on:
+6. PostgreSQL, python bindings and so on:
 
         sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2 -y
         sudo apt-get install postgresql postgresql-client -y
         sudo apt-get install postgresql-server-dev-9.3 -y
 
-5. Set password for postgres user (like root in MySQL):
+7. Set password for postgres user (like root in MySQL):
 
         sudo -u postgres psql postgres
 
@@ -233,21 +248,6 @@ I also use following apps to serve needs of my websites:
     I use [memcached](http://memcached.org/ "memcached"), in this case:
 
         sudo apt-get install memcached -y
-
-8. Iptables
-    
-    1) at local machine and jump to 3), else jump to 2):
-
-        sudo cp /webapps/envs/templates/iptables_local.sh /etc/network/iptables_ruls.sh
-
-    2) at production:
-
-        sudo cp /webapps/envs/templates/iptables_production.sh /etc/network/iptables_ruls.sh
-
-    3) launch and add to rc.local:
-
-        sudo /etc/network/iptables_ruls.sh
-        sudo sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
 
 ## Reboot
 
