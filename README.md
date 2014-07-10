@@ -112,7 +112,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
         sudo apt-get install nginx -y; \
         sudo pip install uwsgi; \
-        # To increase server_names_hash_bucket_size execute the following row:
+        # To increase server_names_hash_bucket_size execute the following row: \
         sudo sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" \
                  -i /etc/nginx/nginx.conf
 
@@ -168,7 +168,8 @@ If you use SSH connection when interactiong with GitHub(Bitbucket), you will nee
 
     Check the directory listing to see if you have files named either id_rsa.pub or id_dsa.pub.
     
-        cd ~/.ssh
+        mkdir -p ~/.ssh; \
+        cd ~/.ssh; \
         ls -al
 
     If you already have it - add it on your hub account. Else:
@@ -177,7 +178,7 @@ If you use SSH connection when interactiong with GitHub(Bitbucket), you will nee
 
     and follow the quest... Then add your new key to the ssh-agent:
 
-        # start the ssh-agent in the background
+        # start the ssh-agent in the background \
         eval `ssh-agent -s`; \
         ssh-add ~/.ssh/id_rsa
 
@@ -192,7 +193,7 @@ You can save postgres and others users passwords in .pgpass for easy access to p
 
 2. .pgpass for easy access to psql:
 
-        # hostname:port:database:username:password
+        # hostname:port:database:username:password \
         echo '*:*:*:username:password' >> ~/.pgpass; \
         sudo chmod 600 ~/.pgpass
 
@@ -202,9 +203,9 @@ I also use following apps to serve needs of my websites:
 3. [Redis](http://redis.io/ "Redis"):
 
         sudo apt-get install redis-server -y; \
-        # if you want change some settings, make a backup first:
+        # if you want change some settings, make a backup first: \
         sudo cp /etc/redis/redis.conf /etc/redis/redis.conf.default; \
-        # for example, if you want to set password:
+        # for example, if you want to set password: \
         sudo sed -e "s/# requirepass foobared/requirepass <password>/g" \
                  -i /etc/redis/redis.conf
 
@@ -213,17 +214,17 @@ I also use following apps to serve needs of my websites:
         sudo apt-get install openjdk-7-jre-headless -y; \
         mkdir -p $HOME/src; \
         cd $HOME/src; \
-        # v1.1.1 works fine for me:
+        # v1.1.1 works fine for me: \
         wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.deb; \
         sudo dpkg -i elasticsearch-1.1.1.deb; \
-        # enable russian morphology support
+        # enable russian morphology support \
         sudo /usr/share/elasticsearch/bin/plugin \
             -install analysis-morphology \
             -url http://dl.bintray.com/content/imotov/elasticsearch-plugins/\
             org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/\
             elasticsearch-analysis-morphology-1.2.0.zip; \
         sudo update-rc.d elasticsearch defaults 95 10; \
-        # bind only 127.0.0.1
+        # bind only 127.0.0.1 \
         sudo sed -e "s/^# network\.host: .*$/network.host: 127.0.0.1/g" \
                  -i /etc/elasticsearch/elasticsearch.yml; \
         sudo service elasticsearch restart
