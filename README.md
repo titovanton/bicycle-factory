@@ -114,7 +114,8 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         sudo pip install uwsgi; \
         # To increase server_names_hash_bucket_size execute the following row: \
         sudo sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" \
-                 -i /etc/nginx/nginx.conf
+                 -i /etc/nginx/nginx.conf; \
+        sudo service nginx restart
 
     Why did we increase it? Becouse if you did not do it, you will can not write the follow in nginx config file:
 
@@ -207,7 +208,8 @@ I also use following apps to serve needs of my websites:
         sudo cp /etc/redis/redis.conf /etc/redis/redis.conf.default; \
         # for example, if you want to set password: \
         sudo sed -e "s/# requirepass foobared/requirepass <password>/g" \
-                 -i /etc/redis/redis.conf
+                 -i /etc/redis/redis.conf; \
+        sudo service redis-server restart
 
 4. [ElasticSearch](http://www.elasticsearch.org/ "ElasticSearch"):
 
