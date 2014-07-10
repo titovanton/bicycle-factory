@@ -59,7 +59,7 @@ But if you dont - follow steps of this section:
     sudo pip install virtualenvwrapper; \
     export WORKON_HOME=/webapps/envs; \
     sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-    sudo $WORKON_HOME/template/get_up_ubuntu.sh
+    sudo $WORKON_HOME/templates/get_up_ubuntu.sh
 
 # Step by step
 
