@@ -48,7 +48,7 @@ Sometimes, 3d line float to the right side of 1t line, I don't know how to fix i
 ## Fast
 
 You can do all jobs step by steb, if you want.
-But if you dont - follow steps of this section (as root):
+But if you dont - follow steps of this section:
 
     sudo apt-get update; apt-get upgrade -y; \
     sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
