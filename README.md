@@ -60,7 +60,8 @@ You should creat the following, for works properly:
 
 execute following commands:
 
-    sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal /webapps/django/static /webapps/django/media 
+    sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+        /webapps/django/static /webapps/django/media 
 
 Internal - read the doc: [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
 
@@ -78,18 +79,18 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 1. git, python2.7-dev and pip:
 
-        sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev
+        sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
         sudo pip install --upgrade pip
 
 2. virtualenv, virtualenvwrapper and bicycle-factory:
 
-        sudo pip install virtualenv
-        sudo pip install virtualenvwrapper
-        export WORKON_HOME=/webapps/envs
-        git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME
-        sudo chown -R $USER:www-data $WORKON_HOME
-        source /usr/local/bin/virtualenvwrapper.sh
-        echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
+        sudo pip install virtualenv; \
+        sudo pip install virtualenvwrapper; \
+        export WORKON_HOME=/webapps/envs; \
+        git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
+        sudo chown -R $USER:www-data $WORKON_HOME; \
+        source /usr/local/bin/virtualenvwrapper.sh; \
+        echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc; \
         echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 
 3. Iptables
@@ -125,13 +126,15 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 5. setting up uWSGI in Emperor mode:
         
-        sudo mkdir -p /var/log/uwsgi
-        sudo mkdir -p /etc/uwsgi/vassals
-        sudo chown -R $USER:www-data /var/log/uwsgi
-        sudo chmod -R 774 /var/log/uwsgi
-        cp /webapps/envs/templates/uwsgi_params /webapps/server/
-        sudo nano /etc/rc.local
-        sudo sed -e "s;exit 0;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g" -i /etc/rc.local
+        sudo mkdir -p /var/log/uwsgi; \
+        sudo mkdir -p /etc/uwsgi/vassals; \
+        sudo chown -R $USER:www-data /var/log/uwsgi; \
+        sudo chmod -R 774 /var/log/uwsgi; \
+        cp /webapps/envs/templates/uwsgi_params /webapps/server/; \
+        sudo sed -e "s;exit 0;\
+            /usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals \
+            --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g" \
+            -i /etc/rc.local
 
 6. PostgreSQL, python bindings and so on:
 
