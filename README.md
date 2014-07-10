@@ -60,8 +60,7 @@ You should creat the following, for works properly:
 
 execute following commands:
 
-    sudo mkdir -p /webapps/envs /webapps/server
-    sudo mkdir -p /webapps/django/internal /webapps/django/static /webapps/django/media 
+    sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal /webapps/django/static /webapps/django/media 
 
 Internal - read the doc: [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
 
@@ -79,10 +78,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 1. git, python2.7-dev and pip:
 
-        sudo apt-get install git -y
-        sudo apt-get install python2.7-dev -y
-        sudo apt-get install python-pip -y
-        sudo apt-get install libjpeg-dev -y
+        sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev
         sudo pip install --upgrade pip
 
 2. virtualenv, virtualenvwrapper and bicycle-factory:
@@ -139,9 +135,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 6. PostgreSQL, python bindings and so on:
 
-        sudo apt-get install curl build-essential openssl libssl-dev python-psycopg2 -y
-        sudo apt-get install postgresql postgresql-client -y
-        sudo apt-get install postgresql-server-dev-9.3 -y
+        sudo apt-get install -y curl build-essential openssl libssl-dev python-psycopg2 postgresql postgresql-client postgresql-server-dev-9.3
 
 7. Set password for postgres user (like root in MySQL):
 
