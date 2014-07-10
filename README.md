@@ -57,11 +57,11 @@ But if you dont - follow steps of this section:
     sudo pip install --upgrade pip; \
     sudo pip install virtualenv; \
     sudo pip install virtualenvwrapper; \
-    sudo export WORKON_HOME=/webapps/envs; \
+    export WORKON_HOME=/webapps/envs; \
     sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
     sudo $WORKON_HOME/template/get_up_ubuntu.sh
 
-#Step by step
+# Step by step
 
 ## Prepare
 
