@@ -45,6 +45,24 @@ and you will see the following dialog:
 
 Sometimes, 3d line float to the right side of 1t line, I don't know how to fix it...
 
+## Fast
+
+You can do all jobs step by steb, if you want.
+But if you dont - follow steps of this section (as root):
+
+    apt-get update; apt-get upgrade -y; \
+    mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+        /webapps/django/static /webapps/django/medi; \
+    apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
+    pip install --upgrade pip
+    pip install virtualenv; \
+    pip install virtualenvwrapper; \
+    export WORKON_HOME=/webapps/envs; \
+    git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
+    $WORKON_HOME/template/get_up_ubuntu.sh
+
+#Step by step
+
 ## Prepare
 
 You should creat the following, for works properly:
@@ -238,7 +256,7 @@ I also use following apps to serve needs of my websites:
         sudo update-rc.d elasticsearch defaults 95 10
         
     bind only 127.0.0.1
-    
+
         sudo sed -e "s/^# network\.host: .*$/network.host: 127.0.0.1/g" \
                  -i /etc/elasticsearch/elasticsearch.yml; \
         sudo service elasticsearch restart
