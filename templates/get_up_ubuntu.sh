@@ -76,17 +76,21 @@ if [[ $ADDUSER == 'yes' || $ADDUSER == 'y' || $ADDUSER == '' ]]; then
 fi
 
 # ssh key
-mkdir -p /home/$USER_NAME/.ssh
-cd /home/$USER_NAME/.ssh
-ssh-keygen -t rsa -C "$EMAIL"
-eval `ssh-agent -s`
-ssh-add /home/$USER_NAME/.ssh/id_rsa
-chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.ssh
+if [ ! -f /home/$USER_NAME/.ssh/id_rsa ]; then
+    mkdir -p /home/$USER_NAME/.ssh
+    cd /home/$USER_NAME/.ssh
+    ssh-keygen -t rsa -C "$EMAIL"
+    eval `ssh-agent -s`
+    ssh-add /home/$USER_NAME/.ssh/id_rsa
+    chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.ssh
+fi
 
 # postgresql
 apt-get install -y curl build-essential openssl libssl-dev \
     python-psycopg2 postgresql postgresql-client postgresql-server-dev-$vPSQL
 echo "Launch the command: \"\password postgres\" and enter password"
+sed -e "s/local *all *all *password//g" \
+    -i /etc/postgresql/$vPSQL/main/pg_hba.conf
 sudo -u postgres psql
 sed -e "s/command line switches\./command line switches.\n\nlocal all all password/" \
     -i /etc/postgresql/$vPSQL/main/pg_hba.conf
@@ -106,13 +110,15 @@ echo "export WORKON_HOME=$WORKON_HOME" >> /home/$USER_NAME/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USER_NAME/.bashrc
 
 # iptables
-if $PRODUCTION; then
-    cp $WORKON_HOME/templates/iptables_production.sh /etc/network/iptables_ruls.sh
-else
-    cp $WORKON_HOME/templates/iptables_local.sh /etc/network/iptables_ruls.sh
-fi
+if [ ! -f /etc/network/iptables_ruls.sh ]; then
+    if $PRODUCTION; then
+        cp $WORKON_HOME/templates/iptables_production.sh /etc/network/iptables_ruls.sh
+    else
+        cp $WORKON_HOME/templates/iptables_local.sh /etc/network/iptables_ruls.sh
+    fi
 /etc/network/iptables_ruls.sh
 sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
+fi
 
 # nginx uwsgi
 apt-get install nginx -y
