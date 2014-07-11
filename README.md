@@ -50,16 +50,31 @@ Sometimes, 3d line float to the right side of 1t line, I don't know how to fix i
 You can do all jobs step by steb, if you want.
 But if you dont - follow steps of this section:
 
-    sudo apt-get update; apt-get upgrade -y; \
-    sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
-        /webapps/django/static /webapps/django/medi; \
-    sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
-    sudo pip install --upgrade pip; \
-    sudo pip install virtualenv; \
-    sudo pip install virtualenvwrapper; \
-    export WORKON_HOME=/webapps/envs; \
-    sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-    sudo $WORKON_HOME/templates/get_up_ubuntu.sh
+* For root:
+
+        apt-get update; apt-get upgrade -y; \
+        mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+            /webapps/django/static /webapps/django/medi; \
+        apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
+        pip install --upgrade pip; \
+        pip install virtualenv; \
+        pip install virtualenvwrapper; \
+        export WORKON_HOME=/webapps/envs; \
+        git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
+        $WORKON_HOME/templates/get_up_ubuntu.sh
+
+* For sudo user:
+
+        sudo apt-get update; apt-get upgrade -y; \
+        sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+            /webapps/django/static /webapps/django/medi; \
+        sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
+        sudo pip install --upgrade pip; \
+        sudo pip install virtualenv; \
+        sudo pip install virtualenvwrapper; \
+        export WORKON_HOME=/webapps/envs; \
+        sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
+        sudo $WORKON_HOME/templates/get_up_ubuntu.sh
 
 # Step by step
 
