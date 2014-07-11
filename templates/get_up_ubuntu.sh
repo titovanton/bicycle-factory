@@ -69,11 +69,6 @@ read -p "Enter name of your user (default: titovanton): " USER_NAME
 if [[ $USER_NAME == '' ]]; then
     USER_NAME=titovanton
 fi
-read -p "Would you like to create $USER_NAME (yes/no, default: yes)? " ADDUSER
-if [[ $ADDUSER == 'yes' || $ADDUSER == 'y' || $ADDUSER == '' ]]; then
-    adduser $USER_NAME
-    adduser $USER_NAME sudo
-fi
 
 # ssh key
 if [ ! -f /home/$USER_NAME/.ssh/id_rsa ]; then

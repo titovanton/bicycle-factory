@@ -61,7 +61,18 @@ But if you dont - follow steps of this section:
         pip install virtualenvwrapper; \
         export WORKON_HOME=/webapps/envs; \
         git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-        $WORKON_HOME/templates/get_up_ubuntu.sh
+        read -p "Enter name of your user (default: titovanton): " USER_NAME; \
+        if [[ $USER_NAME == '' ]]; then \
+            USER_NAME=titovanton; \
+        fi; \
+        adduser $USER_NAME; \
+        adduser $USER_NAME sudo; \
+        exit
+
+    Now login by your user and execute:
+    
+        export WORKON_HOME=/webapps/envs; \
+        sudo $WORKON_HOME/templates/get_up_ubuntu.sh
 
 * For sudo user:
 
