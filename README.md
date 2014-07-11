@@ -175,7 +175,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
 
 4. nginx and uWSGI:
 
-        sudo apt-get install nginx -y; \
+        sudo apt-get install libpcre3 libpcre3-dev nginx -y; \
         sudo pip install uwsgi
 
     To increase server_names_hash_bucket_size execute the following row:
