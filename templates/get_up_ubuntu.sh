@@ -102,7 +102,7 @@ sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
 fi
 
 # nginx uwsgi
-apt-get install nginx -y
+apt-get install libpcre3 libpcre3-dev nginx -y
 pip install uwsgi
 sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" -i /etc/nginx/nginx.conf
 
