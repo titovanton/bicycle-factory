@@ -18,18 +18,17 @@ if [[ $vPSQL == '' ]]; then
     vPSQL=9.3
 fi
 
-REDIS_PASSWORD=''
-while [[ $REDIS_PASSWORD == '' ]]; do
-    read -s -p "Enter redis password: " REDIS_PASSWORD
-    echo
-done
-
 read -p "Would you like to install Redis (yes/no, default: yes)?" REDIS
 if [[ $REDIS == 'no' || $REDIS == 'n' ]]; then
     REDIS=false
 fi
 if [[ $REDIS == 'yes' || $REDIS == 'y' || $REDIS == '' ]]; then
     REDIS=true
+    REDIS_PASSWORD=''
+    while [[ $REDIS_PASSWORD == '' ]]; do
+        read -s -p "Enter redis password: " REDIS_PASSWORD
+        echo
+    done
 fi
 
 read -p "Would you like to install ElasticSearch (yes/no, default: yes)?" ELASTICSEARCH
@@ -88,7 +87,7 @@ chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.ssh
 apt-get install -y curl build-essential openssl libssl-dev \
     python-psycopg2 postgresql postgresql-client postgresql-server-dev-$vPSQL
 echo "Launch the command: \"\password postgres\" and enter password"
-psql postgres
+sudo -u postgres psql
 sed -e "s/command line switches\./command line switches.\n\nlocal all all password/" \
     -i /etc/postgresql/$vPSQL/main/pg_hba.conf
 PG_PASSWORD=''
