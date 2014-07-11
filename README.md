@@ -59,8 +59,6 @@ But if you dont - follow steps of this section:
         pip install --upgrade pip; \
         pip install virtualenv; \
         pip install virtualenvwrapper; \
-        export WORKON_HOME=/webapps/envs; \
-        git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
         read -p "Enter name of your user (default: titovanton): " USER_NAME; \
         if [[ $USER_NAME == '' ]]; then \
             USER_NAME=titovanton; \
@@ -70,9 +68,21 @@ But if you dont - follow steps of this section:
         exit
 
     Now login by your user and execute:
-    
+
+        if [ ! -f /home/$USER/.ssh/id_rsa ]; then
+            read -p "Enter your email (default: mail@titovanton.com): " EMAIL
+            if [[ $EMAIL == '' ]]; then
+                EMAIL=mail@titovanton.com
+            fi
+            mkdir -p /home/$USER/.ssh
+            cd /home/$USER/.ssh
+            ssh-keygen -t rsa -C "$EMAIL"
+            eval `ssh-agent -s`
+            ssh-add /home/$USER/.ssh/id_rsa
+        fi
         export WORKON_HOME=/webapps/envs; \
-        sudo $WORKON_HOME/templates/get_up_ubuntu.sh
+        sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
+        sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
 
 * For sudo user:
 
@@ -83,9 +93,20 @@ But if you dont - follow steps of this section:
         sudo pip install --upgrade pip; \
         sudo pip install virtualenv; \
         sudo pip install virtualenvwrapper; \
+        if [ ! -f /home/$USER/.ssh/id_rsa ]; then
+            read -p "Enter your email (default: mail@titovanton.com): " EMAIL
+            if [[ $EMAIL == '' ]]; then
+                EMAIL=mail@titovanton.com
+            fi
+            mkdir -p /home/$USER/.ssh
+            cd /home/$USER/.ssh
+            ssh-keygen -t rsa -C "$EMAIL"
+            eval `ssh-agent -s`
+            ssh-add /home/$USER/.ssh/id_rsa
+        fi
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-        sudo $WORKON_HOME/templates/get_up_ubuntu.sh
+        sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
 
 # Step by step
 

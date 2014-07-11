@@ -1,16 +1,18 @@
 #!/bin/bash
 
+if [[ $# -ne 1 ]]; then
+    echo "Usage: ./get_up_ubuntu.sh <user>"
+    exit 1
+else
+    USER_NAME=$1
+fi
+
 read -p "Is it production (yes/no, default: yes)? " PRODUCTION
 if [[ $PRODUCTION == 'no' || $PRODUCTION == 'n' ]]; then
     PRODUCTION=false
 fi
 if [[ $PRODUCTION == 'yes' || $PRODUCTION == 'y' || $PRODUCTION == '' ]]; then
     PRODUCTION=true
-fi
-
-read -p "Enter your email (default: mail@titovanton.com): " EMAIL
-if [[ $EMAIL == '' ]]; then
-    EMAIL=mail@titovanton.com
 fi
 
 read -p "Enter PostgreSQL version (default: 9.3): " vPSQL
@@ -63,22 +65,6 @@ if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y' || $MEMCACHED == '' ]]; then
     MEMCACHED=true
 fi
 
-
-# user
-read -p "Enter name of your user (default: titovanton): " USER_NAME
-if [[ $USER_NAME == '' ]]; then
-    USER_NAME=titovanton
-fi
-
-# ssh key
-if [ ! -f /home/$USER_NAME/.ssh/id_rsa ]; then
-    mkdir -p /home/$USER_NAME/.ssh
-    cd /home/$USER_NAME/.ssh
-    ssh-keygen -t rsa -C "$EMAIL"
-    eval `ssh-agent -s`
-    ssh-add /home/$USER_NAME/.ssh/id_rsa
-    chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.ssh
-fi
 
 # postgresql
 apt-get install -y curl build-essential openssl libssl-dev \
