@@ -54,11 +54,8 @@ But if you dont - follow steps of this section:
 
         apt-get update; apt-get upgrade -y; \
         mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
-            /webapps/django/static /webapps/django/medi; \
-        apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
-        pip install --upgrade pip; \
-        pip install virtualenv; \
-        pip install virtualenvwrapper; \
+            /webapps/django/static /webapps/django/media; \
+        apt-get install -y git; \
         read -p "Enter name of your user (default: titovanton): " USER_NAME; \
         if [[ $USER_NAME == '' ]]; then \
             USER_NAME=titovanton; \
@@ -88,11 +85,8 @@ But if you dont - follow steps of this section:
 
         sudo apt-get update; apt-get upgrade -y; \
         sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
-            /webapps/django/static /webapps/django/medi; \
-        sudo apt-get install -y git python2.7-dev python-pip libjpeg-dev; \
-        sudo pip install --upgrade pip; \
-        sudo pip install virtualenv; \
-        sudo pip install virtualenvwrapper; \
+            /webapps/django/static /webapps/django/media; \
+        sudo apt-get install -y git; \
         if [ ! -f /home/$USER/.ssh/id_rsa ]; then
             read -p "Enter your email (default: mail@titovanton.com): " EMAIL
             if [[ $EMAIL == '' ]]; then

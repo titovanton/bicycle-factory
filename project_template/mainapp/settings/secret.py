@@ -10,8 +10,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = '{{ secret_key }}'
 
-ALLOWED_HOSTS = ['{{ project_name }}.com', 'www.{{ project_name }}.com',
-                 '{{ project_name }}.ru', 'www.{{ project_name }}.ru',]
+ALLOWED_HOSTS = ['.{{ project_name }}.com', '.{{ project_name }}.ru',]
 
 DATABASES = {
     'default': {
