@@ -95,7 +95,7 @@ echo "export WORKON_HOME=$WORKON_HOME" >> /home/$USER_NAME/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USER_NAME/.bashrc
 
 # iptables
-if [ ! -f /etc/network/iptables_ruls.sh ]; then
+if [ ! -f /etc/network/if-up.d/iptables-rules ]; then
     if $PRODUCTION; then
         $WORKON_HOME/templates/iptables_production.sh
     else
