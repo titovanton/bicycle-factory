@@ -97,12 +97,13 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USER_NAME/.bashrc
 # iptables
 if [ ! -f /etc/network/iptables_ruls.sh ]; then
     if $PRODUCTION; then
-        cp $WORKON_HOME/templates/iptables_production.sh /etc/network/iptables_ruls.sh
+        $WORKON_HOME/templates/iptables_production.sh
     else
-        cp $WORKON_HOME/templates/iptables_local.sh /etc/network/iptables_ruls.sh
+        $WORKON_HOME/templates/iptables_local.sh
     fi
-/etc/network/iptables_ruls.sh
-sed -e "s;exit 0;/etc/network/iptables_ruls.sh\n\nexit 0;g" -i /etc/rc.local
+    echo '#!/sbin/iptables-restore' > /etc/network/if-up.d/iptables-rules
+    iptables-save >> /etc/network/if-up.d/iptables-rules
+    chmod +x /etc/network/if-up.d/iptables-rules
 fi
 
 # nginx uwsgi
