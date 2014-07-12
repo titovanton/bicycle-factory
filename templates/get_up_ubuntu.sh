@@ -117,7 +117,7 @@ mkdir -p /etc/uwsgi/vassals
 chown -R $USER_NAME:www-data /var/log/uwsgi
 chmod -R 774 /var/log/uwsgi
 cp $WORKON_HOME/templates/uwsgi_params /webapps/server/
-PTRN="s;exit 0;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g"
+PTRN="s;^exit 0$;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g"
 sed -e "$PTRN" -i /etc/rc.local
 
 # redis
