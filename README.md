@@ -66,17 +66,17 @@ But if you dont - follow steps of this section:
 
     Now login by your user and execute:
 
-        if [ ! -f /home/$USER/.ssh/id_rsa ]; then
-            read -p "Enter your email (default: mail@titovanton.com): " EMAIL
-            if [[ $EMAIL == '' ]]; then
-                EMAIL=mail@titovanton.com
-            fi
-            mkdir -p /home/$USER/.ssh
-            cd /home/$USER/.ssh
-            ssh-keygen -t rsa -C "$EMAIL"
-            eval `ssh-agent -s`
-            ssh-add /home/$USER/.ssh/id_rsa
-        fi
+        if [ ! -f /home/$USER/.ssh/id_rsa ]; then \
+            read -p "Enter your email (default: mail@titovanton.com): " EMAIL; \
+            if [[ $EMAIL == '' ]]; then \
+                EMAIL=mail@titovanton.com; \
+            fi; \
+            mkdir -p /home/$USER/.ssh; \
+            cd /home/$USER/.ssh; \
+            ssh-keygen -t rsa -C "$EMAIL"; \
+            eval `ssh-agent -s`; \
+            ssh-add /home/$USER/.ssh/id_rsa; \
+        fi; \
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
         sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
@@ -87,17 +87,17 @@ But if you dont - follow steps of this section:
         sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
             /webapps/django/static /webapps/django/media; \
         sudo apt-get install -y git; \
-        if [ ! -f /home/$USER/.ssh/id_rsa ]; then
-            read -p "Enter your email (default: mail@titovanton.com): " EMAIL
-            if [[ $EMAIL == '' ]]; then
-                EMAIL=mail@titovanton.com
-            fi
-            mkdir -p /home/$USER/.ssh
-            cd /home/$USER/.ssh
-            ssh-keygen -t rsa -C "$EMAIL"
-            eval `ssh-agent -s`
-            ssh-add /home/$USER/.ssh/id_rsa
-        fi
+        if [ ! -f /home/$USER/.ssh/id_rsa ]; then \
+            read -p "Enter your email (default: mail@titovanton.com): " EMAIL; \
+            if [[ $EMAIL == '' ]]; then \
+                EMAIL=mail@titovanton.com; \
+            fi; \
+            mkdir -p /home/$USER/.ssh; \
+            cd /home/$USER/.ssh; \
+            ssh-keygen -t rsa -C "$EMAIL"; \
+            eval `ssh-agent -s`; \
+            ssh-add /home/$USER/.ssh/id_rsa; \
+        fi; \
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
         sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
