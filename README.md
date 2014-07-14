@@ -79,7 +79,7 @@ But if you dont - follow steps of this section:
         fi; \
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-        sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
+        sudo -E $WORKON_HOME/templates/get_up_ubuntu.sh $USER
 
 * For sudo user:
 
@@ -100,7 +100,7 @@ But if you dont - follow steps of this section:
         fi; \
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
-        sudo $WORKON_HOME/templates/get_up_ubuntu.sh $USER
+        sudo -E $WORKON_HOME/templates/get_up_ubuntu.sh $USER
 
 # Step by step
 
