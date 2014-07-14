@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source $WORKON_HOME/_config.sh
+source $WORKON_HOME/_core.cfg.sh
+source $GIT_SUBMODULES
 
 # requirements
 pip install -r $PROJECT_DIR/requirements.pip

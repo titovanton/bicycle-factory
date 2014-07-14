@@ -1,28 +1,5 @@
 #!/bin/bash
 
-# PostgreSQL
-PG_HOST=localhost
-PG_SU=postgres
-DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
-
-# Unix user
-UNIX_USER=$USER
-
-# Git
-GIT_USER=$USER
-GIT_EMAIL=mail@titovanton.com
-
-# Install apps and libs
-TW_BOOTSTRAP=true
-BICYCLE=true
-JS_CAROUSEL=true
-FANCYBOX=true
-JS_PRINT=true
-
-# Bicycle
-BICYCLE_URL=git@github.com:titovanton/bicycle-submodule.git
-# BICYCLE_URL=https://github.com/titovanton/bicycle-submodule.git
-
 # Catalogs tree
 WEBAPPS=/webapps
 TEMPLATES=$WORKON_HOME/templates
@@ -44,3 +21,6 @@ BOOTSTRAP_SED=$PROJECT_DIR/libs/bootstrap/less/
 UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DUMMY_ROOT=$WEBAPPS/dummy/$PROJECT_NAME
 LIBS=libs
+
+GIT_SUBMODULES=$PROJECT_DIR/_submodules.cfg.sh
+PIP_PACKAGES=$PROJECT_DIR/_packages.cfg.pip

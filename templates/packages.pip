@@ -1,41 +1,15 @@
-
 psycopg2
-
 python-memcached
-
 django-extensions
-
 django-debug-toolbar
 django-debug-toolbar-template-timings
-
 Werkzeug
-
 South==0.8.4
-
 django-grappelli==2.5.0
-
-Wand
 Pillow
 git+git://github.com/mariocesar/sorl-thumbnail.git
-
-# requests
-
-# django-bootstrap3
-
-# qrcode
-
-# django_rq
-
-# django-modeltranslation
-
-# django-recaptcha
-# supercaptcha
-
 redis
 git+git://github.com/comoga/django-constance#egg=django-constance
-
 cssmin
 jsmin
 git+git://github.com/titovanton-com/django-assets.git@stable
-
-# git+git://github.com/toastdriven/django-tastypie.git

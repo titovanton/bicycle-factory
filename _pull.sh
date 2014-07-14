@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source $WORKON_HOME/_config.sh
 source $WORKON_HOME/_prepare.sh
 
 cd $PROJECT_DIR

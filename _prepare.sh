@@ -1,9 +1,15 @@
 #!/bin/bash
 
-source $WORKON_HOME/_config.sh
+source $WORKON_HOME/_core.cfg.sh
+source $GIT_SUBMODULES
 
 # sudo required for settings up nginx and uwsgi
 sudo echo 'Enter sudo passwrod please:'
+
+# Redis db number(name):
+REDIS_DB=$(python $TEMPLATES/redis_db.py $WORKON_HOME/redis_index.json $PROJECT_NAME)
+read -s -p "Enter Redis passwrod please: " REDIS_PWD
+echo
 
 # Create dirs
 mkdir -p $PROJECT_DIR
@@ -22,11 +28,6 @@ fi
 psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT_NAME
 # sudo -u postgres createuser -D -A -R -P $PROJECT_NAME
 # sudo -u postgres createdb -O $PROJECT_NAME $PROJECT_NAME
-
-# Redis db number(name):
-REDIS_DB=$(python $TEMPLATES/redis_db.py $WORKON_HOME/redis_index.json $PROJECT_NAME)
-read -s -p "Enter Redis passwrod please: " REDIS_PWD
-echo
 
 # git
 cd $PROJECT_DIR

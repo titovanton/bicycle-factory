@@ -1,23 +1,4 @@
 #!/bin/bash
 # This hook is run after a new virtualenv is activated.
 
-# MENU
-PS3='Please enter your choice: '
-CREATE_OPT='Create Django project from project_template dir'
-PULL_OPT='Pull Django project from remote git repo'
-QUIT_OPT='Quit: let the environment be empty'
-options=("$CREATE_OPT" "$PULL_OPT" "$QUIT_OPT")
-
-printf '\nVirtual environment has been created successfully!\n'
-printf 'You have to decide what we gonna do next:\n'
-
-select opt in "${options[@]}"
-do
-    case $opt in
-        "$CREATE_OPT") $WORKON_HOME/_create.sh ;;
-        "$PULL_OPT"  ) $WORKON_HOME/_pull.sh ;;
-        "$QUIT_OPT"  ) ;;
-        *            ) echo invalid option ;;
-    esac
-    break
-done
+$WORKON_HOME/_main.sh
