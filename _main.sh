@@ -117,7 +117,8 @@ if $IS_CREATE; then
     git add dashboard.py
     git add .gitignore
     git add .gitmodules
-    git add requirements.pip
+    git add _submodules.cfg.sh
+    git add _packages.cfg.pip
     git commit -m 'first commit'
 fi
 if $IS_PULL; then
