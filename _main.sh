@@ -42,6 +42,7 @@ sudo echo 'Enter sudo passwrod please:'
 
 # DB password
 read -s -p "Enter PostgreSQL password (default: auto)? " DB_PWD
+echo
 if [[ $DB_PWD == '' ]]; then
     DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 fi
