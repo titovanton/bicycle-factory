@@ -50,6 +50,7 @@ fi
 # Redis db number(name):
 REDIS_DB=$(python $TEMPLATES/redis_db.py $WORKON_HOME/redis_index.json $PROJECT_NAME)
 read -s -p "Enter Redis passwrod please: " REDIS_PWD
+echo
 
 # git
 cd $PROJECT_DIR
@@ -121,6 +122,7 @@ if $IS_CREATE; then
 fi
 if $IS_PULL; then
     read -p "Enter git repo please: " GIT_REMOTE
+    echo
 
     # Pull Django project
     git remote add origin $GIT_REMOTE
