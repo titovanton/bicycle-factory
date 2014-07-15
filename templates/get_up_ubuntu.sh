@@ -83,6 +83,7 @@ read -s -p "If you want to save postgres password to /home/$USER_NAME/.pgpass,\
 if [[ $PG_PASSWORD != '' ]]; then
     echo "*:*:*:postgres:$PG_PASSWORD" >> /home/$USER_NAME/.pgpass
     chmod 600 /home/$USER_NAME/.pgpass
+    chown $USER_NAME:$USER_NAME /home/$USER_NAME/.pgpass
 fi
 
 # venv continue
