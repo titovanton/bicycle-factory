@@ -86,11 +86,10 @@ fi
 # fi
 
 # venv continue
-apt-get install -y python2.7-dev python-pip
+apt-get install -y python2.7-dev python-pip libjpeg-dev
 pip install --upgrade pip
-apt-get install libjpeg-dev
-pip install virtualenv
-pip install virtualenvwrapper
+/usr/local/bin/pip install virtualenv
+/usr/local/bin/pip install virtualenvwrapper
 chown -R $USER_NAME:www-data /webapps
 chown -R $USER_NAME:www-data $WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
@@ -111,7 +110,7 @@ fi
 
 # # nginx uwsgi
 # apt-get install libpcre3 libpcre3-dev nginx -y
-# pip install uwsgi
+# /usr/local/bin/pip install uwsgi
 # sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" -i /etc/nginx/nginx.conf
 
 # # emperor
