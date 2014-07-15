@@ -41,7 +41,7 @@ mkdir $VIRTUAL_ENV/src
 sudo echo 'Enter sudo passwrod please:'
 
 # DB password
-read -p -s "Enter PostgreSQL password (default: auto)? " DB_PWD
+read -s -p "Enter PostgreSQL password (default: auto)? " DB_PWD
 if [[ $DB_PWD == '' ]]; then
     DB_PWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32)
 fi
