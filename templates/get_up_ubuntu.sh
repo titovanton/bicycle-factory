@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: samba configure
 
 if [[ ! $WORKON_HOME || $# -ne 1 ]]; then
     echo "Usage:"
@@ -78,8 +79,8 @@ sudo -u postgres psql
 sed -e "s/command line switches\./command line switches.\n\nlocal all all password/" \
     -i /etc/postgresql/$vPSQL/main/pg_hba.conf
 PG_PASSWORD=''
-read -s -p "If you want to save postgres password to /home/$USER_NAME/.pgpass,\
-    then enter password, else leave blank: " PG_PASSWORD
+read -s -p "If you want to save postgres password to /home/$USER_NAME/.pgpass, \
+then enter password, else leave blank: " PG_PASSWORD
 if [[ $PG_PASSWORD != '' ]]; then
     echo "*:*:*:postgres:$PG_PASSWORD" >> /home/$USER_NAME/.pgpass
     chmod 600 /home/$USER_NAME/.pgpass
