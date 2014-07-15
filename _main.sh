@@ -55,14 +55,27 @@ echo
 # git
 cd $PROJECT_DIR
 git init
+if $IS_CREATE; then
+    source $WORKON_HOME/_make_config.sh
+else
+    read -p "Enter git repo please: " GIT_REMOTE
+    echo
+
+    # Pull Django project
+    git remote add origin $GIT_REMOTE
+    git pull origin master
+    git submodule init
+    git submodule update
+
+    source $GIT_SUBMODULES
+fi
 git config --global user.name $GIT_USER
 git config --global user.email $GIT_EMAIL
 git config --global color.ui true
 
-if $IS_CREATE; then
-    source $WORKON_HOME/_make_config.sh
+pip install Django
 
-    pip install Django
+if $IS_CREATE; then
 
     # Start Django project
     django-admin.py startproject --template=$PROJECT_TEMPLATE --extension=py,txt,less $PROJECT_NAME .
@@ -122,19 +135,6 @@ if $IS_CREATE; then
     git commit -m 'first commit'
 fi
 if $IS_PULL; then
-    read -p "Enter git repo please: " GIT_REMOTE
-    echo
-
-    # Pull Django project
-    git remote add origin $GIT_REMOTE
-    git pull origin master
-    git submodule init
-    git submodule update
-
-    source $GIT_SUBMODULES
-
-    pip install Django
-
     cp $PROJECT_TEMPLATE/manage.py ./
     cp $PROJECT_TEMPLATE/$MAINAPP/wsgi.py $MAINAPP/
     SECRET_KEY=$(cat /dev/urandom | tr -cd 'a-f0-9~!@#$%^&*()_+<>?:,.\|-' | head -c 50)
