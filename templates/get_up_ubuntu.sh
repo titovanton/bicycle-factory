@@ -86,10 +86,10 @@ fi
 # fi
 
 # venv continue
-apt-get install -y python2.7-dev python-pip libjpeg-dev
-pip install --upgrade pip
-pip install virtualenv
-pip install virtualenvwrapper
+apt-get install -y python2.7-dev python-pip libjpeg-dev;
+pip install --upgrade pip;
+pip install virtualenv;
+pip install virtualenvwrapper;
 chown -R $USER_NAME:www-data /webapps
 chown -R $USER_NAME:www-data $WORKON_HOME
 source /usr/local/bin/virtualenvwrapper.sh
