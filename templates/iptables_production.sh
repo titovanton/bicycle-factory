@@ -27,7 +27,7 @@ iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 110,99
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 143,993 -j ACCEPT
 
 # mail.smtp, mail.smtps
-iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 25,465 -j ACCEPT
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 25,465,587 -j ACCEPT
 
 # Сюда можно вставлять дополнительные правила для цепочки INPUT
 
