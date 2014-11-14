@@ -5,11 +5,7 @@ WEBAPPS=/webapps
 TEMPLATES=$WORKON_HOME/templates
 PROJECT_TEMPLATE=$WORKON_HOME/project_template
 MAINAPP=mainapp
-if [ -f $WORKON_HOME/name ]; then
-    PROJECT_NAME=$(cat $WORKON_HOME/name)
-else
-    PROJECT_NAME=$@
-fi
+PROJECT_NAME=$(cat $WORKON_HOME/name)
 PROJECT_DIR=$WEBAPPS/django/$PROJECT_NAME
 SERVER=$WEBAPPS/server/$PROJECT_NAME
 STATIC=$WEBAPPS/django/static/$PROJECT_NAME
@@ -22,5 +18,4 @@ UWSGI_PARAMS=$WEBAPPS/server/uwsgi_params
 DUMMY_ROOT=$WEBAPPS/dummy/$PROJECT_NAME
 LIBS=libs
 
-GIT_SUBMODULES=$PROJECT_DIR/_submodules.cfg.sh
-PIP_PACKAGES=$PROJECT_DIR/_packages.cfg.pip
+PIP_PACKAGES=$PROJECT_DIR/requirements.pip

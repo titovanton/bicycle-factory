@@ -27,7 +27,7 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             u'Управление контентом',
             column=1,
-            exclude=('django.contrib.*', 'django_settings.*', 'bicycle.feedback.*'),
+            exclude=('django.contrib.*', 'constance.*'),
         ))
 
         self.children.append(modules.ModelList(

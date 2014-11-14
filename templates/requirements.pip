@@ -1,5 +1,4 @@
 psycopg2
-python-memcached
 django-extensions
 django-debug-toolbar
 django-debug-toolbar-template-timings
@@ -9,6 +8,7 @@ django-grappelli==2.5.0
 Pillow
 git+git://github.com/mariocesar/sorl-thumbnail.git
 redis
+django-redis
 git+git://github.com/comoga/django-constance#egg=django-constance
 cssmin
 jsmin

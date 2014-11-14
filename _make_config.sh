@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $WORKON_HOME/_core.cfg.sh
+source $WORKON_HOME/_config.sh
 
 # PostgreSQL
 read -p "Enter PostgreSQL superuser (default: postgres)? " PG_SU
@@ -80,23 +80,8 @@ if [[ $JS_PRINT == 'yes' || $JS_PRINT == 'y' ]]; then
     JS_PRINT=true
 fi
 
-
-echo "#!/bin/bash\n" > $GIT_SUBMODULES
-echo "PG_SU=$PG_SU" >> $GIT_SUBMODULES
-echo "PG_HOST=$PG_HOST" >> $GIT_SUBMODULES
-echo "UNIX_USER=$UNIX_USER" >> $GIT_SUBMODULES
-echo "GIT_USER=$GIT_USER" >> $GIT_SUBMODULES
-echo "GIT_EMAIL=$GIT_EMAIL" >> $GIT_SUBMODULES
-echo "TW_BOOTSTRAP=$TW_BOOTSTRAP" >> $GIT_SUBMODULES
-echo "BICYCLE=$BICYCLE" >> $GIT_SUBMODULES
-echo "BICYCLE_URL=$BICYCLE_URL" >> $GIT_SUBMODULES
-echo "JS_CAROUSEL=$JS_CAROUSEL" >> $GIT_SUBMODULES
-echo "FANCYBOX=$FANCYBOX" >> $GIT_SUBMODULES
-echo "JS_PRINT=$JS_PRINT" >> $GIT_SUBMODULES
-
-
 # pip
-cp $TEMPLATES/packages.pip $PIP_PACKAGES
+cp $TEMPLATES/requirements.pip $PIP_PACKAGES
 
 # Wand
 read -p "Pip packages: Wand (yes/no, default: no)? " ANSWER

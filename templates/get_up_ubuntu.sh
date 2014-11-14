@@ -112,7 +112,13 @@ fi
 # nginx uwsgi
 apt-get install libpcre3 libpcre3-dev nginx -y
 /usr/local/bin/pip install uwsgi
-sed -e "s/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 64/g" -i /etc/nginx/nginx.conf
+sed -e "s/# \(server_names_hash_bucket_size 64\)/\1/g" -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_vary\)/\1/g"                        -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_proxied\)/\1/g"                     -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_comp_level\)/\1/g"                  -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_buffers\)/\1/g"                     -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_http_version\)/\1/g"                -i /etc/nginx/nginx.conf
+sed -e "s/# \(gzip_types\)/\1/g"                       -i /etc/nginx/nginx.conf
 
 # emperor
 mkdir -p /var/log/uwsgi

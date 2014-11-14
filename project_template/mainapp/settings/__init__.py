@@ -4,7 +4,6 @@ import os
 import sys
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-from django.conf.global_settings import MIDDLEWARE_CLASSES as MC
 
 from assets import *
 from constance import *
@@ -29,18 +28,12 @@ INSTALLED_APPS = (
 
     'mainapp',
 
-    # If you're using Django 1.7.x or later
-    # 'debug_toolbar.apps.DebugToolbarConfig',
-    # If you're using Django 1.6.x or earlier
-    'debug_toolbar',
-
     'constance',
     'django_assets',
     'django_extensions',
     'sorl.thumbnail',
     'south',
 
-    'bicycle.cache',
     'bicycle.carousel',
     'bicycle.core',
     'bicycle.feedback',
@@ -57,8 +50,14 @@ if DEBUG:
         'template_timings_panel',
     )
 
-MIDDLEWARE_CLASSES = MC + (
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
 
@@ -68,7 +67,7 @@ if DEBUG:
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'constance.context_processors.config',
-    'bicycle.cache.context_processors.cache_timeout',
+    'bicycle.core.context_processors.cache_timeout',
 )
 
 # TEMPLATE_DIRS = (

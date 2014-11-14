@@ -28,7 +28,7 @@ done
 # CONFIGURE #
 #############
 
-source $WORKON_HOME/_core.cfg.sh
+source $WORKON_HOME/_config.sh
 
 # Create dirs
 mkdir -p $PROJECT_DIR
@@ -67,7 +67,7 @@ else
     git submodule init
     git submodule update
 
-    source $GIT_SUBMODULES
+    source $CONFIG
 fi
 git config --global user.name $GIT_USER
 git config --global user.email $GIT_EMAIL
@@ -130,8 +130,7 @@ if $IS_CREATE; then
     git add dashboard.py
     git add .gitignore
     git add .gitmodules
-    git add _submodules.cfg.sh
-    git add _packages.cfg.pip
+    git add requirements.pip
     git commit -m 'first commit'
 fi
 if $IS_PULL; then
