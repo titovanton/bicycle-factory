@@ -150,12 +150,22 @@ fi
 # DB #
 ######
 
-# Create DataBase
 if [ ! -f $HOME/.pgpass ]; then
     printf '\nYou can touch .pgpass file with chmode 0600 in your home dir\n'
     printf "insted prompt password for user $PG_SU every time.\n"
     printf 'Read the man: http://www.postgresql.org/docs/9.0/static/libpq-pgpass.html\n\n'
 fi
+
+read -p "Enter PostgreSQL superuser (default: postgres)? " PG_SU
+if [[ $PG_SU == '' ]]; then
+    PG_SU=postgres
+fi
+read -p "Enter DB host (default: localhost)? " PG_HOST
+if [[ $PG_HOST == '' ]]; then
+    PG_HOST=localhost
+fi
+
+# Create DataBase
 psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v user=$PROJECT_NAME
 
 
