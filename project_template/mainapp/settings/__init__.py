@@ -12,6 +12,7 @@ from grappelli import *
 from mainapp import *
 from path import *
 from secret import *
+from sessions import *
 from sorl import *
 
 
@@ -32,7 +33,6 @@ INSTALLED_APPS = (
     'django_assets',
     'django_extensions',
     'sorl.thumbnail',
-    'south',
 
     'bicycle.carousel',
     'bicycle.core',
@@ -43,9 +43,6 @@ INSTALLED_APPS = (
 
 if DEBUG:
     INSTALLED_APPS += (
-        # If you're using Django 1.7.x or later
-        # 'debug_toolbar.apps.DebugToolbarConfig',
-        # If you're using Django 1.6.x or earlier
         'debug_toolbar',
         'template_timings_panel',
     )
@@ -75,12 +72,12 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
 #     rel_project('bicycle', 'core', 'templates'),
 # )
 
-STATICFILES_DIRS = (
-    ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
-    ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
-    ('print', rel_project('libs', 'jQuery-printPage-plugin')),
-    ('rc-carousel', rel_project('libs', 'jquery-ui-carousel', 'dist')),
-)
+# STATICFILES_DIRS = (
+#     ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
+#     ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
+#     ('print', rel_project('libs', 'jQuery-printPage-plugin')),
+#     ('rc-carousel', rel_project('libs', 'jquery-ui-carousel', 'dist')),
+# )
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -102,7 +99,11 @@ try:
 except IndexError:
     pass
 if sss_finder:
-    STATICFILES_FINDERS += ('bicycle.core.finders.StaticSrcStorageFinder',)
+    STATICFILES_FINDERS += (
+        'mainapp.finders.MainappFinder',
+        'mainapp.finders.LibsFinder',
+        'mainapp.finders.BicycleFinder',
+    )
 
 ROOT_URLCONF = 'mainapp.urls'
 

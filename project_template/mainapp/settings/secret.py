@@ -10,7 +10,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = '{{ secret_key }}'
 
-ALLOWED_HOSTS = ['.{{ project_name }}.com', '.{{ project_name }}.ru',]
+ALLOWED_HOSTS = ['.{{ project_name }}.com', '.{{ project_name }}.ru', ]
 
 DATABASES = {
     'default': {
@@ -34,13 +34,13 @@ REDIS_CONNECTION = {
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
-        'LOCATION': '%s:%d:%d' % (
-                REDIS_CONNECTION['host'],
-                REDIS_CONNECTION['port'],
-                REDIS_CONNECTION['db'],
-            ),
+        'LOCATION': 'redis://:%s@%s:%d/%d' % (
+            REDIS_CONNECTION['password'],
+            REDIS_CONNECTION['host'],
+            REDIS_CONNECTION['port'],
+            REDIS_CONNECTION['db'],
+        ),
         'OPTIONS': {
-            'PASSWORD': REDIS_CONNECTION['password'],
             'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
         }
     }

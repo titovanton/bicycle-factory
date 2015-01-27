@@ -3,8 +3,7 @@ django-extensions
 django-debug-toolbar
 django-debug-toolbar-template-timings
 Werkzeug
-South==0.8.4
-django-grappelli==2.5.0
+django-grappelli
 Pillow
 git+git://github.com/mariocesar/sorl-thumbnail.git
 redis

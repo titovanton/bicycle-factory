@@ -60,6 +60,22 @@ if [[ $LESS == 'yes' || $LESS == 'y' || $LESS == '' ]]; then
     LESS=true
 fi
 
+read -p "Would you like to install CoffeeScript (yes/no, default: yes)?" COFFEESCRIPT
+if [[ $COFFEESCRIPT == 'no' || $COFFEESCRIPT == 'n' ]]; then
+    COFFEESCRIPT=false
+fi
+if [[ $COFFEESCRIPT == 'yes' || $COFFEESCRIPT == 'y' || $COFFEESCRIPT == '' ]]; then
+    COFFEESCRIPT=true
+fi
+
+read -p "Would you like to install SASS (yes/no, default: no)?" SASS
+if [[ $SASS == 'no' || $SASS == 'n' || $SASS == '' ]]; then
+    SASS=false
+fi
+if [[ $SASS == 'yes' || $SASS == 'y' ]]; then
+    SASS=true
+fi
+
 read -p "Would you like to install Memcached (yes/no, default: yes)?" MEMCACHED
 if [[ $MEMCACHED == 'no' || $MEMCACHED == 'n' ]]; then
     MEMCACHED=false
@@ -150,9 +166,32 @@ if $ELASTICSEARCH; then
     sed -e "s/^# network\.host: .*$/network.host: 127.0.0.1/g" -i /etc/elasticsearch/elasticsearch.yml
 fi
 
+# node.js
+if [[ $LESS || $COFFEESCRIPT ]]; then
+    apt-get install nodejs npm -y
+    ln -s /usr/bin/nodejs /usr/bin/node
+fi
+
 # node-less
 if $LESS; then
-    apt-get install node-less -y
+    # apt-get install node-less -y
+    npm install -g less
+fi
+
+# node-coffeescript
+if $COFFEESCRIPT; then
+    # apt-get install -y node-coffeescript
+    npm install -g coffee-script
+fi
+
+# ruby
+if $SASS; then
+    apt-get install ruby-full -y
+fi
+
+# ruby-sass
+if $SASS; then
+    apt-get install ruby-sass -y
 fi
 
 # memcached

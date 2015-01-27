@@ -12,8 +12,8 @@ try:
     else:
         DEBUG_TOOLBAR_PATCH_SETTINGS = False
 except IndexError:
-        DEBUG_TOOLBAR_PATCH_SETTINGS = False
-        
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 DEBUG_TOOLBAR_PANELS = [
     # default
     'debug_toolbar.panels.versions.VersionsPanel',

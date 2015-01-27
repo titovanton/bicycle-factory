@@ -173,6 +173,21 @@ psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v u
 # FINISH #
 ##########
 
+# # node.js
+# if [ -f /usr/bin/nodejs ]; then
+#     sudo ln -s /usr/bin/nodejs $VIRTUAL_ENV/bin/node;
+# fi
+
+# # lessc
+# if [ -f /usr/local/lib/node_modules/less/bin/lessc ]; then
+#     sudo ln -s /usr/local/lib/node_modules/less/bin/lessc $VIRTUAL_ENV/bin/lessc;
+# fi
+
+# # coffeeScript
+# if [ -f /usr/local/lib/node_modules/coffee-script/bin/coffee ]; then
+#     sudo ln -s /usr/local/lib/node_modules/coffee-script/bin/coffee $VIRTUAL_ENV/bin/coffee;
+# fi
+
 # pip packages
 pip install -r $PIP_PACKAGES
 
