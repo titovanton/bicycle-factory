@@ -214,11 +214,12 @@ fi
 
 # node.js
 if [[ $LESS || $COFFEESCRIPT ]]; then
-    apt-get install python-software-properties
-    apt-add-repository ppa:chris-lea/node.js
-    apt-get update
-    apt-get install nodejs npm -y
-    ln -s /usr/bin/nodejs /usr/bin/node
+    apt-get autoremove node -y
+    apt-get install build-essential -y
+    apt-get install python-software-properties -y
+    curl -sL https://deb.nodesource.com/setup | bash -
+    apt-get install nodejs -y
+    # ln -s /usr/bin/nodejs /usr/bin/node
 fi
 
 # node-less
