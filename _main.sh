@@ -131,6 +131,7 @@ if $IS_CREATE; then
     git add .gitignore
     git add .gitmodules
     git add requirements.pip
+    git add deploy.sh
     git commit -m 'first commit'
 fi
 if $IS_PULL; then

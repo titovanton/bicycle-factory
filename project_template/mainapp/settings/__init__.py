@@ -8,6 +8,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 from assets import *
 from constance import *
 from debug_toolbar import *
+from glue import *
 from grappelli import *
 from mainapp import *
 from path import *
@@ -38,6 +39,7 @@ INSTALLED_APPS = (
     'bicycle.core',
     'bicycle.feedback',
     'bicycle.futuremessage',
+    'bicycle.glue',
     'bicycle.news',
 )
 

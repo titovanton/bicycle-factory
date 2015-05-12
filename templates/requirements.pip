@@ -12,3 +12,4 @@ git+git://github.com/comoga/django-constance#egg=django-constance
 cssmin
 jsmin
 git+git://github.com/titovanton-com/django-assets.git@stable
+glue

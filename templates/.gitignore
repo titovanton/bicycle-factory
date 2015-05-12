@@ -18,5 +18,8 @@ manage.py
 # South
 */migrations
 
+# Glue
+*/static_src/less/sprites/
+
 # Xapian
 search/xapian_index

@@ -29,6 +29,10 @@ iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 143,99
 # mail.smtp, mail.smtps
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 25,465 -j ACCEPT
 
+# mysql, pgsql
+# iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 3306 -j ACCEPT
+# iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 5432 -j ACCEPT
+
 # samba
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 135,139,445 -j ACCEPT
 iptables -A INPUT -p udp -m conntrack --ctstate NEW -m multiport --dports 137,138 -j ACCEPT

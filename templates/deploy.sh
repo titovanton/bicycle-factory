@@ -7,15 +7,17 @@ else
     USR=$1
 fi
 
-chown -R $USR:www-data %PROJECT_DIR%
-chown -R $USR:www-data %STATIC%
-chown -R $USR:www-data %MEDIA%
-chown -R $USR:www-data %INTERNAL%
-chown -R $USR:www-data %DUMMY_ROOT%
-chmod -R 771 %PROJECT_DIR%
-chmod -R 775 %STATIC%
-chmod -R 775 %MEDIA%
-chmod -R 775 %INTERNAL%
-chmod -R 775 %DUMMY_ROOT%
-touch reload_uwsgi
-service nginx --full-restart
+%PROJECT_DIR%/manage.py glue
+%PROJECT_DIR%/manage.py assets build
+%PROJECT_DIR%/manage.py collectstatic
+
+sudo chown -R $USR:www-data %PROJECT_DIR%
+sudo chown -R $USR:www-data %STATIC%
+sudo chown -R $USR:www-data %MEDIA%
+sudo chown -R $USR:www-data %INTERNAL%
+sudo chmod -R 771 %PROJECT_DIR%
+sudo chmod -R 775 %STATIC%
+sudo chmod -R 775 %MEDIA%
+sudo chmod -R 775 %INTERNAL%
+sudo touch reload_uwsgi
+sudo service nginx --full-restart

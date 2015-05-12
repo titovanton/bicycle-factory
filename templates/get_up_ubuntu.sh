@@ -23,6 +23,14 @@ if [[ $vPSQL == '' ]]; then
     vPSQL=9.3
 fi
 
+read -p "Would you like to install Supervisor (yes/no, default: yes)?" $SUPERVISOR
+if [[ $$SUPERVISOR == 'no' || $$SUPERVISOR == 'n' ]]; then
+    $SUPERVISOR=false
+fi
+if [[ $SUPERVISOR == 'yes' || $SUPERVISOR == 'y' || $SUPERVISOR == '' ]]; then
+    SUPERVISOR=true
+fi
+
 read -p "Would you like to install Redis (yes/no, default: yes)?" REDIS
 if [[ $REDIS == 'no' || $REDIS == 'n' ]]; then
     REDIS=false
@@ -58,6 +66,22 @@ if [[ $LESS == 'no' || $LESS == 'n' ]]; then
 fi
 if [[ $LESS == 'yes' || $LESS == 'y' || $LESS == '' ]]; then
     LESS=true
+fi
+
+read -p "Would you like to install ExifTool (yes/no, default: yes)?" EXIFTOOL
+if [[ $EXIFTOOL == 'no' || $EXIFTOOL == 'n' ]]; then
+    EXIFTOOL=false
+fi
+if [[ $EXIFTOOL == 'yes' || $EXIFTOOL == 'y' || $EXIFTOOL == '' ]]; then
+    EXIFTOOL=true
+fi
+
+read -p "Would you like to install CSSComb (yes/no, default: yes)?" CSSCOMB
+if [[ $CSSCOMB == 'no' || $CSSCOMB == 'n' ]]; then
+    CSSCOMB=false
+fi
+if [[ $CSSCOMB == 'yes' || $CSSCOMB == 'y' || $CSSCOMB == '' ]]; then
+    CSSCOMB=true
 fi
 
 read -p "Would you like to install CoffeeScript (yes/no, default: yes)?" COFFEESCRIPT
@@ -145,6 +169,10 @@ cp $WORKON_HOME/templates/uwsgi_params /webapps/server/
 PTRN="s;^exit 0$;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g"
 sed -e "$PTRN" -i /etc/rc.local
 
+if $SUPERVISOR; then
+    apt-get install supervisor -y
+fi
+
 # redis
 if $REDIS; then
     apt-get install redis-server -y
@@ -168,6 +196,9 @@ fi
 
 # node.js
 if [[ $LESS || $COFFEESCRIPT ]]; then
+    apt-get install python-software-properties
+    apt-add-repository ppa:chris-lea/node.js
+    apt-get update
     apt-get install nodejs npm -y
     ln -s /usr/bin/nodejs /usr/bin/node
 fi
@@ -176,6 +207,16 @@ fi
 if $LESS; then
     # apt-get install node-less -y
     npm install -g less
+fi
+
+# ExifTool
+if $EXIFTOOL; then
+    apt-get install libimage-exiftool-perl -y
+fi
+
+# node-csscomb
+if $CSSCOMB; then
+    npm install csscomb -g
 fi
 
 # node-coffeescript

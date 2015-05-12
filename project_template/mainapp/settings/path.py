@@ -26,10 +26,19 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = '/webapps/django/static/{{ project_name }}/'
 
-# STATIC_SRC = rel_mainapp('static_src')
-
 STATIC_URL = '/static/'
 
 INTERNAL_ROOT = '/webapps/django/internal/{{ project_name }}/'
 
 INTERNAL_URL = '/internal/'
+
+
+def rel_static_root(*x):
+    return os.path.join(STATIC_ROOT, *x)
+
+
+def rel_static_url(*x):
+    path = os.path.join(STATIC_URL, *x)
+    if not path.endswith('/'):
+        path += '/'
+    return path
