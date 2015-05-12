@@ -175,9 +175,27 @@ fi
 
 # redis
 if $REDIS; then
-    apt-get install redis-server -y
-    cp /etc/redis/redis.conf /etc/redis/redis.conf.default
-    sed -e "s/# requirepass foobared/requirepass $REDIS_PASSWORD/g" -i /etc/redis/redis.conf
+    apt-get install build-essential -y
+    apt-get install tcl8.5 -y
+    mkdir -p /home/$USER_NAME/src
+    cd /home/$USER_NAME/src
+    wget http://download.redis.io/redis-stable.tar.gz
+    tar xvzf redis-stable.tar.gz
+    cd redis-stable
+    make
+    # make test
+    make install
+    mkdir /etc/redis
+    mkdir /var/redis
+    cp utils/redis_init_script /etc/init.d/redis_6379
+    cp redis.conf /etc/redis/6379.conf
+    mkdir /var/redis/6379
+    sed -e "s|daemonize no|daemonize yes|" -i /etc/redis/6379.conf
+    sed -e "s|pidfile /var/run/redis\.pid|pidfile /var/run/redis_6379.pid|" -i /etc/redis/6379.conf
+    sed -e "s|logfile \"\"|logfile \"/var/log/redis_6379.log\"|" -i /etc/redis/6379.conf
+    sed -e "s|dir \./|dir /var/redis/6379|" -i /etc/redis/6379.conf
+    sed -e "s|# requirepass foobared|requirepass $REDIS_PASSWORD|" -i /etc/redis/6379.conf
+    update-rc.d redis_6379 defaults
 fi
 
 # ES
