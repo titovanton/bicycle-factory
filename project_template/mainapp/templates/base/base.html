@@ -21,11 +21,7 @@
         {% endautoescape %}
 
         {# CSS #}
-        {% block page_css %}
-            {% assets "base_css" %}
-                <link async href="{{ ASSET_URL }}" media="screen" rel="stylesheet"/>
-            {% endassets %}
-        {% endblock page_css %}
+        {% block page_css %}{% endblock page_css %}
     </head>
 
     <body id="{% block body_id %}{% endblock body_id %}">
@@ -77,9 +73,6 @@
                         }
                     }
 
-                {% assets "loaded_js" %}
-                    head.load('{{ ASSET_URL }}', jsDone('Loaded'))
-                {% endassets %}
                 head.load('//yastatic.net/jquery/2.1.1/jquery.min.js?v=2.1.1',
                     jsDone('jQuery v2.1.1'))
                 {% block page_loader %}{% endblock page_loader %}

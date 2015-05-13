@@ -1,9 +1,24 @@
 {% extends "base/base.html" %}
+{% load assets %}
 {% load thumbnail %}
 
 {% block html_title %}{% endblock %}
 {% block html_keywords %}{% endblock %}
 {% block html_description %}{% endblock %}
+
+{% block page_css %}
+    {% assets "home_css" %}
+        <link async href="{{ ASSET_URL }}" media="screen" rel="stylesheet"/>
+    {% endassets %}
+{% endblock page_css %}
+
+<script>
+    {% block page_loader %}
+        {% assets "home_js" %}
+            head.load('{{ ASSET_URL }}', jsDone('Bandle'))
+        {% endassets %}
+    {% endblock page_loader %}
+</script>
 
 {% block content %}
 <article id="home" class="container">

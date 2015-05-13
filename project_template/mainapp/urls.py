@@ -13,8 +13,10 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
 
+    # errors
+    (r'^404/$', page_not_found),
+
     # home
-    (r'^home/$', 'mainapp.views.home'),
     (r'^$', 'mainapp.views.home'),
 )
 

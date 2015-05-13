@@ -57,7 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'bicycle.futuremessage.middleware.FutureMessageMiddleware'
+    # 'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
 
 if DEBUG:
@@ -122,4 +122,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-# handler404 = 'mainapp.views.page_not_found'
+handler404 = 'mainapp.views.page_not_found'
