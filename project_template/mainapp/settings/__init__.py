@@ -35,12 +35,12 @@ INSTALLED_APPS = (
     'django_extensions',
     'sorl.thumbnail',
 
-    'bicycle.carousel',
+    # 'bicycle.carousel',
     'bicycle.core',
-    'bicycle.feedback',
-    'bicycle.futuremessage',
+    # 'bicycle.feedback',
+    # 'bicycle.futuremessage',
     'bicycle.glue',
-    'bicycle.news',
+    # 'bicycle.news',
 )
 
 if DEBUG:
@@ -69,17 +69,18 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'bicycle.core.context_processors.cache_timeout',
 )
 
-# TEMPLATE_DIRS = (
-#     rel_mainapp('templates'),
-#     rel_project('bicycle', 'core', 'templates'),
-# )
+TEMPLATE_DIRS = (
+    rel_mainapp('templates'),
+    #     rel_project('bicycle', 'core', 'templates'),
+)
 
-# STATICFILES_DIRS = (
+STATICFILES_DIRS = (
+    ('', rel_mainapp('static_src', 'static')),
 #     ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
 #     ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
 #     ('print', rel_project('libs', 'jQuery-printPage-plugin')),
 #     ('rc-carousel', rel_project('libs', 'jquery-ui-carousel', 'dist')),
-# )
+)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -120,3 +121,5 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# handler404 = 'mainapp.views.page_not_found'

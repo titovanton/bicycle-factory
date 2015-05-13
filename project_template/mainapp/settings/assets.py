@@ -19,5 +19,3 @@ ASSETS_URL_MAPPING = {
     ASSETS_LOAD_PATH[1]: STATIC_URL,
     ASSETS_LOAD_PATH[2]: STATIC_URL,
 }
-
-LESS_BIN = '/usr/local/bin/lessc'

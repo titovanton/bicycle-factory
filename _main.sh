@@ -174,23 +174,8 @@ psql -h $PG_HOST -U $PG_SU -f $TEMPLATES/createdb.sql -v passwd=\'$DB_PWD\' -v u
 # FINISH #
 ##########
 
-# # node.js
-# if [ -f /usr/bin/nodejs ]; then
-#     sudo ln -s /usr/bin/nodejs $VIRTUAL_ENV/bin/node;
-# fi
-
-# # lessc
-# if [ -f /usr/local/lib/node_modules/less/bin/lessc ]; then
-#     sudo ln -s /usr/local/lib/node_modules/less/bin/lessc $VIRTUAL_ENV/bin/lessc;
-# fi
-
-# # coffeeScript
-# if [ -f /usr/local/lib/node_modules/coffee-script/bin/coffee ]; then
-#     sudo ln -s /usr/local/lib/node_modules/coffee-script/bin/coffee $VIRTUAL_ENV/bin/coffee;
-# fi
-
 # pip packages
-pip install -r $PIP_PACKAGES
+pip install -U -r $PIP_PACKAGES
 
 # setting up uwsgi.ini from template (imperor mode)
 if [ ! -f $WEBAPPS/server/uwsgi_params ]; then
@@ -225,8 +210,7 @@ sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
 sudo chmod +x $PROJECT_DIR/deploy.sh
 
 # robots and favicon
-cp $TEMPLATES/favicon.ico $STATIC
-sed -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" $TEMPLATES/robots.txt > $STATIC/robots.txt
+# sed -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" -i $STATIC/robots.txt
 
 # permissions
 sudo chown -R $UNIX_USER:www-data $VIRTUAL_ENV

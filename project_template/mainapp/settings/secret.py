@@ -33,7 +33,7 @@ REDIS_CONNECTION = {
 # django-redis
 CACHES = {
     'default': {
-        'BACKEND': 'redis_cache.cache.RedisCache',
+        'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://:%s@%s:%d/%d' % (
             REDIS_CONNECTION['password'],
             REDIS_CONNECTION['host'],
@@ -41,7 +41,7 @@ CACHES = {
             REDIS_CONNECTION['db'],
         ),
         'OPTIONS': {
-            'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
 }

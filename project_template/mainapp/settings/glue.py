@@ -12,4 +12,6 @@ GLUE_CONFIG = {
     'less': True,
     'css_url': rel_static_url('sprites'),
     'csscomb': True,
+    'crop': True,
+    'margin': 5,
 }
