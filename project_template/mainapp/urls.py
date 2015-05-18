@@ -4,14 +4,20 @@ from django.conf import settings
 from django.conf.urls import patterns
 from django.conf.urls import include
 from django.contrib import admin
+from bicycle.core.views import Redirect301View
+
+from views import page_not_found
 
 
 admin.autodiscover()
+
+handler404 = page_not_found
 
 urlpatterns = patterns('',
     (r'^grappelli/', include('grappelli.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
+    (r'^admin', Redirect301View.as_view(url='/admin/')),
 
     # errors
     (r'^404/$', page_not_found),
@@ -19,7 +25,6 @@ urlpatterns = patterns('',
     # home
     (r'^$', 'mainapp.views.home'),
 )
-
 
 if settings.DEBUG:
     import debug_toolbar
