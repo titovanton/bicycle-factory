@@ -33,6 +33,8 @@ source $WORKON_HOME/_config.sh
 # Create dirs
 mkdir -p $PROJECT_DIR
 mkdir -p $SERVER
+mkdir -p $LOG/supervisor
+mkdir -p $LOG/nginx
 mkdir -p $STATIC
 mkdir -p $MEDIA
 mkdir -p $INTERNAL
@@ -72,6 +74,8 @@ fi
 git config --global user.name $GIT_USER
 git config --global user.email $GIT_EMAIL
 git config --global color.ui true
+
+pip install --upgrade pip
 
 pip install Django
 
@@ -190,6 +194,7 @@ sudo ln -s $SERVER/uwsgi.ini /etc/uwsgi/vassals/${PROJECT_NAME}.ini
 
 # setting up nginx.conf from template
 sed -e "s;%SERVER%;$SERVER;g" \
+    -e "s;%LOG%;$LOG;g" \
     -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" \
     -e "s;%STATIC%;$STATIC;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
@@ -202,7 +207,9 @@ sudo /etc/init.d/nginx restart
 
 # deploy script
 sed -e "s;%PROJECT_DIR%;$PROJECT_DIR;g" \
+    -e "s;%PROJECT_NAME%;$PROJECT_NAME;g" \
     -e "s;%STATIC%;$STATIC;g" \
+    -e "s;%LOG%;$LOG;g" \
     -e "s;%MEDIA%;$MEDIA;g" \
     -e "s;%INTERNAL%;$INTERNAL;g" \
     -e "s;%DUMMY_ROOT%;$DUMMY_ROOT;g" \
@@ -216,5 +223,6 @@ sudo chmod +x $PROJECT_DIR/deploy.sh
 sudo chown -R $UNIX_USER:www-data $VIRTUAL_ENV
 sudo chown -R $UNIX_USER:www-data $PROJECT_DIR
 sudo chown -R $UNIX_USER:www-data $SERVER
+sudo chown -R $UNIX_USER:www-data $LOG
 
 rm $WORKON_HOME/name

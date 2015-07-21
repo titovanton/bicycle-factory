@@ -14,12 +14,6 @@
 
         <link href="/favicon.ico" rel="shortcut icon">
 
-        {# Verification #}
-        {% autoescape off %}
-            {{ config.YANDEX_VERIFICATION }}
-            {{ config.GOOGLE_SITE_VERIFICATION }}
-        {% endautoescape %}
-
         {# CSS #}
         {% block page_css %}{% endblock page_css %}
     </head>

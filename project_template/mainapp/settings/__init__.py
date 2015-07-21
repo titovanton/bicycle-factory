@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'constance',
     'django_assets',
     'django_extensions',
+    # 'django_rq',
     'sorl.thumbnail',
 
     # 'bicycle.carousel',
@@ -56,6 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
 
     # 'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
@@ -82,6 +84,11 @@ STATICFILES_DIRS = (
 #     ('rc-carousel', rel_project('libs', 'jquery-ui-carousel', 'dist')),
 )
 
+LOCALE_PATHS = (
+    rel_mainapp('locale'),
+    rel_project('bicycle', 'locale'),
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -89,18 +96,21 @@ STATICFILES_FINDERS = (
 
 # should we link StaticSrcStorageFinder:
 sss_finder = ASSETS_AUTO_BUILD
+
 try:
     # when user runs ./manage.py assets build
     if sys.argv[1] == 'assets' and sys.argv[2] == 'build':
         sss_finder = True
 except IndexError:
     pass
+
 try:
     # when user runs ./manage.py collectstatic
     if sys.argv[1] == 'collectstatic':
         sss_finder = False
 except IndexError:
     pass
+
 if sss_finder:
     STATICFILES_FINDERS += (
         'mainapp.finders.MainappFinder',
@@ -109,15 +119,9 @@ if sss_finder:
     )
 
 ROOT_URLCONF = 'mainapp.urls'
-
 WSGI_APPLICATION = 'mainapp.wsgi.application'
-
 LANGUAGE_CODE = 'ru-RU'
-
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True

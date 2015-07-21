@@ -9,7 +9,13 @@ fi
 
 %PROJECT_DIR%/manage.py glue
 %PROJECT_DIR%/manage.py assets build
-%PROJECT_DIR%/manage.py collectstatic
+%PROJECT_DIR%/manage.py collectstatic --noinput
+%PROJECT_DIR%/manage.py compilemessages
+
+# sudo cp %PROJECT_DIR%/addon/supervisor/rqworker.conf /etc/supervisor/conf.d/%PROJECT_NAME%_rqworker.conf
+# mkdir -p %LOG%/supervisor/
+# sudo supervisorctl reread
+# sudo supervisorctl update
 
 sudo chown -R $USR:www-data %PROJECT_DIR%
 sudo chown -R $USR:www-data %STATIC%

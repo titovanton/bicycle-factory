@@ -100,11 +100,11 @@ if [[ $SASS == 'yes' || $SASS == 'y' ]]; then
     SASS=true
 fi
 
-read -p "Would you like to install Memcached (yes/no, default: yes)?" MEMCACHED
-if [[ $MEMCACHED == 'no' || $MEMCACHED == 'n' ]]; then
+read -p "Would you like to install Memcached (yes/no, default: no)?" MEMCACHED
+if [[ $MEMCACHED == 'no' || $MEMCACHED == 'n' || $MEMCACHED == ''  ]]; then
     MEMCACHED=false
 fi
-if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y' || $MEMCACHED == '' ]]; then
+if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y']]; then
     MEMCACHED=true
 fi
 
@@ -126,6 +126,9 @@ if [[ $PG_PASSWORD != '' ]]; then
     chmod 600 /home/$USER_NAME/.pgpass
     chown $USER_NAME:$USER_NAME /home/$USER_NAME/.pgpass
 fi
+
+# gettext
+sudo apt-get install gettext -y
 
 # venv continue
 apt-get install -y python2.7-dev python-pip libjpeg-dev
@@ -166,7 +169,7 @@ mkdir -p /etc/uwsgi/vassals
 chown -R $USER_NAME:www-data /var/log/uwsgi
 chmod -R 774 /var/log/uwsgi
 cp $WORKON_HOME/templates/uwsgi_params /webapps/server/
-PTRN="s;^exit 0$;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /var/log/uwsgi/mylog.log\n\nexit 0;g"
+PTRN="s;^exit 0$;/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data --daemonize /webapps/log/uwsgi.log\n\nexit 0;g"
 sed -e "$PTRN" -i /etc/rc.local
 
 if $SUPERVISOR; then
@@ -190,11 +193,18 @@ if $REDIS; then
     cp utils/redis_init_script /etc/init.d/redis_6379
     cp redis.conf /etc/redis/6379.conf
     mkdir /var/redis/6379
-    sed -e "s|daemonize no|daemonize yes|" -i /etc/redis/6379.conf
-    sed -e "s|pidfile /var/run/redis\.pid|pidfile /var/run/redis_6379.pid|" -i /etc/redis/6379.conf
-    sed -e "s|logfile \"\"|logfile \"/var/log/redis_6379.log\"|" -i /etc/redis/6379.conf
-    sed -e "s|dir \./|dir /var/redis/6379|" -i /etc/redis/6379.conf
-    sed -e "s|# requirepass foobared|requirepass $REDIS_PASSWORD|" -i /etc/redis/6379.conf
+    sed -e "s|/usr/local/bin/redis-cli|\"/usr/local/bin/redis-cli -a $REDIS_PASSWORD\"|" \
+        -i /etc/init.d/redis_6379
+    sed -e "s|daemonize no|daemonize yes|" \
+        -i /etc/redis/6379.conf
+    sed -e "s|pidfile /var/run/redis\.pid|pidfile /var/run/redis_6379.pid|" \
+        -i /etc/redis/6379.conf
+    sed -e "s|logfile \"\"|logfile \"/var/log/redis_6379.log\"|" \
+        -i /etc/redis/6379.conf
+    sed -e "s|dir \./|dir /var/redis/6379|" \
+        -i /etc/redis/6379.conf
+    sed -e "s|# requirepass foobared|requirepass $REDIS_PASSWORD|" \
+        -i /etc/redis/6379.conf
     update-rc.d redis_6379 defaults
 fi
 

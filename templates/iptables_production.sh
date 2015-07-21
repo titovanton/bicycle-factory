@@ -15,7 +15,7 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m tcp --dport 22 -j ACCEPT
 
 # web.http, web.https
-iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 80,443,8080 -j ACCEPT
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 80,443,8080,8081 -j ACCEPT
 
 # web.ftp + необходима загрузка модуля nf_conntrack_ftp
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m tcp --dport 21 -j ACCEPT
@@ -28,6 +28,9 @@ iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 143,99
 
 # mail.smtp, mail.smtps
 iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 25,465,587 -j ACCEPT
+
+# squid3 proxy
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m multiport --dports 3128 -j ACCEPT
 
 # Сюда можно вставлять дополнительные правила для цепочки INPUT
 

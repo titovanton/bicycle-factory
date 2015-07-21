@@ -53,7 +53,7 @@ But if you dont - follow steps of this section:
 * For root:
 
         apt-get update; apt-get upgrade -y; \
-        mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+        mkdir -p /webapps/envs /webapps/log/ /webapps/server /webapps/django/internal \
             /webapps/django/static /webapps/django/media; \
         apt-get install -y git; \
         read -p "Enter name of your user (default: titovanton): " USER_NAME; \
@@ -84,7 +84,7 @@ But if you dont - follow steps of this section:
 * For sudo user:
 
         sudo apt-get update; apt-get upgrade -y; \
-        sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
+        sudo mkdir -p /webapps/envs /webapps/log/ /webapps/server /webapps/django/internal \
             /webapps/django/static /webapps/django/media; \
         sudo apt-get install -y git; \
         if [ ! -f /home/$USER/.ssh/id_rsa ]; then \
@@ -101,6 +101,8 @@ But if you dont - follow steps of this section:
         export WORKON_HOME=/webapps/envs; \
         sudo git clone https://github.com/titovanton-com/bicycle-factory.git $WORKON_HOME; \
         sudo -E $WORKON_HOME/templates/get_up_ubuntu.sh $USER
+
+Before you will get making virtual environments, you have to add SSH key(id_rsa.pub) to a repo hubs.
 
 # Step by step
 
@@ -119,13 +121,13 @@ You should creat the following, for works properly:
 
 execute following commands:
 
-    sudo mkdir -p /webapps/envs /webapps/server /webapps/django/internal \
-        /webapps/django/static /webapps/django/media 
+    sudo mkdir -p /webapps/envs /webapps/log/ /webapps/server /webapps/django/internal \
+        /webapps/django/static /webapps/django/media
 
 Internal - read the doc: [Nginx internal](http://nginx.org/en/docs/http/ngx_http_core_module.html#internal "Nginx internal")([RU](http://nginx.org/ru/docs/http/ngx_http_core_module.html#internal "RU"))
 
 Do not forget to set permissions:
-    
+
     sudo chown -R $USER:www-data /webapps
 
 ## Install First!
@@ -185,7 +187,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
     It is too much for defaults...
 
 5. setting up uWSGI in Emperor mode:
-        
+
         sudo mkdir -p /var/log/uwsgi; \
         sudo mkdir -p /etc/uwsgi/vassals; \
         sudo chown -R $USER:www-data /var/log/uwsgi; \
@@ -214,7 +216,7 @@ On virgine Ubuntu Linux Server v14.04 LTS you should install following packeges:
         \q
 
     To login using psql client without specifying `-h localhost`:
-        
+
         psql -U <user> <db>
 
     edit:
@@ -229,7 +231,7 @@ If you use SSH connection when interactiong with GitHub(Bitbucket), you will nee
 1. SSH Keys
 
     Check the directory listing to see if you have files named either id_rsa.pub or id_dsa.pub.
-    
+
         mkdir -p ~/.ssh; \
         cd ~/.ssh; \
         ls -al
@@ -295,7 +297,7 @@ I also use following apps to serve needs of my websites:
             org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/\
             elasticsearch-analysis-morphology-1.2.0.zip; \
         sudo update-rc.d elasticsearch defaults 95 10
-        
+
     bind only 127.0.0.1
 
         sudo sed -e "s/^# network\.host: .*$/network.host: 127.0.0.1/g" \
@@ -319,13 +321,13 @@ I also use following apps to serve needs of my websites:
 ## Reboot
 
 Reboot Ubuntu to launch uWSGI, ElasticSearch, reload PostgreSQL and checkout virtualenvwrapper works fine:
-    
+
     sudo reboot
 
 ## How it damn thing really works?
 
 The `postmkvirtualenv` file containt dialog menu that source a files with names starts with underscore:
-    
+
 * _config.sh
 * _create.sh
 * _finish.sh

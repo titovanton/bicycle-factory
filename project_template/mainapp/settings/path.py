@@ -4,11 +4,8 @@ import os
 
 
 tmp = os.path.abspath(os.path.dirname(__file__))
-
 APP_ROOT = os.path.split(tmp)[0]
-
 PROJECT_ROOT = os.path.split(APP_ROOT)[0]
-
 BASE_DIR = APP_ROOT
 
 
@@ -21,15 +18,10 @@ def rel_mainapp(*x):
 
 
 MEDIA_ROOT = '/webapps/django/media/{{ project_name }}/'
-
 MEDIA_URL = '/media/'
-
 STATIC_ROOT = '/webapps/django/static/{{ project_name }}/'
-
 STATIC_URL = '/static/'
-
 INTERNAL_ROOT = '/webapps/django/internal/{{ project_name }}/'
-
 INTERNAL_URL = '/internal/'
 
 

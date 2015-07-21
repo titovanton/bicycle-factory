@@ -5,11 +5,8 @@ and set Unix file change mode and owner
 '''
 
 DEBUG = True
-
 TEMPLATE_DEBUG = DEBUG
-
 SECRET_KEY = '{{ secret_key }}'
-
 ALLOWED_HOSTS = ['.{{ project_name }}.com', '.{{ project_name }}.ru', ]
 
 DATABASES = {
@@ -58,3 +55,11 @@ CACHE_TIMEOUT = 60 * 60 * 24 * 30 * 12
 
 # cache key prefix
 KEY_PREFIX = 'cache:{{ project_name }}:'
+
+# EMAIL
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = u'{{ project_name }} <no-reply@{{ project_name }}>'
+EMAIL_USE_TLS = False
+EMAIL_PORT = 25
