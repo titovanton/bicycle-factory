@@ -104,7 +104,7 @@ read -p "Would you like to install Memcached (yes/no, default: no)?" MEMCACHED
 if [[ $MEMCACHED == 'no' || $MEMCACHED == 'n' || $MEMCACHED == ''  ]]; then
     MEMCACHED=false
 fi
-if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y']]; then
+if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y' ]]; then
     MEMCACHED=true
 fi
 
