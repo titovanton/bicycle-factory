@@ -6,7 +6,6 @@ import sys
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 from assets import *
-from constance import *
 from debug_toolbar import *
 from glue import *
 from grappelli import *
@@ -30,7 +29,6 @@ INSTALLED_APPS = (
 
     'mainapp',
 
-    'constance',
     'django_assets',
     'django_extensions',
     # 'django_rq',
@@ -38,8 +36,6 @@ INSTALLED_APPS = (
 
     # 'bicycle.carousel',
     'bicycle.core',
-    # 'bicycle.feedback',
-    # 'bicycle.futuremessage',
     'bicycle.glue',
     # 'bicycle.news',
 )
@@ -58,8 +54,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.locale.LocaleMiddleware',
-
-    # 'bicycle.futuremessage.middleware.FutureMessageMiddleware'
 )
 
 if DEBUG:
@@ -67,17 +61,16 @@ if DEBUG:
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
-    'constance.context_processors.config',
     'bicycle.core.context_processors.cache_timeout',
 )
 
 TEMPLATE_DIRS = (
-    rel_mainapp('templates'),
+    rel_project('mainapp', 'templates'),
     #     rel_project('bicycle', 'core', 'templates'),
 )
 
 STATICFILES_DIRS = (
-    ('', rel_mainapp('static_src', 'static')),
+    ('', rel_project('mainapp', 'static_src', 'static')),
 #     ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
 #     ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
 #     ('print', rel_project('libs', 'jQuery-printPage-plugin')),
@@ -85,7 +78,7 @@ STATICFILES_DIRS = (
 )
 
 LOCALE_PATHS = (
-    rel_mainapp('locale'),
+    rel_project('mainapp', 'locale'),
     rel_project('bicycle', 'locale'),
 )
 
@@ -119,7 +112,7 @@ if sss_finder:
     )
 
 ROOT_URLCONF = 'mainapp.urls'
-WSGI_APPLICATION = 'mainapp.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True

@@ -36,6 +36,7 @@ mkdir -p $SERVER
 mkdir -p $LOG/supervisor
 mkdir -p $LOG/nginx
 mkdir -p $STATIC
+mkdir -p $STATIC/sprites
 mkdir -p $MEDIA
 mkdir -p $INTERNAL
 mkdir $VIRTUAL_ENV/src

@@ -27,7 +27,7 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             u'Управление контентом',
             column=1,
-            exclude=('django.contrib.*', 'constance.*'),
+            exclude=('django.contrib.*',),
         ))
 
         self.children.append(modules.ModelList(
@@ -43,18 +43,6 @@ class CustomIndexDashboard(Dashboard):
                 {
                     'title': u'Список',
                     'url': '/admin/feedback/feedback/',
-                    'external': False,
-                },
-            ]
-        ))
-
-        self.children.append(modules.LinkList(
-            u'Настройки',
-            column=2,
-            children=[
-                {
-                    'title': u'Конфиг',
-                    'url': '/admin/constance/config/',
                     'external': False,
                 },
             ]

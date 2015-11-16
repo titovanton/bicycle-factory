@@ -12,14 +12,8 @@ reload_uwsgi
 
 # Django
 manage.py
-*/wsgi.py
-*/settings/secret.py
-
-# South
-*/migrations
+wsgi.py
+settings/secret.py
 
 # Glue
 */static_src/less/sprites/
-
-# Xapian
-search/xapian_index

@@ -63,3 +63,8 @@ EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = u'{{ project_name }} <no-reply@{{ project_name }}>'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 25
+
+# DOMAIN
+DOMAIN_NAME = '{{ project_name }}.ru'
+TRANSPORT = 'http'
+URL = '%s://%s' % (TRANSPORT, DOMAIN_NAME)

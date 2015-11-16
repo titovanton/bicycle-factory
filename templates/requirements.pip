@@ -10,11 +10,9 @@ pillow
 git+git://github.com/mariocesar/sorl-thumbnail.git
 redis
 django-redis
-git+git://github.com/comoga/django-constance#egg=django-constance
 cssmin
 jsmin
 git+git://github.com/miracle2k/django-assets.git
 requests
 urllib3
-django_rq
 glue

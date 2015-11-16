@@ -4,7 +4,7 @@ import os
 
 
 tmp = os.path.abspath(os.path.dirname(__file__))
-APP_ROOT = os.path.split(tmp)[0]
+APP_ROOT = os.path.join(os.path.split(tmp)[0], 'mainapp')
 PROJECT_ROOT = os.path.split(APP_ROOT)[0]
 BASE_DIR = APP_ROOT
 

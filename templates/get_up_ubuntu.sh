@@ -108,6 +108,14 @@ if [[ $MEMCACHED == 'yes' || $MEMCACHED == 'y' ]]; then
     MEMCACHED=true
 fi
 
+read -p "Would you like to install GeoIP (yes/no, default: no)?" GEOIP
+if [[ $GEOIP == 'no' || $GEOIP == 'n' || $GEOIP == ''  ]]; then
+    GEOIP=false
+fi
+if [[ $GEOIP == 'yes' || $GEOIP == 'y' ]]; then
+    GEOIP=true
+fi
+
 
 # postgresql
 apt-get install -y curl build-essential openssl libssl-dev \
@@ -128,7 +136,7 @@ if [[ $PG_PASSWORD != '' ]]; then
 fi
 
 # gettext
-sudo apt-get install gettext -y
+apt-get install gettext -y
 
 # venv continue
 apt-get install -y python2.7-dev python-pip libjpeg-dev
@@ -272,6 +280,11 @@ fi
 # imagemagick
 if $IMAGEMAGICK; then
     apt-get install imagemagick -y
+fi
+
+# GeoIP
+if $GEOIP; then
+    apt-get install geoip-bin -y
 fi
 
 reboot
