@@ -10,7 +10,7 @@ ASSETS_AUTO_BUILD = DEBUG
 
 ASSETS_LOAD_PATH = [
     STATIC_ROOT,
-    rel_project('mainapp', 'static_src'),
+    rel_project('apps', 'mainapp', 'static_src'),
     rel_project('libs'),
 ]
 

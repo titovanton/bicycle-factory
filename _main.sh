@@ -104,10 +104,10 @@ if $IS_CREATE; then
         cp $LIBS/bootstrap/less/variables.less $STATIC_SRC/less/
     fi
 
-    # bicycle as git submodule
-    if $BICYCLE; then
-        git submodule add $BICYCLE_URL bicycle
-    fi
+    # # bicycle as git submodule
+    # if $BICYCLE; then
+    #     git submodule add $BICYCLE_URL bicycle
+    # fi
 
     # jquery-ui-carousel as git submodule
     if $JS_CAROUSEL; then

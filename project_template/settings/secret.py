@@ -5,9 +5,15 @@ and set Unix file change mode and owner
 '''
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = '{{ secret_key }}'
-ALLOWED_HOSTS = ['.{{ project_name }}.com', '.{{ project_name }}.ru', ]
+
+# DOMAIN
+DOMAIN_NAME = '{{ project_name }}.ru'
+TRANSPORT = 'http'
+URL = '%s://%s' % (TRANSPORT, DOMAIN_NAME)
+
+# ALLOWED_HOSTS
+ALLOWED_HOSTS = [DOMAIN_NAME, ]
 
 DATABASES = {
     'default': {
@@ -63,8 +69,3 @@ EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = u'{{ project_name }} <no-reply@{{ project_name }}>'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 25
-
-# DOMAIN
-DOMAIN_NAME = '{{ project_name }}.ru'
-TRANSPORT = 'http'
-URL = '%s://%s' % (TRANSPORT, DOMAIN_NAME)

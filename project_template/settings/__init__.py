@@ -3,12 +3,10 @@
 import os
 import sys
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-
 from assets import *
-from debug_toolbar import *
+# from debug_toolbar import *
 from glue import *
-from grappelli import *
+# from grappelli import *
 from mainapp import *
 from path import *
 from secret import *
@@ -18,16 +16,17 @@ from sorl import *
 
 INSTALLED_APPS = (
     # 'grappelli.dashboard',
-    'grappelli',
+    # 'grappelli',
 
-    'django.contrib.admin',
+    # 'django.contrib.admin',
+    'django.contrib.admin.apps.SimpleAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'mainapp',
+    'apps.mainapp',
 
     'django_assets',
     'django_extensions',
@@ -40,11 +39,11 @@ INSTALLED_APPS = (
     # 'bicycle.news',
 )
 
-if DEBUG:
-    INSTALLED_APPS += (
-        'debug_toolbar',
-        'template_timings_panel',
-    )
+# if DEBUG:
+#     INSTALLED_APPS += (
+#         'debug_toolbar',
+#         'template_timings_panel',
+#     )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -56,21 +55,31 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.locale.LocaleMiddleware',
 )
 
-if DEBUG:
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+# if DEBUG:
+#     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-    'bicycle.core.context_processors.cache_timeout',
-)
-
-TEMPLATE_DIRS = (
-    rel_project('mainapp', 'templates'),
-    #     rel_project('bicycle', 'core', 'templates'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            rel_project('bicycle', 'native_admin', 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
+                'bicycle.core.context_processors.cache_timeout',
+            ],
+        },
+    },
+]
 
 STATICFILES_DIRS = (
-    ('', rel_project('mainapp', 'static_src', 'static')),
+    ('', rel_project('apps', 'mainapp', 'static_src', 'static')),
 #     ('bootstrap', rel_project('libs', 'bootstrap', 'dist')),
 #     ('fancybox', rel_project('libs', 'fancyapps-fancyBox', 'source')),
 #     ('print', rel_project('libs', 'jQuery-printPage-plugin')),
@@ -78,8 +87,8 @@ STATICFILES_DIRS = (
 )
 
 LOCALE_PATHS = (
-    rel_project('mainapp', 'locale'),
     rel_project('bicycle', 'locale'),
+    rel_project('bicycle', 'native_admin', 'locale'),
 )
 
 STATICFILES_FINDERS = (
@@ -111,7 +120,7 @@ if sss_finder:
         'mainapp.finders.BicycleFinder',
     )
 
-ROOT_URLCONF = 'mainapp.urls'
+ROOT_URLCONF = 'urls'
 WSGI_APPLICATION = 'wsgi.application'
 LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'Europe/Moscow'

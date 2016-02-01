@@ -11,7 +11,7 @@ class BicycleFinder(BaseStorageFinder):
 
 
 class MainappFinder(BaseStorageFinder):
-    storage = FileSystemStorage(rel_project('mainapp', 'static_src'))
+    storage = FileSystemStorage(rel_project('apps', 'mainapp', 'static_src'))
 
 
 class LibsFinder(BaseStorageFinder):

@@ -38,20 +38,20 @@ if [[ $TW_BOOTSTRAP == 'yes' || $TW_BOOTSTRAP == 'y' || $TW_BOOTSTRAP == '' ]]; 
 fi
 
 # bicycle
-read -p "Git submodule: bicycle (yes/no, default: yes)? " BICYCLE
-if [[ $BICYCLE == 'no' || $BICYCLE == 'n' ]]; then
-    BICYCLE=false
-fi
-if [[ $BICYCLE == 'yes' || $BICYCLE == 'y' || $BICYCLE == '' ]]; then
-    BICYCLE=true
-    read -p "Git submodule: pull method (git/https, default: git)? " BICYCLE_URL
-    if [[ $BICYCLE_URL == 'https' ]]; then
-        BICYCLE_URL=https://github.com/titovanton/bicycle-submodule.git
-    fi
-    if [[ $BICYCLE_URL == 'git' || $BICYCLE_URL == '' ]]; then
-        BICYCLE_URL=git@github.com:titovanton/bicycle-submodule.git
-    fi
-fi
+# read -p "Git submodule: bicycle (yes/no, default: yes)? " BICYCLE
+# if [[ $BICYCLE == 'no' || $BICYCLE == 'n' ]]; then
+#     BICYCLE=false
+# fi
+# if [[ $BICYCLE == 'yes' || $BICYCLE == 'y' || $BICYCLE == '' ]]; then
+#     BICYCLE=true
+#     read -p "Git submodule: pull method (git/https, default: git)? " BICYCLE_URL
+#     if [[ $BICYCLE_URL == 'https' ]]; then
+#         BICYCLE_URL=https://github.com/titovanton/bicycle-submodule.git
+#     fi
+#     if [[ $BICYCLE_URL == 'git' || $BICYCLE_URL == '' ]]; then
+#         BICYCLE_URL=git@github.com:titovanton/bicycle-submodule.git
+#     fi
+# fi
 
 # rc-carousel
 read -p "Git submodule: rc-carousel (yes/no, default: no)? " JS_CAROUSEL

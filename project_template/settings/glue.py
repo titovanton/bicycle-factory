@@ -6,9 +6,9 @@ from path import rel_static_url
 
 
 GLUE_CONFIG = {
-    'source': rel_project('mainapp', 'static_src', 'sprites_src'),
+    'source': rel_project('apps', 'mainapp', 'static_src', 'sprites_src'),
     'output': rel_static_root('sprites'),
-    'move_styles_to': rel_project('mainapp', 'static_src', 'scss', 'sprites'),
+    'move_styles_to': rel_project('apps', 'mainapp', 'static_src', 'scss', 'sprites'),
     'less': False,
     'scss': True,
     'css_url': rel_static_url('sprites'),
